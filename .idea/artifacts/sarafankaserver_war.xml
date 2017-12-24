@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="sarafankaserver:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="com.sarafanka.team.sarafanka.server-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="sarafankaserver:war exploded" />
+    </root>
+  </artifact>
+</component>
