@@ -14,12 +14,15 @@ public class RunningActions {
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
 
-    @Column(name="accountLogin",nullable = false,length = 30)
-    private String accountLogin;
-    @Column(name="actionTitle",nullable = false,length = 30)
-    private String actionTitle;
+    @Column(name="accountLoginID",nullable = false,length = 30)
+    private Long accountLoginID;
+    @Column(name="actionTitleID",nullable = false,length = 30)
+    private Long actionTitleID;
     @Column(name="percentOfComplete",nullable = false,length = 30)
     private Integer percentOfComplete;
+    //статус запущенной акции: 0 - активная, 1 - завершенная
+    @Column(name="complited",nullable = false,length = 30)
+    private Integer complited;
 
     public RunningActions() {
     }
@@ -32,20 +35,20 @@ public class RunningActions {
         this.id = id;
     }
 
-    public String getAccountLogin() {
-        return accountLogin;
+    public Long getAccountLoginID() {
+        return accountLoginID;
     }
 
-    public void setAccountLogin(String accountLogin) {
-        this.accountLogin = accountLogin;
+    public void setAccountLoginID(Long accountLogin) {
+        this.accountLoginID = accountLogin;
     }
 
-    public String getActionTitle() {
-        return actionTitle;
+    public Long getActionTitleID() {
+        return actionTitleID;
     }
 
-    public void setActionTitle(String actionTitle) {
-        this.actionTitle = actionTitle;
+    public void setActionTitleID(Long actionTitle) {
+        this.actionTitleID = actionTitle;
     }
 
     public Integer getPercentOfComplete() {
@@ -54,5 +57,13 @@ public class RunningActions {
 
     public void setPercentOfComplete(Integer percentOfComplete) {
         this.percentOfComplete = percentOfComplete;
+    }
+
+    public Integer getComplited() {
+        return complited;
+    }
+
+    public void setComplited(Integer complited) {
+        this.complited = complited;
     }
 }

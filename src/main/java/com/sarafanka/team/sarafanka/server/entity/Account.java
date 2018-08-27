@@ -20,10 +20,36 @@ public class Account {
     private String password;
     @Column(name="accountType",nullable = false,length = 30)
     private String accountType;
-
+    @Column(name="firstName",nullable = false,length = 30)
+    private String firstName;
+    @Column(name="secondName",nullable = false,length = 30)
+    private String secondName;
+    @Column(name="pathToAvatar",length = 150)
+    private String pathToAvatar;
+    @Column(name="creatingDate",nullable = false,length = 50)
+    private Long creatingDate;
+    @Column(name="avatarChangeDate",length = 50)
+    private Long avatarChangeDate;
     public Account() {
 
     }
+    public Long getCreatingDate() {
+        return creatingDate;
+    }
+
+    public void setCreatingDate(Long creatingDate) {
+        this.creatingDate = creatingDate;
+    }
+
+    public Long getAvatarChangeDate() {
+        return avatarChangeDate;
+    }
+
+    public void setAvatarChangeDate(Long avatarChangeDate) {
+        this.avatarChangeDate = avatarChangeDate;
+    }
+
+
 
     public long getId() {
         return id;
@@ -55,5 +81,28 @@ public class Account {
 
     public void setAccountType(String accountType) {
         this.accountType = accountType;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+    public String getPathToAvatar() {
+        return pathToAvatar;
+    }
+
+    public void setPathToAvatar(String pathToAvatar) {
+        this.pathToAvatar = pathToAvatar;
     }
 }
