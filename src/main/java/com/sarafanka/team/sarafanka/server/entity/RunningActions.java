@@ -20,7 +20,7 @@ public class RunningActions {
     private Long actionTitleID;
     @Column(name="percentOfComplete",nullable = false,length = 30)
     private Integer percentOfComplete;
-    //статус запущенной акции: 0 - активная, 1 - завершенная
+    //статус запущенной акции: 0 - активная, 1 - завершенная успешно, -1 - удалена пользователем
     @Column(name="complited",nullable = false,length = 30)
     private Integer complited;
 

@@ -56,12 +56,16 @@ public class ActionController {
         Long date = c.getTimeInMillis();
         for (Action action:list) {
             if (action.getOrganizationID().equals(id)&&date>action.getTimeStart()&&date<action.getTimeEnd()){
+                Boolean flag = true;
                 for (RunningActions ract:repo.findAll()) {
-                    if (!(ract.getAccountLoginID().equals(accountID) && ract.getActionTitleID().equals(action.getId()))){
-                        result.add(action);
+                    if (ract.getAccountLoginID().equals(accountID) && ract.getActionTitleID().equals(action.getId()) &&!ract.getComplited().equals(-1)) {
+                        flag = false;
                         break;
                     }
                 }
+                    if (flag)
+                        result.add(action);
+
            }
         }
         return result;

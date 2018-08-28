@@ -23,5 +23,11 @@ public interface RunningActionsRepository extends JpaRepository<RunningActions,L
 
     void deleteByActionTitleID(Long actiontTitleID);
     List<RunningActions> findByid(Long id);
-    RunningActions findByActionTitleIDAndAccountLoginID(Long actionid, Long accountID);
+    RunningActions findByActionTitleIDAndAccountLoginIDAndComplited(Long actionid, Long accountID,Integer complited);
+
+
+    @Modifying
+    @Query("update RunningActions ract set ract.complited = -1 where ract.id = :id")
+    @Transactional
+    Integer deleteRActByUser(@Param("id")Long id);
 }

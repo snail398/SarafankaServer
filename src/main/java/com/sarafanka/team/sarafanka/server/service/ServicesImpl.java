@@ -475,7 +475,11 @@ public class ServicesImpl implements Services {
                     if (runAct.getActionTitleID().equals(act.getId())){
                         for (Company company:companies) {
                             if (act.getOrganizationID().equals(company.getId()) &&date > act.getTimeStart() && date < act.getTimeEnd()){
-                                result.add(company);
+                                Boolean flag = true;
+                                for (Company cmp:result ) {
+                                    if (cmp.equals(company)) flag =false;
+                                }
+                                if (flag) result.add(company);
                                 break;
                             }
                         }
@@ -794,12 +798,16 @@ public class ServicesImpl implements Services {
             for (Action action:actions) {
                 for (Long compId:companiesOfCategory) {
                     if (action.getOrganizationID().equals(compId)&&action.getTimeStart()<c.getTimeInMillis() && action.getTimeEnd()>c.getTimeInMillis() ){
+                        Boolean flag = true;
                         for (RunningActions ract:repo.findAll()) {
-                            if (!(ract.getAccountLoginID().equals(accountID) && ract.getActionTitleID().equals(action.getId()))){
-                                countOfAction[number]++;
+                            if (ract.getAccountLoginID().equals(accountID) && ract.getActionTitleID().equals(action.getId()) &&!ract.getComplited().equals(-1)){
+
+                                flag = false;
                                 break;
                             }
                         }
+                        if (flag)
+                            countOfAction[number]++;
                         break;
                     }
                 }
@@ -831,7 +839,7 @@ public class ServicesImpl implements Services {
     @Override
     public Integer getCountPeopleToEnd(String lgn, Long actionID) {
 
-        return (actRepo.findById(actionID).getTarget()-repo.findByActionTitleIDAndAccountLoginID(actionID,accRepo.findBylogin(lgn).getId()).getPercentOfComplete());
+        return (actRepo.findById(actionID).getTarget()-repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accRepo.findBylogin(lgn).getId(),0).getPercentOfComplete());
     }
 
     @Override
@@ -884,5 +892,12 @@ public class ServicesImpl implements Services {
             }
         }
         return result;
+    }
+
+    @Override
+    public Integer deleteRAact(String lgn, Long actionID) {
+        Long accountID = accRepo.findBylogin(lgn).getId();
+        repo.deleteRActByUser(repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId());
+        return 1;
     }
 }

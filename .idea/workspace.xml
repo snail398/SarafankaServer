@@ -7,57 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c33a56cf-0555-4e3c-b135-d3f15257e8f8" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/Constants.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/ImageHandler.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/BarmenOperationHistoryController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/CompaniesController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/CouponController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/EstablishmentsController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/FriendsController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ImageController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/InviteController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/MarketologController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/ActionAccess.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Barmen.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/BarmenWorkingPlace.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/BarmensOperationHistory.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/BarmensOperationHistoryForApp.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Company.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Coupon.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Establishment.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Friends.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Invite.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Marketolog.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/MarketologWorkingPlace.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/ActionAccessRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/BarmenOperationHistoryRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/BarmenRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/BarmenWorkingPlaceRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/CompaniesRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/CouponsRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/EstablishmentRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/FriendsRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/InvitesRepositories.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/MarketologRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/MarketologWorkingPlaceRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/sarafankaserver_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/sarafankaserver_war_exploded.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change beforePath="$PROJECT_DIR$/sarafankaserver.iml" afterPath="$PROJECT_DIR$/sarafankaserver.iml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/config/WebConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/config/WebConfig.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/LoginController.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Account.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Account.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Action.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Action.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/RunningActions.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/RunningActions.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/AccountRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/AccountRepository.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/ActionRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/ActionRepository.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/RunningActionsRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/RunningActionsRepository.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/loginServerImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/loginService.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -108,66 +64,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="invites" pinned="false" current-in-tab="false">
-        <entry file="das://table:/31278773/0f219087-1d92-4bfe-9c38-8bb6a8be9339/sarafankadb.public.invites">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="RunningActionsController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="47" column="32" lean-forward="false" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+            <state relative-caret-position="782">
+              <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Invite.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Invite.java">
+      <file leaf-file-name="RunningActions.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/RunningActions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="24" column="15" lean-forward="false" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
+            <state relative-caret-position="425">
+              <caret line="27" column="0" lean-forward="false" selection-start-line="22" selection-start-column="96" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InviteController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/InviteController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="21" column="37" lean-forward="false" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Services.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="23" column="12" lean-forward="false" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Account.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Account.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="28" column="3" lean-forward="false" selection-start-line="28" selection-start-column="3" selection-end-line="29" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="actions" pinned="false" current-in-tab="true">
+      <file leaf-file-name="actions" pinned="false" current-in-tab="false">
         <entry file="das://table:/31278773/0f219087-1d92-4bfe-9c38-8bb6a8be9339/sarafankadb.public.actions">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
@@ -176,47 +93,93 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServicesImpl.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Services.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="21" column="18" lean-forward="false" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServicesImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1071">
-              <caret line="370" column="70" lean-forward="false" selection-start-line="370" selection-start-column="70" selection-end-line="370" selection-end-column="70" />
+            <state relative-caret-position="327">
+              <caret line="898" column="26" lean-forward="true" selection-start-line="898" selection-start-column="26" selection-end-line="898" selection-end-column="27" />
               <folding>
                 <element signature="method#addBarmenOperation#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#getBarmenOperations#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#registrationMarketolog#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#registrationMainMarketolog#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#getRunningActionsByLoginAndOrgId#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#8274#8280#0" expanded="true" />
+                <element signature="e#8666#8674#0" expanded="true" />
                 <element signature="method#deleteFriend#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#addNewRunningActions#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#getFriendsForInvite#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#10256#10265#0" expanded="true" />
                 <element signature="method#getFriends#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#12232#12241#0" expanded="true" />
                 <element signature="method#getRequestFriends#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#12950#12959#0" expanded="true" />
                 <element signature="method#createNewFriendRequest#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#acceptFriendRequest#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#getUsersByInviteTargetID#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#15134#15143#0" expanded="true" />
                 <element signature="method#getInvitedAction#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#16530#16538#0" expanded="true" />
                 <element signature="method#getFriendsRunningActions#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#17569#17577#0" expanded="true" />
                 <element signature="method#getCompanyWithRunningAction#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#18006#18015#0" expanded="true" />
                 <element signature="method#ChangeProgress#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#addNewInvite#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#getCouponsByUserLogin#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#22751#22759#0" expanded="true" />
                 <element signature="method#getCompanyWithAction#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#23331#23340#0" expanded="true" />
                 <element signature="method#deleteUsedCoupon#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#getCompanyByCategory#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#26001#26010#0" expanded="true" />
                 <element signature="method#getMarketologCompany#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#getMarketologRole#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#createEstablishment#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#changeCompanyInfoByMain#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#addNewActon#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#getActionsForMarketolog#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#29446#29454#0" expanded="true" />
+                <element signature="e#29554#29560#0" expanded="true" />
+                <element signature="e#29608#29614#0" expanded="true" />
                 <element signature="method#deleteActionByID#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#getCountOfFriendRequest#0;class#ServicesImpl#0" expanded="false" />
-                <element signature="method#getCountOfAction#0;class#ServicesImpl#0" expanded="false" />
+                <element signature="e#31165#31174#0" expanded="true" />
+                <element signature="e#31618#31624#0" expanded="true" />
                 <element signature="method#deleteAccount#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#changeInfo#0;class#ServicesImpl#0" expanded="false" />
                 <element signature="method#getCouponsCount#0;class#ServicesImpl#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RunningActionsRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/RunningActionsRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="25" column="55" lean-forward="false" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActionController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="731">
+              <caret line="60" column="150" lean-forward="false" selection-start-line="60" selection-start-column="117" selection-end-line="60" selection-end-column="150" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -235,6 +198,16 @@
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CompaniesController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/CompaniesController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="30" column="39" lean-forward="false" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -285,23 +258,18 @@
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/MarketologWorkingPlace.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/MarketologWorkingPlaceRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/ActionAccessRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/RunningActions.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Action.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/EstablishmentRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Establishment.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/InviteController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/EstablishmentsController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/RunningActionsRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/ActionRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/CompaniesController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/FriendsController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/BarmensOperationHistoryForApp.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/BarmenOperationHistoryController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/BarmenOperationHistoryRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/CouponController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/BarmensOperationHistory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/UploadFile/EnableAutoConfiguration.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/UploadFile/Application.java" />
@@ -321,6 +289,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/CompaniesRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ImageController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Invite.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/RunningActions.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/RunningActionsRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java" />
       </list>
     </option>
@@ -378,10 +351,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -485,6 +455,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -804,7 +777,8 @@
       <workItem from="1534871383607" duration="6932000" />
       <workItem from="1535024936056" duration="6597000" />
       <workItem from="1535061160768" duration="3501000" />
-      <workItem from="1535379298400" duration="815000" />
+      <workItem from="1535379298400" duration="6913000" />
+      <workItem from="1535478952463" duration="71000" />
     </task>
     <task id="LOCAL-00001" summary="before first show">
       <created>1514132082764</created>
@@ -813,11 +787,18 @@
       <option name="project" value="LOCAL" />
       <updated>1514132082766</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="before colaboration">
+      <created>1535380138677</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1535380138677</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="431315000" />
+    <option name="totallyTimeSpent" value="437484000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -830,10 +811,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.4424307" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.4445629" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.49573562" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19189766" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -842,7 +822,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5575693" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5554371" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.48720682" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -852,7 +832,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34270832" sideWeight="0.28144988" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.48933902" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.4914712" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20202559" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20202559" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -906,7 +886,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="103" />
+      <option name="time" value="112" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -915,20 +895,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="das://table:/31278773/0f219087-1d92-4bfe-9c38-8bb6a8be9339/sarafankadb.public.barmenoperationhistory">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/31278773/0f219087-1d92-4bfe-9c38-8bb6a8be9339/sarafankadb.public.barmenoperationhistory">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://table:/31278773/0f219087-1d92-4bfe-9c38-8bb6a8be9339/sarafankadb.public.barmenoperationhistory">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1022,25 +988,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#get_SHA_512#0;class#ImageHandler#0" expanded="false" />
-            <element signature="method#getMD5#0;class#ImageHandler#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.2.2.RELEASE/spring-webmvc-4.2.2.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="453" column="0" lean-forward="false" selection-start-line="453" selection-start-column="0" selection-end-line="453" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/jdk/internal/reflect/NativeMethodAccessorImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1112,7 +1059,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1127,7 +1073,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1142,7 +1087,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1150,15 +1094,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="799">
           <caret line="145" column="13" lean-forward="true" selection-start-line="145" selection-start-column="13" selection-end-line="145" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1166,15 +1101,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="22" column="1" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/CompaniesController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1182,7 +1108,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1190,10 +1115,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="151" column="70" lean-forward="false" selection-start-line="151" selection-start-column="70" selection-end-line="151" selection-end-column="70" />
-          <folding>
-            <element signature="method#handleFileUpload#0;class#ImageController#0" expanded="false" />
-            <element signature="method#downloadAvatar#0;class#ImageController#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1212,19 +1133,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="23" column="12" lean-forward="false" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Invite.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="24" column="15" lean-forward="false" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1232,7 +1144,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="21" column="37" lean-forward="false" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1243,61 +1154,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="47" column="32" lean-forward="false" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="370" column="70" lean-forward="false" selection-start-line="370" selection-start-column="70" selection-end-line="370" selection-end-column="70" />
-          <folding>
-            <element signature="method#addBarmenOperation#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getBarmenOperations#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#registrationMarketolog#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#registrationMainMarketolog#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getRunningActionsByLoginAndOrgId#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#deleteFriend#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#addNewRunningActions#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getFriendsForInvite#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getFriends#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getRequestFriends#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#createNewFriendRequest#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#acceptFriendRequest#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getUsersByInviteTargetID#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getInvitedAction#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getFriendsRunningActions#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getCompanyWithRunningAction#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#ChangeProgress#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#addNewInvite#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getCouponsByUserLogin#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getCompanyWithAction#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#deleteUsedCoupon#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getCompanyByCategory#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getMarketologCompany#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getMarketologRole#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#createEstablishment#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#changeCompanyInfoByMain#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#addNewActon#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getActionsForMarketolog#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#deleteActionByID#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getCountOfFriendRequest#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getCountOfAction#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#deleteAccount#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#changeInfo#0;class#ServicesImpl#0" expanded="false" />
-            <element signature="method#getCouponsCount#0;class#ServicesImpl#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="das://table:/31278773/0f219087-1d92-4bfe-9c38-8bb6a8be9339/sarafankadb.public.account">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/jdk/internal/reflect/NativeMethodAccessorImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="68" column="33" lean-forward="false" selection-start-line="68" selection-start-column="33" selection-end-line="68" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.2.2.RELEASE/spring-webmvc-4.2.2.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="453" column="0" lean-forward="false" selection-start-line="453" selection-start-column="0" selection-end-line="453" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/31278773/0f219087-1d92-4bfe-9c38-8bb6a8be9339/sarafankadb.public.actions">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/CompaniesController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="30" column="39" lean-forward="false" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="21" column="18" lean-forward="false" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/RunningActions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="22" selection-start-column="96" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="60" column="150" lean-forward="false" selection-start-line="60" selection-start-column="117" selection-end-line="60" selection-end-column="150" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1308,10 +1221,78 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://table:/31278773/0f219087-1d92-4bfe-9c38-8bb6a8be9339/sarafankadb.public.actions">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/RunningActionsRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="25" column="55" lean-forward="false" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="898" column="26" lean-forward="true" selection-start-line="898" selection-start-column="26" selection-end-line="898" selection-end-column="27" />
+          <folding>
+            <element signature="method#addBarmenOperation#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#getBarmenOperations#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#registrationMarketolog#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#registrationMainMarketolog#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#getRunningActionsByLoginAndOrgId#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#8274#8280#0" expanded="true" />
+            <element signature="e#8666#8674#0" expanded="true" />
+            <element signature="method#deleteFriend#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#addNewRunningActions#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#getFriendsForInvite#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#10256#10265#0" expanded="true" />
+            <element signature="method#getFriends#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#12232#12241#0" expanded="true" />
+            <element signature="method#getRequestFriends#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#12950#12959#0" expanded="true" />
+            <element signature="method#createNewFriendRequest#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#acceptFriendRequest#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#getUsersByInviteTargetID#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#15134#15143#0" expanded="true" />
+            <element signature="method#getInvitedAction#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#16530#16538#0" expanded="true" />
+            <element signature="method#getFriendsRunningActions#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#17569#17577#0" expanded="true" />
+            <element signature="method#getCompanyWithRunningAction#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#18006#18015#0" expanded="true" />
+            <element signature="method#ChangeProgress#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#addNewInvite#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#getCouponsByUserLogin#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#22751#22759#0" expanded="true" />
+            <element signature="method#getCompanyWithAction#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#23331#23340#0" expanded="true" />
+            <element signature="method#deleteUsedCoupon#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#getCompanyByCategory#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#26001#26010#0" expanded="true" />
+            <element signature="method#getMarketologCompany#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#getMarketologRole#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#createEstablishment#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#changeCompanyInfoByMain#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#addNewActon#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#getActionsForMarketolog#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#29446#29454#0" expanded="true" />
+            <element signature="e#29554#29560#0" expanded="true" />
+            <element signature="e#29608#29614#0" expanded="true" />
+            <element signature="method#deleteActionByID#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#getCountOfFriendRequest#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="e#31165#31174#0" expanded="true" />
+            <element signature="e#31618#31624#0" expanded="true" />
+            <element signature="method#deleteAccount#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#changeInfo#0;class#ServicesImpl#0" expanded="false" />
+            <element signature="method#getCouponsCount#0;class#ServicesImpl#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

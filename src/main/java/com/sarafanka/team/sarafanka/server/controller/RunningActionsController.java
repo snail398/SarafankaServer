@@ -55,4 +55,11 @@ public class RunningActionsController {
         return services.getCountPeopleToEnd(lgn,actionID);
     }
 
+
+    //Удаление запущенной акции
+    @RequestMapping(value = "/runningactions/delete", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer deleteRAact(@RequestParam (value ="login",required = true,defaultValue = "") String lgn,@RequestParam (value ="actionid",required = true,defaultValue = "") Long actionID){
+        return services.deleteRAact(lgn,actionID);
+    }
 }

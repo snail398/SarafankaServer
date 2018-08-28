@@ -64,4 +64,6 @@ public interface Services {
     Integer addBarmenOperation(String lgn, String type, String clientLgn, Long actionID);
 
     List<BarmensOperationHistoryForApp> getBarmenOperations(String lgn);
+
+    Integer deleteRAact(String lgn, Long actionID);
 }
