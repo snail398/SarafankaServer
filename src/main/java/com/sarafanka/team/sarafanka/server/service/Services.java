@@ -66,4 +66,12 @@ public interface Services {
     List<BarmensOperationHistoryForApp> getBarmenOperations(String lgn);
 
     Integer deleteRAact(String lgn, Long actionID);
+
+    List<Account> getAvatarPathFriendsWithRAct(String login, Long actionID);
+
+    List<Account> getAvatarPathFriendsWithRActInCompany(String login, String companyName);
+
+    List<Account> getAvatarPathFriendsHelped(String login, Long actionID);
+
+    List<Account> getAvatarPathCommonFriends(String login, String friendLogin);
 }

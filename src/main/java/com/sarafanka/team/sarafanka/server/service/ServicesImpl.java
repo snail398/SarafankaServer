@@ -900,4 +900,87 @@ public class ServicesImpl implements Services {
         repo.deleteRActByUser(repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId());
         return 1;
     }
+
+    @Override
+    public List<Account> getAvatarPathFriendsWithRAct(String login, Long actionID) {
+        List<Account> friendList = getFriends(login);
+        List<Account> friendWithRAct = new ArrayList<>();
+        Integer friendCount = 5;                                //Максимальное требуемое количество друзей
+        Integer counter = 0;
+        for (Account friend:friendList ) {
+            for (RunningActions ract:repo.findAll() ) {
+                if (ract.getAccountLoginID().equals(friend.getId()) && ract.getActionTitleID().equals(actionID) &&ract.getComplited().equals(0)){
+                    friendWithRAct.add(friend);
+                    counter++;
+                    break;
+                }
+                if (counter.equals(friendCount)) break;
+            }
+        }
+        return friendWithRAct;
+    }
+
+    @Override
+    public List<Account> getAvatarPathFriendsHelped(String login, Long actionID) {
+        Long accountID = accRepo.findBylogin(login).getId();
+        List<Account> friendList = getFriends(login);
+        List<Account> friendHelped = new ArrayList<>();
+        Integer friendCount = 5;                                //Максимальное требуемое количество друзей
+        Integer counter = 0;
+        for (Account friend:friendList ) {
+            for (Invite invite:invRepo.findAll() ) {
+                if (invite.getResponseCode() == 1 && invite.getInit_user_id().equals(accountID) && invite.getTarget_user_id().equals(friend.getId()) && invite.getAction_id().equals(actionID)){
+                    friendHelped.add(friend);
+                    counter++;
+                    break;
+                }
+                if (counter.equals(friendCount)) break;
+            }
+        }
+        return friendHelped;
+    }
+
+    @Override
+    public List<Account> getAvatarPathFriendsWithRActInCompany(String login, String companyName) {
+        List<Account> friendList = getFriends(login);
+        List<Account> friendWithRActInCompany = new ArrayList<>();
+        List<Action> companyActionList = actRepo.findActionsByOrganizationID(comRepo.findByTitle(companyName).getId());
+        Integer friendCount = 5;                                //Максимальное требуемое количество друзей
+        Integer counter = 0;
+        for (Account friend:friendList ) {
+            for (RunningActions ract:repo.findAll() ) {
+                for (Action action: companyActionList) {
+                    if (ract.getAccountLoginID().equals(friend.getId()) && ract.getActionTitleID().equals(action.getId()) &&ract.getComplited().equals(0)){
+                        friendWithRActInCompany.add(friend);
+                        counter++;
+                        break;
+                    }
+                    if (counter.equals(friendCount)) break;
+                }
+                if (counter.equals(friendCount)) break;
+            }
+        }
+        return friendWithRActInCompany;
+    }
+
+    @Override
+    public List<Account> getAvatarPathCommonFriends(String login, String friendLogin) {
+        List<Account> commonFriends = new ArrayList<>();
+        List<Account> userFriendList = getFriends(login);
+        List<Account> friendFriendList = getFriends(friendLogin);
+        Integer friendCount = 5;                                //Максимальное требуемое количество друзей
+        Integer counter = 0;
+        for (Account userFriend:userFriendList) {
+            for (Account friendFriend:friendFriendList) {
+                    if (userFriend.getLogin().equals(friendFriend.getLogin()    )){
+                        counter++;
+                        commonFriends.add(userFriend);
+                        friendFriendList.remove(friendFriend);
+                        break;
+                    }
+            }
+            if (counter.equals(friendCount)) break;
+        }
+        return commonFriends;
+    }
 }

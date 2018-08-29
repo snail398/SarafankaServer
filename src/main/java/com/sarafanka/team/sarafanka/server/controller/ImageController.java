@@ -7,6 +7,8 @@ import com.sarafanka.team.sarafanka.server.entity.Company;
 import com.sarafanka.team.sarafanka.server.repository.AccountRepository;
 import com.sarafanka.team.sarafanka.server.repository.CompaniesRepository;
 import com.sarafanka.team.sarafanka.server.repository.MarketologRepository;
+import com.sarafanka.team.sarafanka.server.service.Services;
+import com.sarafanka.team.sarafanka.server.service.ServicesImpl;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.tomcat.util.http.fileupload.FileItem;
@@ -25,6 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 @RestController
 public class ImageController {
@@ -36,6 +39,8 @@ public class ImageController {
     private CompaniesRepository compRep;
     @Autowired
     private MarketologRepository marketRep;
+    @Autowired
+    private Services services = new ServicesImpl();
 
 
     @RequestMapping(value="/upload", method=RequestMethod.GET)
@@ -146,6 +151,35 @@ public class ImageController {
     public Account getAvatarPath(@RequestParam(value ="login",required = true,defaultValue = "") String login) {
         return accRep.findBylogin(login);
         }
+
+    @RequestMapping(value="/avatar/getpathfriendwithract", method=RequestMethod.GET)
+    @ResponseBody
+    public List<Account> getAvatarPathFriendsWithRAct(@RequestParam(value ="login",required = true,defaultValue = "") String login,
+                                                      @RequestParam(value ="actionID",required = true,defaultValue = "") Long actionID) {
+        return services.getAvatarPathFriendsWithRAct(login,actionID);
+    }
+
+    @RequestMapping(value="/avatar/getpathfriendwithractincompany", method=RequestMethod.GET)
+    @ResponseBody
+    public List<Account> getAvatarPathFriendsWithActInCompany(@RequestParam(value ="login",required = true,defaultValue = "") String login,
+                                                      @RequestParam(value ="companyname",required = true,defaultValue = "") String companyName) {
+        return services.getAvatarPathFriendsWithRActInCompany(login,companyName);
+    }
+
+    @RequestMapping(value="/avatar/getpathfriendhelped", method=RequestMethod.GET)
+    @ResponseBody
+    public List<Account> getAvatarPathFriendsHelped(@RequestParam(value ="login",required = true,defaultValue = "") String login,
+                                                    @RequestParam(value ="actionID",required = true,defaultValue = "") Long actionID) {
+        return services.getAvatarPathFriendsHelped(login,actionID);
+    }
+
+    @RequestMapping(value="/avatar/getpathcommonfriend", method=RequestMethod.GET)
+    @ResponseBody
+    public List<Account> getAvatarPathCommonFriends(@RequestParam(value ="login",required = true,defaultValue = "") String login,
+                                                    @RequestParam(value ="friendLogin",required = true,defaultValue = "") String friendLogin) {
+        return services.getAvatarPathCommonFriends(login,friendLogin);
+    }
+
 
     @RequestMapping(value="/companyavatar/getpath", method=RequestMethod.GET)
     @ResponseBody
