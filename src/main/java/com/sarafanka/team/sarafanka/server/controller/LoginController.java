@@ -1,9 +1,6 @@
 package com.sarafanka.team.sarafanka.server.controller;
 
-import com.sarafanka.team.sarafanka.server.entity.Account;
-import com.sarafanka.team.sarafanka.server.entity.Barmen;
-import com.sarafanka.team.sarafanka.server.entity.BarmenWorkingPlace;
-import com.sarafanka.team.sarafanka.server.entity.Friends;
+import com.sarafanka.team.sarafanka.server.entity.*;
 import com.sarafanka.team.sarafanka.server.repository.*;
 import com.sarafanka.team.sarafanka.server.service.Services;
 import com.sarafanka.team.sarafanka.server.service.ServicesImpl;
@@ -40,8 +37,8 @@ public class LoginController {
     @ResponseBody
     public Account loginQuery(@RequestParam (value ="login",required = true,defaultValue = "") String lgn,@RequestParam (value ="pass",required = true,defaultValue = "") String pass){
         // Удаляем лишние пробелы в конце и в начале логина и пароля
-        String targetLogin = lgn.trim();
-        String targetPass = pass.trim();
+        String targetLogin = lgn.trim().toUpperCase();
+        String targetPass = pass.trim().toUpperCase();
 
         Account result = new Account();
         result.setAccountType("none");
@@ -50,8 +47,9 @@ public class LoginController {
 
         //Поиск аккаунта в списке
         for (Account acc:list) {
-            if (acc.getLogin().equals(targetLogin) && acc.getPassword().equals(targetPass)){
+            if ((acc.getLogin().toUpperCase().equals(targetLogin)|| acc.getPhoneNumber().equals(targetLogin)) && acc.getPassword().toUpperCase().equals(targetPass)){
                 result = acc;
+                break;
             }
         }
         return  result;
@@ -89,6 +87,7 @@ public class LoginController {
             newAcc.setAccountType("user");
             newAcc.setFirstName(firstname);
             newAcc.setSecondName(secondname);
+            newAcc.setPathToAvatar("noavatar");
             newAcc.setCreatingDate(date);
             accRep.saveAndFlush(newAcc);
             responseCode =1;
@@ -97,6 +96,36 @@ public class LoginController {
             responseCode = -1;
         }
         return  responseCode;
+    }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    @ResponseBody
+    public Account registrationQuery(@RequestBody Account newAcc){
+        Boolean duplicateEmail =false;
+        Boolean duplicatePhone =false;
+        Account responseAccount = new Account();
+        responseAccount.setAccountType("none");
+        //Получаем список всех аккаунтов
+        List<Account> list = accRep.findAll();
+        //Поиск аккаунта в списке (Проверка на дублирование логинов)
+        for (Account acc:list) {
+            if (acc.getLogin().equals(newAcc.getLogin())){
+                duplicateEmail = true;
+                break;
+            }
+        }
+        for (Account acc:list) {
+            if (acc.getPhoneNumber().equals(newAcc.getPhoneNumber())){
+                duplicatePhone = true;
+                break;
+            }
+        }
+        //Если нет такого логина, созадаем новый аккаунт
+        if(!duplicateEmail && !duplicatePhone){
+            accRep.saveAndFlush(newAcc);
+            responseAccount = accRep.findByPhoneNumber(newAcc.getPhoneNumber());
+        }
+        return  responseAccount;
     }
 
     @RequestMapping(value = "/registration/barmen", method = RequestMethod.GET)
@@ -131,6 +160,7 @@ public class LoginController {
             newAcc.setAccountType("barmen");
             newAcc.setFirstName(firstname);
             newAcc.setSecondName(secondname);
+            newAcc.setPathToAvatar("noavatar");
             newAcc.setCreatingDate(date);
             accRep.saveAndFlush(newAcc);
             Barmen barmen = new Barmen();
@@ -139,7 +169,7 @@ public class LoginController {
             barmenRep.saveAndFlush(barmen);
             BarmenWorkingPlace bwp = new BarmenWorkingPlace();
             bwp.setEstablishmentID(establishmentRepository.findByFactAdress(estAdress).getId());
-            bwp.setMarketologID(barmenRep.findByAccountID(accRep.findBylogin(targetLogin).getId()).getId());
+            bwp.setbarmenID(barmenRep.findByAccountID(accRep.findBylogin(targetLogin).getId()).getId());
             bwpRep.saveAndFlush(bwp);
             responseCode =1;
         }
@@ -149,7 +179,7 @@ public class LoginController {
         return  responseCode;
     }
 
-    @RequestMapping(value = "/registration/mainmarketolog", method = RequestMethod.GET)
+    @RequestMapping(value = "/registration/mainmarketolog", method = RequestMethod.POST)
     @ResponseBody
     public Integer registrationMainMarketologQuery(@RequestParam (value ="login",required = true,defaultValue = "") String lgn,
                                            @RequestParam (value ="pass",required = true,defaultValue = "") String pass,
@@ -161,10 +191,8 @@ public class LoginController {
                                                    @RequestParam(value ="companydescription",required = true,defaultValue = "") String companyDescription,
                                                    @RequestParam(value ="companyadress",required = true,defaultValue = "") String companyAdress,
                                                    @RequestParam(value ="companyphone",required = true,defaultValue = "") String companyPhone,
-                                                   @RequestParam(value ="companysite",required = true,defaultValue = "") String companySite,
-                                                   @RequestParam(value ="estadress",required = true,defaultValue = "") String estAdress,
-                                                   @RequestParam(value ="estphone",required = true,defaultValue = "") String estPhone){
-        return services.registrationMainMarketolog(lgn,pass,firstname,secondname,companyName,companyCategory,companyType,companyDescription,companyAdress,companyPhone,companySite,estAdress,estPhone);
+                                                   @RequestParam(value ="companysite",required = true,defaultValue = "") String companySite, @RequestBody Establishment newEst ){
+        return services.registrationMainMarketolog(lgn,pass,firstname,secondname,companyName,companyCategory,companyType,companyDescription,companyAdress,companyPhone,companySite,newEst);
     }
 
     @RequestMapping(value = "/registration/marketolog", method = RequestMethod.GET)

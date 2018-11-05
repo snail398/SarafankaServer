@@ -15,9 +15,9 @@ public class MarketologController {
 
     @RequestMapping(value = "/marketolog/getmarketologrole", method = RequestMethod.GET)
     @ResponseBody
-    public Integer getMarketologRole(@RequestParam(value ="login",required = true,defaultValue = "") String lgn)
+    public Integer getMarketologRole(@RequestParam(value ="accountid",required = true,defaultValue = "") Long accountID)
     {
-        return services.getMarketologRole(lgn);
+        return services.getMarketologRole(accountID);
     }
 
 

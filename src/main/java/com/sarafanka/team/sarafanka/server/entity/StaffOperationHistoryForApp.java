@@ -1,19 +1,14 @@
 package com.sarafanka.team.sarafanka.server.entity;
 
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+public class StaffOperationHistoryForApp {
 
-
-
-public class BarmensOperationHistoryForApp {
-
-    public String getBarmenAccount() {
-        return barmenAccount;
+    public String getStaffAccount() {
+        return staffAccount;
     }
 
-    public void setBarmenAccount(String barmenAccount) {
-        this.barmenAccount = barmenAccount;
+    public void setStaffAccount(String staffAccount) {
+        this.staffAccount = staffAccount;
     }
 
     public String getOperationType() {
@@ -48,13 +43,13 @@ public class BarmensOperationHistoryForApp {
         this.action = action;
     }
 
-    private String barmenAccount;
+    private String staffAccount;
     private String operationType;
     private Long operationDate;
     private String clientAccount;
     private String action;
 
-    public BarmensOperationHistoryForApp() {
+    public StaffOperationHistoryForApp() {
     }
 
 

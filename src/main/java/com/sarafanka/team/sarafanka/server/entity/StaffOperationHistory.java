@@ -5,16 +5,16 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "barmenOperationHistory")
+@Table(name = "staffOperationHistory")
 
-public class BarmensOperationHistory {
+public class StaffOperationHistory {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
 
-    @Column(name="barmenAccountID",nullable = false,length = 30)
-    private Long barmenAccountID;
+    @Column(name="staffAccountID",nullable = false,length = 30)
+    private Long staffAccountID;
     @Column(name="operationType",nullable = false,length = 150)
     private String operationType;
     @Column(name="operationDate",nullable = false,length = 30)
@@ -24,7 +24,7 @@ public class BarmensOperationHistory {
     @Column(name="actionID",nullable = false,length = 30)
     private Long actionID;
 
-    public BarmensOperationHistory() {
+    public StaffOperationHistory() {
     }
 
     public long getId() {
@@ -35,12 +35,12 @@ public class BarmensOperationHistory {
         this.id = id;
     }
 
-    public Long getBarmenAccountID() {
-        return barmenAccountID;
+    public Long getStaffAccountID() {
+        return staffAccountID;
     }
 
-    public void setBarmenAccountID(Long barmenAccountID) {
-        this.barmenAccountID = barmenAccountID;
+    public void setStaffAccountID(Long staffAccountID) {
+        this.staffAccountID = staffAccountID;
     }
 
     public String getOperationType() {

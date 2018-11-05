@@ -9,4 +9,5 @@ import java.util.List;
 public interface MarketologWorkingPlaceRepository extends JpaRepository<MarketologWorkingPlace,Long> {
     MarketologWorkingPlace findByid(Long id);
     List<MarketologWorkingPlace>  findMarketologWorkingPlacesByMarketologID(Long id);
+    MarketologWorkingPlace findByMarketologID(Long id);
 }

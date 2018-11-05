@@ -21,8 +21,8 @@ public interface RunningActionsRepository extends JpaRepository<RunningActions,L
     @Transactional
     Integer changeComplitedStatus(@Param("id")Long id);
 
-    void deleteByActionTitleID(Long actiontTitleID);
-    List<RunningActions> findByid(Long id);
+    void deleteRunningActionsByActionTitleID(Long actiontTitleID);
+    RunningActions findByid(Long id);
     RunningActions findByActionTitleIDAndAccountLoginIDAndComplited(Long actionid, Long accountID,Integer complited);
 
 

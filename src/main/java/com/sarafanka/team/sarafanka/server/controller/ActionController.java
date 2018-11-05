@@ -2,6 +2,7 @@ package com.sarafanka.team.sarafanka.server.controller;
 
 import com.sarafanka.team.sarafanka.server.entity.Account;
 import com.sarafanka.team.sarafanka.server.entity.Action;
+import com.sarafanka.team.sarafanka.server.entity.Company;
 import com.sarafanka.team.sarafanka.server.entity.RunningActions;
 import com.sarafanka.team.sarafanka.server.repository.AccountRepository;
 import com.sarafanka.team.sarafanka.server.repository.ActionRepository;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -48,8 +50,7 @@ public class ActionController {
     @RequestMapping(value = "/actions/getactionsbyid", method = RequestMethod.GET)
     @ResponseBody
     public List<Action> getActionById(@RequestParam(value ="id",required = true,defaultValue = "1") Long id,
-                                      @RequestParam(value ="login",required = true,defaultValue = "1") String lgn){
-        Long accountID = accRepo.findBylogin(lgn).getId();
+                                      @RequestParam(value ="accountid",required = true,defaultValue = "1") Long accountID){
         List<Action> list = actionRepository.findAll();
         List<Action> result = new ArrayList<Action>();
         Calendar c = Calendar.getInstance();
@@ -65,12 +66,38 @@ public class ActionController {
                 }
                     if (flag)
                         result.add(action);
-
            }
         }
         return result;
     }
 
+    @RequestMapping(value = "/actions/getactionsforuser", method = RequestMethod.GET)
+    @ResponseBody
+    public HashMap<Long,List<Action>> getActionsForUser(@RequestParam(value ="accountid",required = true,defaultValue = "1") Long accountID) {
+        HashMap<Long,List<Action>> result = new HashMap<>();
+        List<Company> companiesList = services.getCompanyWithAction(accountID);
+        List<Action> list = actionRepository.findAll();
+        Calendar c = Calendar.getInstance();
+        Long date = c.getTimeInMillis();
+        for (Company company: companiesList) {
+            List<Action> tempResult = new ArrayList<Action>();
+            for (Action action:list) {
+                if (action.getOrganizationID().equals(company.getId())&&date>action.getTimeStart()&&date<action.getTimeEnd()){
+                    Boolean flag = true;
+                    for (RunningActions ract:repo.findAll()) {
+                        if (ract.getAccountLoginID().equals(accountID) && ract.getActionTitleID().equals(action.getId()) &&!ract.getComplited().equals(-1)) {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if (flag)
+                        tempResult.add(action);
+                }
+            }
+            result.put(company.getId(),tempResult);
+        }
+        return result;
+    }
     @RequestMapping(value = "/actions/getactionforcouponbyid", method = RequestMethod.GET)
     @ResponseBody
     public Action getActionForCouponById(@RequestParam(value ="id",required = true,defaultValue = "1") Long id){
@@ -78,10 +105,18 @@ public class ActionController {
         return actionRepository.findById(id);
     }
 
+
+
     @RequestMapping(value = "/actions/getactionsformarketolog", method = RequestMethod.GET)
     @ResponseBody
     public List<Action> getActionsForMarketolog(@RequestParam(value ="login",required = true,defaultValue = "") String lgn){
         return services.getActionsForMarketolog(lgn);
+    }
+
+    @RequestMapping(value = "/actions/getactionsforstaff", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Action> getActionsForStaff(@RequestBody Account account){
+        return services.getActionsForStaff(account);
     }
 
     @RequestMapping(value = "/actions/addNewAction", method = RequestMethod.GET)
@@ -101,6 +136,13 @@ public class ActionController {
     @ResponseBody
     public Integer deleteActionByID(@RequestParam(value ="actionid",required = true,defaultValue = "") Long actionID){
         return services.deleteActionByID(actionID);
+    }
+
+    @RequestMapping(value = "/actions/changeaction", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer changeAction(@RequestBody Action action){
+        actionRepository.changeAction(action.getId(),action.getReward(),action.getSupportReward(),action.getTarget(),action.getDescription(),action.getTimeStart(),action.getTimeEnd());
+        return 1;
     }
 
     @RequestMapping(value = "/actions/getCountOfActionCurrentCompany", method = RequestMethod.GET)

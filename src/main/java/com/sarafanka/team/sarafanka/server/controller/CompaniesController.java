@@ -33,24 +33,24 @@ public class CompaniesController {
 
     @RequestMapping(value = "/companies/getcompanywithaction", method = RequestMethod.GET)
     @ResponseBody
-    public List<Company> getCompanyWithAction(@RequestParam(value ="login",required = true,defaultValue = "") String lgn)
+    public List<Company> getCompanyWithAction(@RequestParam(value ="accountid",required = true,defaultValue = "") Long accountID)
     {
-        return services.getCompanyWithAction(lgn);
+        return services.getCompanyWithAction(accountID);
     }
 
     @RequestMapping(value = "/companies/getcompanybycategory", method = RequestMethod.GET)
     @ResponseBody
     public List<Company> getCompanyByCategory(@RequestParam(value ="category",required = true,defaultValue = "") String category,
-                                              @RequestParam(value ="login",required = true,defaultValue = "") String lgn)
+                                              @RequestParam(value ="accountid",required = true,defaultValue = "")  Long accountID)
     {
-        return services.getCompanyByCategory(category,lgn);
+        return services.getCompanyByCategory(category,accountID);
     }
 
     @RequestMapping(value = "/companies/getmarketologcompany", method = RequestMethod.GET)
     @ResponseBody
-    public Company getMarketologCompany(@RequestParam(value ="login",required = true,defaultValue = "") String login)
+    public Company getMarketologCompany(@RequestParam(value ="accountid",required = true,defaultValue = "") Long accountID)
     {
-        return services.getMarketologCompany(login);
+        return services.getMarketologCompany(accountID);
     }
 
     @RequestMapping(value = "/companies/getcompanybyid", method = RequestMethod.GET)
@@ -72,5 +72,12 @@ public class CompaniesController {
                                            @RequestParam(value ="newsite",required = true,defaultValue = "") String newSite)
     {
         return services.changeCompanyInfoByMain(login,newName,newRealType,newType,newDescription,newAdress,newPhone,newSite);
+    }
+
+    @RequestMapping(value = "/companies/changecompanyinfobymain", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer changeCompanyInfoByMain(@RequestBody Company newBrandInfo)
+    {
+        return services.changeCompanyInfoByMain(newBrandInfo);
     }
 }

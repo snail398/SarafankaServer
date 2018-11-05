@@ -26,7 +26,12 @@ public class EstablishmentsController {
     private Services services = new ServicesImpl();
 
 
-
+    @RequestMapping(value = "/establisments/getestablishmentbyid", method = RequestMethod.GET)
+    @ResponseBody
+    public Establishment getEstablishmentsByEstID(@RequestParam(value ="estid",required = true,defaultValue = "") Long estID)
+    {
+        return estRepository.findByid(estID);
+    }
     @RequestMapping(value = "/establisments/getestablishmentbycompanyid", method = RequestMethod.GET)
     @ResponseBody
     public List<Establishment> getEstablishmentsByCompanyId(@RequestParam(value ="login",required = true,defaultValue = "") String login)
@@ -41,6 +46,14 @@ public class EstablishmentsController {
         return estRepository.findByCompanyID(orgID);
     }
 
+    @RequestMapping(value = "/establisments/deleteestablishment", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer deleteEstablishments(@RequestParam(value ="estid",required = true,defaultValue = "") Long id)
+    {
+        estRepository.delete(id);
+        return 1;
+    }
+
     @RequestMapping(value = "/establisments/createEstablishment", method = RequestMethod.GET)
     @ResponseBody
     public Integer createEstablishments(@RequestParam(value ="login",required = true,defaultValue = "") String login,
@@ -50,4 +63,40 @@ public class EstablishmentsController {
         return services.createEstablishment(login,adress,estPhone);
     }
 
+    @RequestMapping(value = "/establisments/createEstablishment", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer createNewEst(@RequestParam(value ="initlogin",required = true,defaultValue = "") String initLogin, @RequestBody Establishment newEst){
+        Boolean duplicate = false;
+        for (Establishment est: estRepository.findAll()) {
+            if (est.getEstName().equals(newEst)){
+                duplicate = true;
+            }
+        }
+        if (!duplicate) {
+            newEst.setCompanyID(marRepository.findByAccountID(accRepository.findBylogin(initLogin).getId()).getCompanyID());
+            estRepository.saveAndFlush(newEst);
+            return 1;
+        }
+        else
+            return -1;
+    }
+
+    @RequestMapping(value = "/establisments/editEstablishment", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer editEst(@RequestParam(value ="estid",required = true,defaultValue = "") Long estID, @RequestBody Establishment newEst){
+        Boolean duplicate = false;
+        for (Establishment est: estRepository.findAll()) {
+            if (est.getEstName().equals(newEst)){
+                duplicate = true;
+            }
+        }
+        if (!duplicate) {
+            //Изменение записи в таблице заведений
+            estRepository.setNewInfo(newEst.getId(),newEst.getEstName(),newEst.getEstDescription(),newEst.getFactAdress(),
+                    newEst.getEstPhone(),newEst.getEstSite(),newEst.getEstEmail(),newEst.getEstWorkTime());
+            return 1;
+        }
+        else
+            return -1;
+    }
 }

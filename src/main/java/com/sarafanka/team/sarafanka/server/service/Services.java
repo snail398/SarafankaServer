@@ -2,12 +2,14 @@ package com.sarafanka.team.sarafanka.server.service;
 
 import com.sarafanka.team.sarafanka.server.entity.*;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface Services {
 
     List<Action> getRunningActionsByLoginAndOrgId(String lgn, Long orgId, Integer ifComplited);
     Integer  addNewRunningActions(String lgn,Long id);
+    Integer  addNewRunningActions(Account acc,Long id,String messageType) throws IOException;
 
     List<Account> getFriendsForInvite(String lgn, Long actionID);
     List<Account> getFriends(String lgn);
@@ -24,14 +26,14 @@ public interface Services {
     Integer addNewInvite (String initLogin, Long actionID,Long[] targetLogins);
     List<Coupon> getCouponsByUserLogin(String lgn);
 
-    List<Company> getCompanyWithAction(String lgn);
+    List<Company> getCompanyWithAction(Long lgn);
 
     Integer deleteUsedCoupon (String Login, Long actionID,String barmenLogin);
-    List<Company> getCompanyByCategory(String category,String lgn);
+    List<Company> getCompanyByCategory(String category, Long lgn);
 
-    Company getMarketologCompany(String login);
+    Company getMarketologCompany(Long login);
 
-    Integer getMarketologRole(String lgn);
+    Integer getMarketologRole(Long lgn);
 
     Integer changeCompanyInfoByMain(String login, String newName,String newCategory,String newType,String newDescription, String newAdress,String newPhone,String newSite);
 
@@ -49,7 +51,7 @@ public interface Services {
 
     Integer registrationMarketolog(String lgn, String pass, String firstname, String secondname, String estAdress);
 
-    Integer registrationMainMarketolog(String lgn, String pass, String firstname, String secondname, String companyName,String companyCategory, String companyType, String companyDescription, String companyAdress, String companyPhone, String companySite,String estAdress, String estPhone);
+    Integer registrationMainMarketolog(String lgn, String pass, String firstname, String secondname, String companyName,String companyCategory, String companyType, String companyDescription, String companyAdress, String companyPhone, String companySite,Establishment newEst);
 
     Integer changeInfo(String oldEmail,String email, String firstname, String secondname);
 
@@ -61,9 +63,9 @@ public interface Services {
 
     Integer getCountOfFriendRequest(String lgn);
 
-    Integer addBarmenOperation(String lgn, String type, String clientLgn, Long actionID);
+    Integer addBarmenOperation(Long staffID, String type, Long clientID, Long actionID);
 
-    List<BarmensOperationHistoryForApp> getBarmenOperations(String lgn);
+    List<StaffOperationHistoryForApp> getBarmenOperations(Long lgn);
 
     Integer deleteRAact(String lgn, Long actionID);
 
@@ -74,4 +76,15 @@ public interface Services {
     List<Account> getAvatarPathFriendsHelped(String login, Long actionID);
 
     List<Account> getAvatarPathCommonFriends(String login, String friendLogin);
+
+    List<StaffForApp> getMarketologs(String mainMarketologLogin);
+    List<StaffForApp> getBarmens(String mainMarketologLogin);
+
+    Integer deleteStaff(Long accID);
+
+    List<Action> getActionsForStaff(Account account);
+
+    Integer ChangeProgressForSocial(Long userID, Long actionID, Long barmenLogin);
+
+    Integer changeCompanyInfoByMain(Company newBrandInfo);
 }

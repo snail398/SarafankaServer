@@ -4,8 +4,10 @@ import com.sarafanka.team.sarafanka.server.Constants;
 import com.sarafanka.team.sarafanka.server.ImageHandler;
 import com.sarafanka.team.sarafanka.server.entity.Account;
 import com.sarafanka.team.sarafanka.server.entity.Company;
+import com.sarafanka.team.sarafanka.server.entity.Establishment;
 import com.sarafanka.team.sarafanka.server.repository.AccountRepository;
 import com.sarafanka.team.sarafanka.server.repository.CompaniesRepository;
+import com.sarafanka.team.sarafanka.server.repository.EstablishmentRepository;
 import com.sarafanka.team.sarafanka.server.repository.MarketologRepository;
 import com.sarafanka.team.sarafanka.server.service.Services;
 import com.sarafanka.team.sarafanka.server.service.ServicesImpl;
@@ -40,6 +42,9 @@ public class ImageController {
     @Autowired
     private MarketologRepository marketRep;
     @Autowired
+    private EstablishmentRepository estRep;
+
+    @Autowired
     private Services services = new ServicesImpl();
 
 
@@ -49,7 +54,9 @@ public class ImageController {
     }
 
     @RequestMapping(value="/uploadavatar", method=RequestMethod.POST)
-    public @ResponseBody Integer handleFileUpload(@RequestParam(value ="login",required = true,defaultValue = "") String login,@RequestBody MultipartFile file){
+    public @ResponseBody Integer handleFileUpload(@RequestParam(value ="login",required = true,defaultValue = "") String login,
+                                                  @RequestParam(value ="estname",required = true,defaultValue = "") String estname,
+                                                  @RequestBody MultipartFile file){
         String name = "";
         String pathToAvatars = "";
         String pathname ="sosiska";
@@ -69,6 +76,11 @@ public class ImageController {
                 strForMD5 = compRep.findById(marketRep.findByAccountID(accRep.findBylogin(login).getId()).getCompanyID()).getTitle()+"-avatar";
                 pathToAvatars = Constants.PathsToFiles.pathToCompaniesPhotos;
                 break;
+        }
+        if (!estname.equals("notest")){
+            userCode = 3;
+            strForMD5 = estname+"-avatar";
+            pathToAvatars = Constants.PathsToFiles.pathToCompaniesPhotos;
         }
         if (!file.isEmpty()) {
            try{
@@ -111,11 +123,13 @@ public class ImageController {
                 Calendar c = Calendar.getInstance();
                 Long date = c.getTimeInMillis();
 
-                // Запись ссылки на аватар в таблицу аккаунтов
+                // Запись ссылки на аватар в соответствующую таблицу
                 if (userCode.equals(1))
                 accRep.setPathToAvatar(login,pathToDB,date);
                 if (userCode.equals(2))
                     compRep.setPathToAvatar(marketRep.findByAccountID(accRep.findBylogin(login).getId()).getCompanyID(),pathToDB,date);
+                if (userCode.equals(3))
+                    estRep.setPathToAvatar(estname,pathToDB,date);
                 break;
             case 0:
                 response = "Файл пустой";
@@ -185,5 +199,11 @@ public class ImageController {
     @ResponseBody
     public Company getCompanyAvatarPath(@RequestParam(value ="companyname",required = true,defaultValue = "") String companyName) {
         return compRep.findByTitle(companyName);
+    }
+
+    @RequestMapping(value="/estavatar/getpath", method=RequestMethod.GET)
+    @ResponseBody
+    public Establishment getEstAvatarPath(@RequestParam(value ="estname",required = true,defaultValue = "") String estName) {
+        return estRep.findByEstName(estName);
     }
 }

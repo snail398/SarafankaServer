@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface BarmenWorkingPlaceRepository extends JpaRepository<BarmenWorkingPlace,Long> {
     BarmenWorkingPlace findByid(Long id);
+    List<BarmenWorkingPlace>  findBarmenWorkingPlacesByBarmenID(Long id);
+    BarmenWorkingPlace findByBarmenID(Long id);
 }

@@ -14,8 +14,10 @@ public class Account {
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
 
-    @Column(name="login",nullable = false,length = 30)
+    @Column(name="login",nullable = true,length = 30)
     private String login;
+    @Column(name="phoneNumber",nullable = true,length = 15)
+    private String phoneNumber;
     @Column(name="password",nullable = false,length = 30)
     private String password;
     @Column(name="accountType",nullable = false,length = 30)
@@ -49,7 +51,13 @@ public class Account {
         this.avatarChangeDate = avatarChangeDate;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public long getId() {
         return id;

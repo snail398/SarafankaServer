@@ -24,7 +24,28 @@ public class RunningActions {
     @Column(name="complited",nullable = false,length = 30)
     private Integer complited;
 
+    @Column(name="pathToQR",length = 150)
+    private String pathToQRCode;
+    @Column(name="ractStartDate",length = 50)
+    private Long ractStatDate;
+
     public RunningActions() {
+    }
+
+    public String getPathToQRCode() {
+        return pathToQRCode;
+    }
+
+    public void setPathToQRCode(String pathToQRCode) {
+        this.pathToQRCode = pathToQRCode;
+    }
+
+    public Long getRactStatDate() {
+        return ractStatDate;
+    }
+
+    public void setRactStatDate(Long ractStatDate) {
+        this.ractStatDate = ractStatDate;
     }
 
     public long getId() {

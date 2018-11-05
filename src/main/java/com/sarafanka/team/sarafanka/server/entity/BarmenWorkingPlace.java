@@ -12,7 +12,7 @@ public class BarmenWorkingPlace {
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
     @Column(name="barmenID",nullable = false,length = 30)
-    private Long marketologID;
+    private Long barmenID;
     @Column(name="establishmentID",nullable = false,length = 30)
     private Long establishmentID;
 
@@ -25,12 +25,12 @@ public class BarmenWorkingPlace {
         this.id = id;
     }
 
-    public Long getMarketologID() {
-        return marketologID;
+    public Long getbarmenID() {
+        return barmenID;
     }
 
-    public void setMarketologID(Long marketologID) {
-        this.marketologID = marketologID;
+    public void setbarmenID(Long marketologID) {
+        this.barmenID = marketologID;
     }
 
     public Long getEstablishmentID() {

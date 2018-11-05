@@ -21,4 +21,9 @@ public interface ActionRepository extends JpaRepository<Action,Long> {
     Action findById(Long id);
     Action findByRewardAndDescription(String reward, String description);
     List<Action> findActionsByOrganizationID(Long id);
+
+    @Modifying
+    @Query("update Action action set action.reward = :reward,action.supportReward=:supportReward,action.target = :target, action.description=:description, action.timeStart=:timeStart, action.timeEnd=:timeEnd where action.id =:id")
+    @Transactional
+    void changeAction(@Param("id")Long id,@Param("reward") String reward, @Param("supportReward")String supportReward, @Param("target") Integer target,@Param("description") String description,@Param("timeStart") Long timeStart,@Param("timeEnd") Long timeEnd);
 }
