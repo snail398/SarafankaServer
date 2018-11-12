@@ -10,6 +10,8 @@ import com.sarafanka.team.sarafanka.server.entity.RunningActions;
 import com.sarafanka.team.sarafanka.server.repository.AccountRepository;
 import com.sarafanka.team.sarafanka.server.repository.ActionRepository;
 import com.sarafanka.team.sarafanka.server.repository.RunningActionsRepository;
+import com.sarafanka.team.sarafanka.server.service.Services;
+import com.sarafanka.team.sarafanka.server.service.ServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,9 @@ public class HTMLController {
     private AccountRepository accRep;
     @Autowired
     private ActionRepository actionRepository;
+
+    @Autowired
+    private Services services = new ServicesImpl();
 
     @RequestMapping("/hello")
     public String welcome(Model model) {
@@ -86,4 +91,14 @@ public class HTMLController {
         model.addAttribute("qrpath", "/qrcodes/" +externalFolder+"/"+internalFolder+"/"+name);
         return "RunningActionPage";
     }
+
+
+    @RequestMapping("/getallactionspage")
+    public String getAllActionPage(Model model) {
+        model.addAttribute("actions", actionRepository.findAll());
+        return "staffActionsPage";
+    }
+
+
+
 }

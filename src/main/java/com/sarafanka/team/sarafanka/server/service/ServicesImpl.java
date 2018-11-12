@@ -7,9 +7,13 @@ import com.sarafanka.team.sarafanka.server.socialSenders.SmsSender;
 import com.sarafanka.team.sarafanka.server.socialSenders.SocialSender;
 import com.sarafanka.team.sarafanka.server.socialSenders.WhatappSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.tiogasolutions.apis.bitly.BitlyApis;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,6 +50,8 @@ public class ServicesImpl implements Services {
     private EstablishmentRepository establishmentRepository;
     @Autowired
     private StaffOperationHistoryRepository staffOperationHistoryRepository;
+    @Autowired
+    private CookieAndSessionRepository cookieAndSessionRepository;
 
     @Override
     public Integer addBarmenOperation(Long staffID, String type, Long clientID, Long actionID) {
@@ -81,7 +87,7 @@ public class ServicesImpl implements Services {
     }
 
     @Override
-    public Integer registrationMarketolog(String lgn, String pass, String firstname, String secondname, String estAdress) {
+    public Integer registrationMarketolog(Long creatorID, String lgn, String pass, String firstname, String secondname, String estAdress) {
 
         // Удаляем лишние пробелы в конце и в начале логина и пароля
         String targetLogin = lgn.trim();
@@ -114,12 +120,22 @@ public class ServicesImpl implements Services {
             Marketolog marketolog = new Marketolog();
             marketolog.setAccountID(accRepo.findBylogin(targetLogin).getId());
             marketolog.setMain(0);
-            marketolog.setCompanyID(establishmentRepository.findByFactAdress(estAdress).getCompanyID());
+            marketolog.setCompanyID(marketologRepo.findByAccountID(creatorID).getCompanyID());
             marketologRepo.saveAndFlush(marketolog);
-            MarketologWorkingPlace mwp = new MarketologWorkingPlace();
-            mwp.setEstablishmentID(establishmentRepository.findByFactAdress(estAdress).getId());
-            mwp.setMarketologID(marketologRepo.findByAccountID(accRepo.findBylogin(targetLogin).getId()).getId());
-            marketologWorkingPlaceRepository.saveAndFlush(mwp);
+            if (!estAdress.equals("Все заведения")) {
+                MarketologWorkingPlace mwp = new MarketologWorkingPlace();
+                mwp.setEstablishmentID(establishmentRepository.findByEstName(estAdress).getId());
+                mwp.setMarketologID(marketologRepo.findByAccountID(accRepo.findBylogin(targetLogin).getId()).getId());
+                marketologWorkingPlaceRepository.saveAndFlush(mwp);
+            }
+            else {
+                for (Establishment est: establishmentRepository.findByCompanyID(marketologRepo.findByAccountID(creatorID).getCompanyID())) {
+                    MarketologWorkingPlace mwp = new MarketologWorkingPlace();
+                    mwp.setEstablishmentID(est.getId());
+                    mwp.setMarketologID(marketologRepo.findByAccountID(accRepo.findBylogin(targetLogin).getId()).getId());
+                    marketologWorkingPlaceRepository.saveAndFlush(mwp);
+                }
+            }
 
             responseCode =1;
         }
@@ -296,8 +312,18 @@ public class ServicesImpl implements Services {
         String textToSend = Constants.URL.HOST +"/getract?ractid="+repo.findByActionTitleIDAndAccountLoginIDAndComplited(id,responseAccount.getId(),0).getId();
         String shortURL = bitlyApis.shortenEncodedUrl(textToSend);
         SocialSender socialSender = createSocialSender(messageType);
-        socialSender.send(shortURL,responseAccount.getPhoneNumber());
-        return 2;
+        String result = socialSender.send(shortURL,responseAccount.getPhoneNumber());
+        result = result.substring(0,result.indexOf(";"));
+        switch ( result){
+            case "error":
+                return -2;
+
+            case "accepted":
+                return 2;
+
+        }
+
+        return -2;
     }
 
     private SocialSender createSocialSender(String messageType) {
@@ -844,6 +870,20 @@ public class ServicesImpl implements Services {
         return 1;
     }
 
+
+    @Override
+    public Integer addNewActon2(Action action, Long creatorID, String est) {
+        Action newAction = new Action("Common title",action.getDescription(),marketologRepo.findByAccountID(creatorID).getCompanyID(),creatorID,"bringer",action.getReward(),action.getSupportReward(),0,action.getTarget(),action.getTimeStart(),action.getTimeEnd());
+        actRepo.saveAndFlush(newAction);
+        if (!est.equals("Все заведения")){
+            ActionAccess actionAccess = new ActionAccess();
+            actionAccess.setActionID(newAction.getId());
+            actionAccess.setEstablishmentID(establishmentRepository.findByFactAdress(est).getId());
+            actionAccessRepository.saveAndFlush(actionAccess);
+        }
+        return 1;
+    }
+
     @Override
     public Integer deleteActionByID(Long actionID) {
         actRepo.delete(actionID);
@@ -869,55 +909,55 @@ public class ServicesImpl implements Services {
     }
 
     @Override
-    public List<Integer> getCountOfAction(String lgn) {
-        Long accountID = accRepo.findBylogin(lgn).getId();
-        List<Company> companies = comRepo.findAll();
-        List<Action> actions = actRepo.findAll();
-        List<Integer> result = new ArrayList<Integer>();
-        Integer number = 0;
-        String[] categories = new String[5];
-        categories[0]="smoke";
-        categories[1]="drink";
-        categories[2]="eat";
-        categories[3]="movie";
-        categories[4]="game";
+    public List<Integer> getCountOfAction(Long accountID) {
+       // if (userCookie.equals(cookieAndSessionRepository.findByAccountID(accountID))) {
+            List<Company> companies = comRepo.findAll();
+            List<Action> actions = actRepo.findAll();
+            List<Integer> result = new ArrayList<Integer>();
+            Integer number = 0;
+            String[] categories = new String[5];
+            categories[0] = "smoke";
+            categories[1] = "drink";
+            categories[2] = "eat";
+            categories[3] = "movie";
+            categories[4] = "game";
 
-        Integer[] countOfAction = new Integer[categories.length];
-        for (int i = 0;i<categories.length;i++){
-            countOfAction[i] = 0;
-        }
-
-        List<Long> companiesOfCategory = new ArrayList<Long>();
-        Calendar c = Calendar.getInstance();
-        for (String category:categories) {
-            for (Company company:companies) {
-                if (company.getCategory().equals(category)){
-                    companiesOfCategory.add(company.getId());
-                }
+            Integer[] countOfAction = new Integer[categories.length];
+            for (int i = 0; i < categories.length; i++) {
+                countOfAction[i] = 0;
             }
-            for (Action action:actions) {
-                for (Long compId:companiesOfCategory) {
-                    if (action.getOrganizationID().equals(compId)&&action.getTimeStart()<c.getTimeInMillis() && action.getTimeEnd()>c.getTimeInMillis() ){
-                        Boolean flag = true;
-                        for (RunningActions ract:repo.findAll()) {
-                            if (ract.getAccountLoginID().equals(accountID) && ract.getActionTitleID().equals(action.getId()) &&!ract.getComplited().equals(-1)){
 
-                                flag = false;
-                                break;
-                            }
-                        }
-                        if (flag)
-                            countOfAction[number]++;
-                        break;
+            List<Long> companiesOfCategory = new ArrayList<Long>();
+            Calendar c = Calendar.getInstance();
+            for (String category : categories) {
+                for (Company company : companies) {
+                    if (company.getCategory().equals(category)) {
+                        companiesOfCategory.add(company.getId());
                     }
                 }
+                for (Action action : actions) {
+                    for (Long compId : companiesOfCategory) {
+                        if (action.getOrganizationID().equals(compId) && action.getTimeStart() < c.getTimeInMillis() && action.getTimeEnd() > c.getTimeInMillis()) {
+                            Boolean flag = true;
+                            for (RunningActions ract : repo.findAll()) {
+                                if (ract.getAccountLoginID().equals(accountID) && ract.getActionTitleID().equals(action.getId()) && !ract.getComplited().equals(-1)) {
+
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                            if (flag)
+                                countOfAction[number]++;
+                            break;
+                        }
+                    }
+                }
+                number++;
+                companiesOfCategory.clear();
             }
-            number++;
-            companiesOfCategory.clear();
-        }
-        for (int i = 0;i<categories.length;i++){
-            result.add(countOfAction[i]);
-        }
+            for (int i = 0; i < categories.length; i++) {
+                result.add(countOfAction[i]);
+            }
 /*
         //Получение списка категорий
         categories.add(companies.get(0).getCategory());
@@ -933,7 +973,13 @@ public class ServicesImpl implements Services {
         }
 */
 
-        return result;
+            return result;
+       // }
+     //   else {
+            //response.addHeader(HttpStatus.UNAUTHORIZED);
+           // return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            //retu
+       // }
     }
 
     @Override
@@ -1090,15 +1136,24 @@ public class ServicesImpl implements Services {
     }
 
     @Override
-    public List<StaffForApp> getMarketologs(String mainMarketologLogin) {
+    public List<StaffForApp> getMarketologs(Long mainMarketologAccountID) {
         List<StaffForApp> marketologsList = new ArrayList<>();
-        Long companyID = marketologRepo.findByAccountID(accRepo.findBylogin(mainMarketologLogin).getId()).getCompanyID();
+        Long companyID = marketologRepo.findByAccountID(mainMarketologAccountID).getCompanyID();
         for (Marketolog marketolog: marketologRepo.findAll() ) {
             if (marketolog.getCompanyID().equals(companyID) && marketolog.getMain().equals(0)){
                 StaffForApp tempStaff = new StaffForApp();
                 tempStaff.setAccountID(accRepo.findByid(marketolog.getAccountID()).getId());
                 tempStaff.setStaffName(accRepo.findByid(marketolog.getAccountID()).getFirstName()+" "+accRepo.findByid(marketolog.getAccountID()).getSecondName());
-                tempStaff.setStaffWorkingPlace(establishmentRepository.findByid(marketologWorkingPlaceRepository.findByMarketologID(marketolog.getId()).getEstablishmentID()).getFactAdress());
+                if (marketologWorkingPlaceRepository.findAllByMarketologID(marketolog.getId()).size() == establishmentRepository.findByCompanyID(marketolog.getCompanyID()).size()){
+                    tempStaff.setStaffWorkingPlace("Все заведения");
+                }
+                else
+                if (marketologWorkingPlaceRepository.findAllByMarketologID(marketolog.getId()).size() >1){
+                    tempStaff.setStaffWorkingPlace("Несколько заведений");
+                }
+                else {
+                    tempStaff.setStaffWorkingPlace(establishmentRepository.findByid(marketologWorkingPlaceRepository.findByMarketologID(marketolog.getId()).getEstablishmentID()).getFactAdress());                }
+
                 marketologsList.add(tempStaff);
             }
         }
@@ -1106,19 +1161,53 @@ public class ServicesImpl implements Services {
     }
 
     @Override
-    public List<StaffForApp> getBarmens(String mainMarketologLogin) {
+    public List<StaffForApp> getBarmens(Long mainMarketologAccountID) {
         List<StaffForApp> marketologsList = new ArrayList<>();
-        Long companyID = marketologRepo.findByAccountID(accRepo.findBylogin(mainMarketologLogin).getId()).getCompanyID();
+        Long companyID = marketologRepo.findByAccountID(mainMarketologAccountID).getCompanyID();
         for (Barmen barmen: barmenRepo.findAll() ) {
             if (barmen.getCompanyID().equals(companyID)){
                 StaffForApp tempStaff = new StaffForApp();
                 tempStaff.setAccountID(accRepo.findByid(barmen.getAccountID()).getId());
                 tempStaff.setStaffName(accRepo.findByid(barmen.getAccountID()).getFirstName()+" "+accRepo.findByid(barmen.getAccountID()).getSecondName());
-                tempStaff.setStaffWorkingPlace(establishmentRepository.findByid(barmenWorkingPlaceRepository.findByBarmenID(barmen.getId()).getEstablishmentID()).getFactAdress());
+                if (barmenWorkingPlaceRepository.findAllByBarmenID(barmen.getId()).size() == establishmentRepository.findByCompanyID(barmen.getCompanyID()).size()){
+                    tempStaff.setStaffWorkingPlace("Все заведения");
+                }
+                else
+                if (barmenWorkingPlaceRepository.findAllByBarmenID(barmen.getId()).size() >1){
+                    tempStaff.setStaffWorkingPlace("Несколько заведений");
+                }
+                else {
+                    tempStaff.setStaffWorkingPlace(establishmentRepository.findByid(barmenWorkingPlaceRepository.findByBarmenID(barmen.getId()).getEstablishmentID()).getFactAdress());
+                }
                 marketologsList.add(tempStaff);
             }
         }
         return marketologsList;
+    }
+
+    @Override
+    public Account getStaff(Long accID) {
+        return accRepo.findByid(accID);
+    }
+
+    @Override
+    public Establishment getAccountsEst(Long accID) {
+        Establishment establishment = new Establishment();
+        establishment.setEstName("Все заведения");
+        switch (accRepo.findByid(accID).getAccountType()){
+            case "barmen":
+                if (barmenWorkingPlaceRepository.findAllByBarmenID(barmenRepo.findByAccountID(accID).getId()).size()<establishmentRepository.findByCompanyID(barmenRepo.findByAccountID(accID).getCompanyID()).size()){
+                    establishment = establishmentRepository.findByid(barmenWorkingPlaceRepository.findByBarmenID(barmenRepo.findByAccountID(accID).getId()).getEstablishmentID());
+                }
+                break;
+            case "marketolog":
+
+                if (marketologWorkingPlaceRepository.findAllByMarketologID(marketologRepo.findByAccountID(accID).getId()).size()<establishmentRepository.findByCompanyID(marketologRepo.findByAccountID(accID).getCompanyID()).size()){
+                    establishment = establishmentRepository.findByid(marketologWorkingPlaceRepository.findByMarketologID(marketologRepo.findByAccountID(accID).getId()).getEstablishmentID());
+                }
+                break;
+        }
+        return establishment;
     }
 
     @Override
@@ -1153,6 +1242,7 @@ public class ServicesImpl implements Services {
 
                 break;
         }
+        accRepo.delete(accID);
         return 1;
     }
 
@@ -1196,6 +1286,33 @@ public class ServicesImpl implements Services {
     }
 
     @Override
+    public List<ActionStatistic> getStatisticByMarketolog(Long marketologID) {
+        List<Action> actions = getActionsForStaff(accRepo.findByid(marketologID));
+        List<ActionStatistic> actionStatistics = new ArrayList<>();
+        for (Action action:actions) {
+            ActionStatistic actionStatistic = new ActionStatistic();
+            actionStatistic.setActionID(action.getId());
+            actionStatistic.setDescription(action.getDescription());
+            actionStatistic.setReward(action.getReward());
+            actionStatistic.setSupportReward(action.getSupportReward());
+            actionStatistic.setTimeStart(action.getTimeStart());
+            actionStatistic.setTimeEnd(action.getTimeEnd());
+            actionStatistic.setTarget(action.getTarget());
+
+            actionStatistic.setCountRAct(Long.valueOf(repo.findByActionTitleID(action.getId()).size()));
+            actionStatistic.setCountComplitedRAct(Long.valueOf(repo.findByActionTitleIDAndComplited(action.getId(),1).size()));
+            actionStatistic.setCountMainBonus(Long.valueOf(repo.findByActionTitleIDAndComplited(action.getId(),1).size()-couponsRepo.findByActionID(action.getId()).size()));
+            Integer countMiniBonus= 0;
+            for (RunningActions ract: repo.findByActionTitleID(action.getId())) {
+                countMiniBonus+=ract.getPercentOfComplete();
+            }
+            actionStatistic.setCountMiniBonus(Long.valueOf(countMiniBonus));
+            actionStatistics.add(actionStatistic);
+        }
+        return actionStatistics;
+    }
+
+    @Override
     public List<Action> getActionsForMarketolog(String lgn) {
         List<Action> result = new ArrayList<Action>();
         Long accID = accRepo.findBylogin(lgn).getId();
@@ -1216,5 +1333,53 @@ public class ServicesImpl implements Services {
             }
         }
         return result;
+    }
+
+    @Override
+    public Integer changeStaffInfo(Long accID, String estname, Account account) {
+        accRepo.changeStaffInfo(account.getId(),account.getLogin(),account.getFirstName(),account.getSecondName(),account.getPassword());
+
+        switch (accRepo.findByid(account.getId()).getAccountType()){
+            case"barmen":
+                for (BarmenWorkingPlace bwp: barmenWorkingPlaceRepository.findAllByBarmenID(barmenRepo.findByAccountID(account.getId()).getId())) {
+                    barmenWorkingPlaceRepository.delete(bwp);
+                }
+                if (!estname.equals("Все заведения")){
+                    BarmenWorkingPlace bwp = new BarmenWorkingPlace();
+                    bwp.setbarmenID(barmenRepo.findByAccountID(account.getId()).getId());
+                    bwp.setEstablishmentID(establishmentRepository.findByEstName(estname).getId());
+                    barmenWorkingPlaceRepository.saveAndFlush(bwp);
+                }
+                else {
+                    for (Establishment est: establishmentRepository.findByCompanyID(marketologRepo.findByAccountID(accID).getCompanyID())) {
+                        BarmenWorkingPlace bwp = new BarmenWorkingPlace();
+                        bwp.setbarmenID(barmenRepo.findByAccountID(account.getId()).getId());
+                        bwp.setEstablishmentID(est.getId());
+                        barmenWorkingPlaceRepository.saveAndFlush(bwp);
+                    }
+                }
+                break;
+            case "marketolog":
+                for (MarketologWorkingPlace mwp: marketologWorkingPlaceRepository.findAllByMarketologID(marketologRepo.findByAccountID(account.getId()).getId())) {
+                    marketologWorkingPlaceRepository.delete(mwp);
+                }
+                if (!estname.equals("Все заведения")){
+                    MarketologWorkingPlace mwp = new MarketologWorkingPlace();
+                    mwp.setMarketologID(marketologRepo.findByAccountID(account.getId()).getId());
+                    mwp.setEstablishmentID(establishmentRepository.findByEstName(estname).getId());
+                    marketologWorkingPlaceRepository.saveAndFlush(mwp);
+                }
+                else {
+                    for (Establishment est: establishmentRepository.findByCompanyID(marketologRepo.findByAccountID(accID).getCompanyID())) {
+                        MarketologWorkingPlace mwp = new MarketologWorkingPlace();
+                        mwp.setMarketologID(marketologRepo.findByAccountID(account.getId()).getId());
+                        mwp.setEstablishmentID(est.getId());
+                        marketologWorkingPlaceRepository.saveAndFlush(mwp);
+                    }
+                }
+                break;
+        }
+
+        return 1;
     }
 }

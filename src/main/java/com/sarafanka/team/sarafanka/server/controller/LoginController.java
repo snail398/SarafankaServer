@@ -1,14 +1,18 @@
 package com.sarafanka.team.sarafanka.server.controller;
 
+import com.sarafanka.team.sarafanka.server.ImageHandler;
 import com.sarafanka.team.sarafanka.server.entity.*;
 import com.sarafanka.team.sarafanka.server.repository.*;
 import com.sarafanka.team.sarafanka.server.service.Services;
 import com.sarafanka.team.sarafanka.server.service.ServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -28,31 +32,62 @@ public class LoginController {
     @Autowired
     private EstablishmentRepository establishmentRepository;
     @Autowired
+    private CookieAndSessionRepository cookieAndSessionRepository;
+    @Autowired
     private Services services = new ServicesImpl();
+    @Autowired
+    private MarketologRepository marketologRepo;
 
-
-
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer loginQuery( @RequestHeader("Set-Cookie") String userCookie){
+        cookieAndSessionRepository.deleteAllByCookie(userCookie);
+        return 1;
+    }
+    //
     // Поиск аккаунта в таблице по логину и паролю. Возвращает true, если запрашиваемая пара будет найдена.
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
-    public Account loginQuery(@RequestParam (value ="login",required = true,defaultValue = "") String lgn,@RequestParam (value ="pass",required = true,defaultValue = "") String pass){
+    public ResponseEntity<Account> loginQuery(@RequestParam (value ="login",required = true,defaultValue = "") String lgn,
+                                             @RequestParam (value ="pass",required = true,defaultValue = "") String pass,
+                                             HttpServletResponse response, @RequestHeader("Set-Cookie") String userCookie){
+        if (userCookie.equals("defaultCookie")){
         // Удаляем лишние пробелы в конце и в начале логина и пароля
         String targetLogin = lgn.trim().toUpperCase();
         String targetPass = pass.trim().toUpperCase();
-
         Account result = new Account();
         result.setAccountType("none");
         //Получаем список всех аккаунтов
         List<Account> list = accRep.findAll();
 
+
+
         //Поиск аккаунта в списке
         for (Account acc:list) {
             if ((acc.getLogin().toUpperCase().equals(targetLogin)|| acc.getPhoneNumber().equals(targetLogin)) && acc.getPassword().toUpperCase().equals(targetPass)){
                 result = acc;
+                cookieAndSessionRepository.deleteAllByAccountID(acc.getId());
+                CookieAndSession cookie = new CookieAndSession();
+                cookie.setAccountID(acc.getId());
+                cookie.setCookie(ImageHandler.get_SHA_512(String.valueOf(acc.getId()),"sarafankacookie"));
+                cookieAndSessionRepository.saveAndFlush(cookie);
+                response.setHeader("Set-Cookie",cookie.getCookie());
                 break;
             }
         }
-        return  result;
+        return  new ResponseEntity<Account>(result,HttpStatus.OK);
+        }
+        else {
+
+            if (cookieAndSessionRepository.findAllByCookie(userCookie).size()>1){
+                cookieAndSessionRepository.deleteAllByCookie(userCookie);
+                return  new ResponseEntity<Account>(HttpStatus.UNAUTHORIZED);
+            }
+            if (cookieAndSessionRepository.findAllByCookie(userCookie).size()==0){
+                return  new ResponseEntity<Account>(HttpStatus.UNAUTHORIZED);
+            }
+            return  new ResponseEntity<Account>(accRep.findByid(cookieAndSessionRepository.findByCookie(userCookie).getAccountID()),HttpStatus.OK);
+        }
     }
 
     // Поиск аккаунта в таблице по логину и паролю. Возвращает true, если запрашиваемая пара будет найдена.
@@ -130,7 +165,8 @@ public class LoginController {
 
     @RequestMapping(value = "/registration/barmen", method = RequestMethod.GET)
     @ResponseBody
-    public Integer registrationBarmenQuery(@RequestParam (value ="login",required = true,defaultValue = "") String lgn,
+    public Integer registrationBarmenQuery(@RequestParam (value ="creatorid",required = true,defaultValue = "") Long creatorID,
+            @RequestParam (value ="login",required = true,defaultValue = "") String lgn,
                                      @RequestParam (value ="pass",required = true,defaultValue = "") String pass,
                                      @RequestParam (value ="firstname",required = true,defaultValue = "") String firstname,
                                      @RequestParam (value ="secondname",required = true,defaultValue = "") String secondname,
@@ -165,12 +201,23 @@ public class LoginController {
             accRep.saveAndFlush(newAcc);
             Barmen barmen = new Barmen();
             barmen.setAccountID(accRep.findBylogin(targetLogin).getId());
-            barmen.setCompanyID(establishmentRepository.findByFactAdress(estAdress).getCompanyID());
+            barmen.setCompanyID(marketologRepo.findByAccountID(creatorID).getCompanyID());
             barmenRep.saveAndFlush(barmen);
-            BarmenWorkingPlace bwp = new BarmenWorkingPlace();
-            bwp.setEstablishmentID(establishmentRepository.findByFactAdress(estAdress).getId());
-            bwp.setbarmenID(barmenRep.findByAccountID(accRep.findBylogin(targetLogin).getId()).getId());
-            bwpRep.saveAndFlush(bwp);
+            if (!estAdress.equals("Все заведения")) {
+                BarmenWorkingPlace bwp = new BarmenWorkingPlace();
+                bwp.setEstablishmentID(establishmentRepository.findByEstName(estAdress).getId());
+                bwp.setbarmenID(barmenRep.findByAccountID(accRep.findBylogin(targetLogin).getId()).getId());
+                bwpRep.saveAndFlush(bwp);
+            }
+            else {
+                for (Establishment est: establishmentRepository.findByCompanyID(marketologRepo.findByAccountID(creatorID).getCompanyID())) {
+                    BarmenWorkingPlace bwp = new BarmenWorkingPlace();
+                    bwp.setEstablishmentID(est.getId());
+                    bwp.setbarmenID(barmenRep.findByAccountID(accRep.findBylogin(targetLogin).getId()).getId());
+                    bwpRep.saveAndFlush(bwp);
+                }
+            }
+
             responseCode =1;
         }
         else{
@@ -197,12 +244,13 @@ public class LoginController {
 
     @RequestMapping(value = "/registration/marketolog", method = RequestMethod.GET)
     @ResponseBody
-    public Integer registrationMarketologQuery(@RequestParam (value ="login",required = true,defaultValue = "") String lgn,
+    public Integer registrationMarketologQuery(@RequestParam (value ="creatorid",required = true,defaultValue = "") Long creatorID,
+            @RequestParam (value ="login",required = true,defaultValue = "") String lgn,
                                      @RequestParam (value ="pass",required = true,defaultValue = "") String pass,
                                      @RequestParam (value ="firstname",required = true,defaultValue = "") String firstname,
                                      @RequestParam (value ="secondname",required = true,defaultValue = "") String secondname,
                                                @RequestParam (value ="estadress",required = true,defaultValue = "") String estAdress){
-        return services.registrationMarketolog(lgn,pass,firstname,secondname,estAdress);
+        return services.registrationMarketolog(creatorID,lgn,pass,firstname,secondname,estAdress);
     }
 
     @RequestMapping(value = "/searchlogin", method = RequestMethod.GET)

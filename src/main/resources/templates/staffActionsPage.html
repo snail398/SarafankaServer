@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Actons</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div th:each="action:${actions}">
+        <p th:text="${action.id}"></p>
+        <p th:text="${action.reward}"></p>
+        <p th:text="${action.supportReward}"></p>
+    </div>
+</body>
+</html>

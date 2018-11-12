@@ -10,4 +10,5 @@ public interface MarketologWorkingPlaceRepository extends JpaRepository<Marketol
     MarketologWorkingPlace findByid(Long id);
     List<MarketologWorkingPlace>  findMarketologWorkingPlacesByMarketologID(Long id);
     MarketologWorkingPlace findByMarketologID(Long id);
+    List<MarketologWorkingPlace> findAllByMarketologID(Long id);
 }

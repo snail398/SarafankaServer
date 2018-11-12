@@ -1,17 +1,13 @@
 package com.sarafanka.team.sarafanka.server.controller;
 
-import com.sarafanka.team.sarafanka.server.entity.Account;
-import com.sarafanka.team.sarafanka.server.entity.Action;
-import com.sarafanka.team.sarafanka.server.entity.Company;
-import com.sarafanka.team.sarafanka.server.entity.RunningActions;
-import com.sarafanka.team.sarafanka.server.repository.AccountRepository;
-import com.sarafanka.team.sarafanka.server.repository.ActionRepository;
-import com.sarafanka.team.sarafanka.server.repository.RunningActionsRepository;
+import com.sarafanka.team.sarafanka.server.entity.*;
+import com.sarafanka.team.sarafanka.server.repository.*;
 import com.sarafanka.team.sarafanka.server.service.Services;
 import com.sarafanka.team.sarafanka.server.service.ServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -27,6 +23,10 @@ public class ActionController {
     @Autowired
     private ActionRepository actionRepository;
     @Autowired
+    private EstablishmentRepository establishmentRepository;
+    @Autowired
+    private ActionAccessRepository actionAccessRepository;
+    @Autowired
     private Services services = new ServicesImpl();
 
     @RequestMapping(value = "/actions/getall", method = RequestMethod.GET)
@@ -37,8 +37,8 @@ public class ActionController {
 
     @RequestMapping(value = "/actions/getcount", method = RequestMethod.GET)
     @ResponseBody
-    public List<Integer> getCoundOfAction(@RequestParam(value ="login",required = true,defaultValue = "1") String lgn){
-        return services.getCountOfAction(lgn);
+    public List<Integer> getCoundOfAction(@RequestParam(value ="accountid",required = true,defaultValue = "1") Long accountID){
+        return services.getCountOfAction(accountID);
     }
 
     @RequestMapping(value = "/actions/getfirst", method = RequestMethod.GET)
@@ -101,8 +101,20 @@ public class ActionController {
     @RequestMapping(value = "/actions/getactionforcouponbyid", method = RequestMethod.GET)
     @ResponseBody
     public Action getActionForCouponById(@RequestParam(value ="id",required = true,defaultValue = "1") Long id){
-
         return actionRepository.findById(id);
+    }
+
+    @RequestMapping(value = "/actions/getactionsest", method = RequestMethod.GET)
+    @ResponseBody
+    public Establishment getActionsEst(@RequestParam(value ="actionid",required = true,defaultValue = "1") Long actionID){
+        Establishment establishment = new Establishment();
+        establishment.setEstName("Все заведения");
+        for (ActionAccess actionAccess: actionAccessRepository.findAll()) {
+            if (actionAccess.getActionID().equals(actionID)){
+                establishment = establishmentRepository.findByid(actionAccess.getEstablishmentID());
+            }
+        }
+        return establishment;
     }
 
 
@@ -132,6 +144,13 @@ public class ActionController {
         return services.addNewActon(login,reward,supportReward,target,description,timeStart,timeEnd,est);
     }
 
+    @RequestMapping(value = "/actions/addNewAction", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer addNewActon2(@RequestBody Action action,@RequestParam(value ="creatorid",required = true,defaultValue = "") Long creatorID,
+                               @RequestParam(value ="est",required = true,defaultValue = "")String est){
+        return services.addNewActon2(action,creatorID,est);
+    }
+
     @RequestMapping(value = "/actions/deletactionbyID", method = RequestMethod.GET)
     @ResponseBody
     public Integer deleteActionByID(@RequestParam(value ="actionid",required = true,defaultValue = "") Long actionID){
@@ -140,8 +159,19 @@ public class ActionController {
 
     @RequestMapping(value = "/actions/changeaction", method = RequestMethod.POST)
     @ResponseBody
-    public Integer changeAction(@RequestBody Action action){
+    public Integer changeAction(@RequestBody Action action,@RequestParam(value ="est",required = true,defaultValue = "")String est){
         actionRepository.changeAction(action.getId(),action.getReward(),action.getSupportReward(),action.getTarget(),action.getDescription(),action.getTimeStart(),action.getTimeEnd());
+        for (ActionAccess actionAccess: actionAccessRepository.findAll()) {
+            if (actionAccess.getActionID().equals(action.getId())){
+                actionAccessRepository.delete(actionAccess);
+            }
+        }
+        if (!est.equals("Все заведения")){
+            ActionAccess actionAccess = new ActionAccess();
+            actionAccess.setActionID(action.getId());
+            actionAccess.setEstablishmentID(establishmentRepository.findByEstName(est).getId());
+            actionAccessRepository.saveAndFlush(actionAccess);
+        }
         return 1;
     }
 

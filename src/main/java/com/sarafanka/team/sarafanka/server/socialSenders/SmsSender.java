@@ -2,6 +2,7 @@ package com.sarafanka.team.sarafanka.server.socialSenders;
 
 import com.sarafanka.team.sarafanka.server.Constants;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,9 +14,9 @@ import java.util.Base64;
 
 public class SmsSender implements SocialSender {
     @Override
-    public void send(String text, String phoneNumber) {
+    public String send(String text, String phoneNumber) {
         //send sms to user
-
+        String result = "";
             try {
                 String name = "snail398";
                 String password = "Xamovniki398";
@@ -37,17 +38,20 @@ public class SmsSender implements SocialSender {
                 while ((numCharsRead = isr.read(charArray)) > 0) {
                     sb.append(charArray, 0, numCharsRead);
                 }
-                String result = sb.toString();
+                result = sb.toString();
 
                 System.out.println("*** BEGIN ***");
                 System.out.println(result);
+
                 System.out.println("*** END ***");
+
 
             } catch (MalformedURLException ex) {
                 System.out.println(ex.toString());
             } catch (IOException ex) {
                 System.out.println(ex.toString());
             }
+        return result;
         }
 
 }

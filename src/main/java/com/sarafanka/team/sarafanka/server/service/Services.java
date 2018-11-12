@@ -1,7 +1,9 @@
 package com.sarafanka.team.sarafanka.server.service;
 
 import com.sarafanka.team.sarafanka.server.entity.*;
+import org.springframework.web.bind.annotation.RequestHeader;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -43,15 +45,15 @@ public interface Services {
 
     Integer deleteActionByID(Long actionID);
 
-    List<Integer> getCountOfAction(String lgn);
+    List<Integer> getCountOfAction(Long accountID);
 
     Integer getCouponsCount(String lgn);
 
     Integer createEstablishment (String login, String adress,String estPhone);
 
-    Integer registrationMarketolog(String lgn, String pass, String firstname, String secondname, String estAdress);
+    Integer registrationMarketolog(Long creatorID, String lgn, String pass, String firstname, String secondname, String estAdress);
 
-    Integer registrationMainMarketolog(String lgn, String pass, String firstname, String secondname, String companyName,String companyCategory, String companyType, String companyDescription, String companyAdress, String companyPhone, String companySite,Establishment newEst);
+    Integer registrationMainMarketolog(String lgn, String pass, String firstname, String secondname, String companyName, String companyCategory, String companyType, String companyDescription, String companyAdress, String companyPhone, String companySite, Establishment newEst);
 
     Integer changeInfo(String oldEmail,String email, String firstname, String secondname);
 
@@ -77,8 +79,8 @@ public interface Services {
 
     List<Account> getAvatarPathCommonFriends(String login, String friendLogin);
 
-    List<StaffForApp> getMarketologs(String mainMarketologLogin);
-    List<StaffForApp> getBarmens(String mainMarketologLogin);
+    List<StaffForApp> getMarketologs(Long mainMarketologLogin);
+    List<StaffForApp> getBarmens(Long mainMarketologLogin);
 
     Integer deleteStaff(Long accID);
 
@@ -87,4 +89,14 @@ public interface Services {
     Integer ChangeProgressForSocial(Long userID, Long actionID, Long barmenLogin);
 
     Integer changeCompanyInfoByMain(Company newBrandInfo);
+
+    Account getStaff(Long accID);
+
+    Integer addNewActon2(Action action, Long creatorID, String est);
+
+    Establishment getAccountsEst(Long accID);
+
+    Integer changeStaffInfo(Long accID, String estname, Account account);
+
+    List<ActionStatistic> getStatisticByMarketolog(Long marketologID);
 }

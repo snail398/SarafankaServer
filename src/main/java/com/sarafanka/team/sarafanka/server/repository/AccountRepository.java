@@ -25,6 +25,12 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
     @Transactional
     Integer setPathToAvatar( @Param("email")String email,@Param("newPath")String newPath,@Param("date")Long date);
 
+    @Modifying
+    @Query("update Account account set account.login = :newEmail,account.firstName =:newFirstName,account.secondName =:newSecondName, account.password =:newPassword where account.id = :accountID")
+    @Transactional
+    Integer changeStaffInfo( @Param("accountID")Long accountID,@Param("newEmail")String newEmail, @Param("newFirstName")String newFirstName, @Param("newSecondName")String newSecondName, @Param("newPassword")String newPassword);
+
+
 
     Account findByid(Long id);
     Account findBylogin(String login);

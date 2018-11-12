@@ -25,6 +25,8 @@ public interface RunningActionsRepository extends JpaRepository<RunningActions,L
     RunningActions findByid(Long id);
     RunningActions findByActionTitleIDAndAccountLoginIDAndComplited(Long actionid, Long accountID,Integer complited);
 
+    List<RunningActions> findByActionTitleIDAndComplited(Long actionID,Integer complited);
+    List<RunningActions> findByActionTitleID(Long actionID);
 
     @Modifying
     @Query("update RunningActions ract set ract.complited = -1 where ract.id = :id")

@@ -32,11 +32,11 @@ public class EstablishmentsController {
     {
         return estRepository.findByid(estID);
     }
-    @RequestMapping(value = "/establisments/getestablishmentbycompanyid", method = RequestMethod.GET)
+    @RequestMapping(value = "/establisments/getestablishmentbymarketologid", method = RequestMethod.GET)
     @ResponseBody
-    public List<Establishment> getEstablishmentsByCompanyId(@RequestParam(value ="login",required = true,defaultValue = "") String login)
+    public List<Establishment> getEstablishmentsByMarketologId(@RequestParam(value ="accountid",required = true,defaultValue = "") Long accountID)
     {
-        return estRepository.findByCompanyID(marRepository.findByAccountID(accRepository.findBylogin(login).getId()).getCompanyID());
+        return estRepository.findByCompanyID(marRepository.findByAccountID(accountID).getCompanyID());
     }
 
     @RequestMapping(value = "/establisments/getestablishmentbycorgid", method = RequestMethod.GET)
@@ -65,7 +65,7 @@ public class EstablishmentsController {
 
     @RequestMapping(value = "/establisments/createEstablishment", method = RequestMethod.POST)
     @ResponseBody
-    public Integer createNewEst(@RequestParam(value ="initlogin",required = true,defaultValue = "") String initLogin, @RequestBody Establishment newEst){
+    public Integer createNewEst(@RequestParam(value ="accountid",required = true,defaultValue = "") Long accountID, @RequestBody Establishment newEst){
         Boolean duplicate = false;
         for (Establishment est: estRepository.findAll()) {
             if (est.getEstName().equals(newEst)){
@@ -73,7 +73,7 @@ public class EstablishmentsController {
             }
         }
         if (!duplicate) {
-            newEst.setCompanyID(marRepository.findByAccountID(accRepository.findBylogin(initLogin).getId()).getCompanyID());
+            newEst.setCompanyID(marRepository.findByAccountID(accountID).getCompanyID());
             estRepository.saveAndFlush(newEst);
             return 1;
         }
@@ -83,7 +83,7 @@ public class EstablishmentsController {
 
     @RequestMapping(value = "/establisments/editEstablishment", method = RequestMethod.POST)
     @ResponseBody
-    public Integer editEst(@RequestParam(value ="estid",required = true,defaultValue = "") Long estID, @RequestBody Establishment newEst){
+    public Integer editEst(@RequestBody Establishment newEst){
         Boolean duplicate = false;
         for (Establishment est: estRepository.findAll()) {
             if (est.getEstName().equals(newEst)){
