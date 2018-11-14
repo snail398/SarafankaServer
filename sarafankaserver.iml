@@ -116,5 +116,7 @@
     <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-api:2.5.0-b36" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-utils:2.5.0-b36" level="project" />
+    <orderEntry type="library" name="Maven: com.thetransactioncompany:cors-filter:1.7" level="project" />
+    <orderEntry type="library" name="Maven: com.thetransactioncompany:java-property-utils:1.9" level="project" />
   </component>
 </module>

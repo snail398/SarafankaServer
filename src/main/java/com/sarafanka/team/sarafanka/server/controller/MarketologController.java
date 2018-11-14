@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -23,8 +24,10 @@ public class MarketologController {
     @RequestMapping(value = "/marketolog/getmarketologrole", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Integer> getMarketologRole(@RequestParam(value ="accountid",required = true,defaultValue = "") Long accountID,
-                                                     @RequestHeader("Set-Cookie") String userCookie)
+                                                     HttpServletRequest request)
     {
+        String userCookie = request.getHeader("Cookie");
+
         if (userCookie.equals(cookieAndSessionRepository.findByAccountID(accountID).getCookie()))
         return new ResponseEntity<>(services.getMarketologRole(accountID), HttpStatus.OK);
         else

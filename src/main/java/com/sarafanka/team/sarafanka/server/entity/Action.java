@@ -4,6 +4,7 @@ package com.sarafanka.team.sarafanka.server.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "actions")
@@ -20,7 +21,7 @@ public class Action {
     private String description;
     @Column(name="organizationID",nullable = false,length = 30)
     private Long organizationID;
-    @Column(name="createdBy",nullable = false,length = 30)
+    @Column(name="creatorsID",nullable = false,length = 30)
     private Long creatorsID;
     @Column(name="typeOfAction",nullable = false,length = 30)
     private String typeOfAction;
@@ -38,6 +39,14 @@ public class Action {
     private Long timeEnd;
 
 
+    public Long getCreatorsID() {
+        return creatorsID;
+    }
+
+    public void setCreatorsID(Long creatorsID) {
+        this.creatorsID = creatorsID;
+    }
+
     public Long getTimeStart() {
         return timeStart;
     }
@@ -53,8 +62,6 @@ public class Action {
     public void setTimeEnd(Long timeEnd) {
         this.timeEnd = timeEnd;
     }
-
-
 
     public Action() {
     }
@@ -105,13 +112,6 @@ public class Action {
         this.organizationID = organization;
     }
 
-    public Long getCreatedBy() {
-        return creatorsID;
-    }
-
-    public void setCreatedBy(Long createdBy) {
-        this.creatorsID = createdBy;
-    }
 
     public String getTypeOfAction() {
         return typeOfAction;

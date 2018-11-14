@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,8 +41,8 @@ public class LoginController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseBody
-    public Integer loginQuery( @RequestHeader("Set-Cookie") String userCookie){
-        cookieAndSessionRepository.deleteAllByCookie(userCookie);
+    public Integer loginQuery( HttpServletRequest request){
+        cookieAndSessionRepository.deleteAllByCookie(request.getHeader("Cookie"));
         return 1;
     }
     //
@@ -49,9 +50,10 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Account> loginQuery(@RequestParam (value ="login",required = true,defaultValue = "") String lgn,
-                                             @RequestParam (value ="pass",required = true,defaultValue = "") String pass,
-                                             HttpServletResponse response, @RequestHeader("Set-Cookie") String userCookie){
-        if (userCookie.equals("defaultCookie")){
+                                              @RequestParam (value ="pass",required = true,defaultValue = "") String pass,
+                                              HttpServletResponse response,HttpServletRequest request){
+        String userCookie = request.getHeader("Cookie");
+        if ( userCookie==null || userCookie.equals("defaultCookie")){
         // Удаляем лишние пробелы в конце и в начале логина и пароля
         String targetLogin = lgn.trim().toUpperCase();
         String targetPass = pass.trim().toUpperCase();

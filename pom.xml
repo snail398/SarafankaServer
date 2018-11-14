@@ -210,6 +210,10 @@
             <version>2.26-b04</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>1.7</version>
+        </dependency>
     </dependencies>
 </project>

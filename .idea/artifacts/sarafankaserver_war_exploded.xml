@@ -94,6 +94,8 @@
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-api:2.5.0-b36" />
           <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-utils:2.5.0-b36" />
+          <element id="library" level="project" name="Maven: com.thetransactioncompany:cors-filter:1.7" />
+          <element id="library" level="project" name="Maven: com.thetransactioncompany:java-property-utils:1.9" />
         </element>
       </element>
       <element id="directory" name="META-INF">
