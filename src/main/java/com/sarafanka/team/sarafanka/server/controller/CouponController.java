@@ -23,11 +23,11 @@ public class CouponController {
 
     @RequestMapping(value = "/coupons/deleteusedcoupon", method = RequestMethod.GET)
     @ResponseBody
-    public Integer deleteUsedCoupon(@RequestParam(value ="login",required = true,defaultValue = "") String lgn,
-                                    @RequestParam(value ="action",required = true,defaultValue = "") Long actionID,
-                                    @RequestParam(value ="barmenlogin",required = true,defaultValue = "") String barmenLgn)
+    public String deleteUsedCoupon(@RequestParam(value ="accountid",required = true,defaultValue = "") Long accountID,
+                                    @RequestParam(value ="actionid",required = true,defaultValue = "") Long actionID,
+                                    @RequestParam(value ="staffid",required = true,defaultValue = "") Long staffID)
     {
-        return services.deleteUsedCoupon(lgn,actionID,barmenLgn);
+        return services.deleteUsedCoupon(accountID,actionID,staffID);
     }
 
     @RequestMapping(value = "/coupons/getcouponscount", method = RequestMethod.GET)

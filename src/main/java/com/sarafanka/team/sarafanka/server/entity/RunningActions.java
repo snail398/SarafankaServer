@@ -26,8 +26,18 @@ public class RunningActions {
 
     @Column(name="pathToQR",length = 150)
     private String pathToQRCode;
+    @Column(name="pathToSarafunkaForFriend",length = 150)
+    private String pathToSarafunkaForFriend;
     @Column(name="ractStartDate",length = 50)
     private Long ractStatDate;
+
+    public String getPathToSarafunkaForFriend() {
+        return pathToSarafunkaForFriend;
+    }
+
+    public void setPathToSarafunkaForFriend(String pathToSarafunkaForFriend) {
+        this.pathToSarafunkaForFriend = pathToSarafunkaForFriend;
+    }
 
     public RunningActions() {
     }

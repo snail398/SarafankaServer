@@ -1,9 +1,8 @@
 package com.sarafanka.team.sarafanka.server.service;
 
+import com.google.zxing.WriterException;
 import com.sarafanka.team.sarafanka.server.entity.*;
-import org.springframework.web.bind.annotation.RequestHeader;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -11,7 +10,7 @@ public interface Services {
 
     List<Action> getRunningActionsByLoginAndOrgId(String lgn, Long orgId, Integer ifComplited);
     Integer  addNewRunningActions(String lgn,Long id);
-    Integer  addNewRunningActions(Account acc,Long id,String messageType) throws IOException;
+    Integer  addNewRunningActions(Account acc,Long id,String messageType) throws IOException, WriterException;
 
     List<Account> getFriendsForInvite(String lgn, Long actionID);
     List<Account> getFriends(String lgn);
@@ -30,7 +29,7 @@ public interface Services {
 
     List<Company> getCompanyWithAction(Long lgn);
 
-    Integer deleteUsedCoupon (String Login, Long actionID,String barmenLogin);
+    String deleteUsedCoupon (Long Login, Long actionID, Long barmenLogin);
     List<Company> getCompanyByCategory(String category, Long lgn);
 
     Company getMarketologCompany(Long login);
@@ -86,7 +85,7 @@ public interface Services {
 
     List<Action> getActionsForStaff(Account account);
 
-    Integer ChangeProgressForSocial(Long userID, Long actionID, Long barmenLogin);
+    String ChangeProgressForSocial(Long userID, Long actionID, Long barmenLogin) throws IOException, WriterException;
 
     Integer changeCompanyInfoByMain(Company newBrandInfo);
 
@@ -99,4 +98,8 @@ public interface Services {
     Integer changeStaffInfo(Long accID, String estname, Account account);
 
     List<ActionStatistic> getStatisticByMarketolog(Long marketologID);
+
+    String getLink(String userID, Long actionID, Long barmenID) throws IOException;
+
+    String getLinkAndBonus(Long userID, Long actionID, Long barmenID) throws IOException;
 }

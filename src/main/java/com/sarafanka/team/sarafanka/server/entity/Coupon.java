@@ -22,8 +22,38 @@ public class Coupon {
     private Long actionID;
     @Column(name="reward",nullable = false,length = 30)
     private String reward;
+    @Column(name="pathToQR",length = 150)
+    private String pathToQRCode;
+    @Column(name="pathToSarafunka",length = 150)
+    private String pathToSarafunka;
+    @Column(name="ractStartDate",length = 50)
+    private Long ractStatDate;
 
     public Coupon() {
+    }
+
+    public String getPathToQRCode() {
+        return pathToQRCode;
+    }
+
+    public void setPathToQRCode(String pathToQRCode) {
+        this.pathToQRCode = pathToQRCode;
+    }
+
+    public String getPathToSarafunka() {
+        return pathToSarafunka;
+    }
+
+    public void setPathToSarafunka(String pathToSarafunka) {
+        this.pathToSarafunka = pathToSarafunka;
+    }
+
+    public Long getRactStatDate() {
+        return ractStatDate;
+    }
+
+    public void setRactStatDate(Long ractStatDate) {
+        this.ractStatDate = ractStatDate;
     }
 
     public long getId() {

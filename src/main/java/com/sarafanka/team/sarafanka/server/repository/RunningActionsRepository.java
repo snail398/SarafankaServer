@@ -27,9 +27,20 @@ public interface RunningActionsRepository extends JpaRepository<RunningActions,L
 
     List<RunningActions> findByActionTitleIDAndComplited(Long actionID,Integer complited);
     List<RunningActions> findByActionTitleID(Long actionID);
+    List<RunningActions> findAllByComplited(Integer complited);
 
     @Modifying
     @Query("update RunningActions ract set ract.complited = -1 where ract.id = :id")
     @Transactional
     Integer deleteRActByUser(@Param("id")Long id);
+
+    @Modifying
+    @Query("update RunningActions ract set ract.pathToQRCode = :path where ract.id = :id")
+    @Transactional
+    Integer setPathToQR(@Param("id")Long id, @Param("path")String path);
+
+    @Modifying
+    @Query("update RunningActions ract set ract.pathToSarafunkaForFriend = :path where ract.id = :id")
+    @Transactional
+    Integer setPathToSarafunka(@Param("id")Long id, @Param("path")String path);
 }

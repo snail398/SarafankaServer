@@ -116,7 +116,20 @@
     <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-api:2.5.0-b36" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-utils:2.5.0-b36" level="project" />
-    <orderEntry type="library" name="Maven: com.thetransactioncompany:cors-filter:1.7" level="project" />
-    <orderEntry type="library" name="Maven: com.thetransactioncompany:java-property-utils:1.9" level="project" />
+    <orderEntry type="library" name="Maven: com.thetransactioncompany:cors-filter:2.6" level="project" />
+    <orderEntry type="library" name="Maven: com.thetransactioncompany:java-property-utils:1.9.1" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:itextpdf:5.5.13" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:layout:7.1.4" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:kernel:7.1.4" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:io:7.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.pdfbox:pdfbox:2.0.8" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.pdfbox:fontbox:2.0.8" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.pdfbox:pdfbox-tools:2.0.8" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.pdfbox:pdfbox-debugger:2.0.8" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.9" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20180813" level="project" />
   </component>
 </module>

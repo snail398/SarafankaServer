@@ -1,5 +1,6 @@
 package com.sarafanka.team.sarafanka.server.controller;
 
+import com.google.zxing.WriterException;
 import com.sarafanka.team.sarafanka.server.entity.Account;
 import com.sarafanka.team.sarafanka.server.entity.Action;
 import com.sarafanka.team.sarafanka.server.repository.RunningActionsRepository;
@@ -29,7 +30,7 @@ public class RunningActionsController {
 
     @RequestMapping(value = "/runningactions/newract", method = RequestMethod.POST)
     @ResponseBody
-    public Integer addNewRunningActions(@RequestBody Account acc, @RequestParam (value ="action",required = true,defaultValue = "") Long id,@RequestParam (value ="messagetype",required = true,defaultValue = "") String messageType) throws IOException {
+    public Integer addNewRunningActions(@RequestBody Account acc, @RequestParam (value ="action",required = true,defaultValue = "") Long id,@RequestParam (value ="messagetype",required = true,defaultValue = "") String messageType) throws IOException, WriterException {
 
         return services.addNewRunningActions(acc,id,messageType);
     }
@@ -60,10 +61,28 @@ public class RunningActionsController {
     //Получение списка названий акций,вкоторых участвует данный логин
     @RequestMapping(value = "/runningactions/changeprogressforsocial", method = RequestMethod.GET)
     @ResponseBody
-    public Integer ChangeProgressForSocial(@RequestParam (value ="userid",required = true,defaultValue = "") Long userID,
+    public String ChangeProgressForSocial(@RequestParam (value ="userid",required = true,defaultValue = "") Long userID,
                                             @RequestParam (value ="actionid",required = true,defaultValue = "") Long actionID,
-                                           @RequestParam (value ="staffid",required = true,defaultValue = "") Long barmenID){
+                                           @RequestParam (value ="staffid",required = true,defaultValue = "") Long barmenID) throws IOException, WriterException {
         return services.ChangeProgressForSocial(userID,actionID,barmenID);
+    }
+
+
+    @RequestMapping(value = "/getlink", method = RequestMethod.GET)
+    @ResponseBody
+    public String getLink(@RequestParam (value ="userphone",required = true,defaultValue = "") String userPhone,
+                                          @RequestParam (value ="actionid",required = true,defaultValue = "") Long actionID,
+                                          @RequestParam (value ="staffid",required = true,defaultValue = "") Long barmenID) throws IOException, WriterException {
+        return services.getLink(userPhone,actionID,barmenID);
+    }
+
+
+    @RequestMapping(value = "/getlinkandbonus", method = RequestMethod.GET)
+    @ResponseBody
+    public String getLinkAndBonus(@RequestParam (value ="userid",required = true,defaultValue = "") Long userID,
+                                          @RequestParam (value ="actionid",required = true,defaultValue = "") Long actionID,
+                                          @RequestParam (value ="staffid",required = true,defaultValue = "") Long barmenID) throws IOException, WriterException {
+        return services.getLinkAndBonus(userID,actionID,barmenID);
     }
 
     //Получение количества людей для завершения акции

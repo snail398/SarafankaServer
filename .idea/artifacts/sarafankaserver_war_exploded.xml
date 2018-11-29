@@ -94,8 +94,21 @@
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-api:2.5.0-b36" />
           <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-utils:2.5.0-b36" />
-          <element id="library" level="project" name="Maven: com.thetransactioncompany:cors-filter:1.7" />
-          <element id="library" level="project" name="Maven: com.thetransactioncompany:java-property-utils:1.9" />
+          <element id="library" level="project" name="Maven: com.thetransactioncompany:cors-filter:2.6" />
+          <element id="library" level="project" name="Maven: com.thetransactioncompany:java-property-utils:1.9.1" />
+          <element id="library" level="project" name="Maven: com.itextpdf:itextpdf:5.5.13" />
+          <element id="library" level="project" name="Maven: com.itextpdf:layout:7.1.4" />
+          <element id="library" level="project" name="Maven: com.itextpdf:kernel:7.1.4" />
+          <element id="library" level="project" name="Maven: com.itextpdf:io:7.1.4" />
+          <element id="library" level="project" name="Maven: org.apache.pdfbox:pdfbox:2.0.8" />
+          <element id="library" level="project" name="Maven: org.apache.pdfbox:fontbox:2.0.8" />
+          <element id="library" level="project" name="Maven: org.apache.pdfbox:pdfbox-tools:2.0.8" />
+          <element id="library" level="project" name="Maven: org.apache.pdfbox:pdfbox-debugger:2.0.8" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.3" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.9" />
+          <element id="library" level="project" name="Maven: org.json:json:20180813" />
         </element>
       </element>
       <element id="directory" name="META-INF">

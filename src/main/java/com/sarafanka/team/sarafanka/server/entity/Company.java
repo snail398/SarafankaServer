@@ -29,10 +29,40 @@ public class Company {
     private String site;
     @Column(name="pathToAvatar",length = 150)
     private String pathToAvatar;
+    @Column(name="inn",length = 150)
+    private String inn;
+    @Column(name="kpp",length = 150)
+    private String kpp;
+    @Column(name="ogrn",length = 150)
+    private String ogrn;
     @Column(name="creatingDate",nullable = false,length = 50)
     private Long creatingDate;
     @Column(name="avatarChangeDate",length = 50)
     private Long avatarChangeDate;
+
+    public String getInn() {
+        return inn;
+    }
+
+    public void setInn(String inn) {
+        this.inn = inn;
+    }
+
+    public String getKpp() {
+        return kpp;
+    }
+
+    public void setKpp(String kpp) {
+        this.kpp = kpp;
+    }
+
+    public String getOgrn() {
+        return ogrn;
+    }
+
+    public void setOgrn(String ogrn) {
+        this.ogrn = ogrn;
+    }
 
     public String getPathToAvatar() {
         return pathToAvatar;

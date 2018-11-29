@@ -41,8 +41,9 @@ public class LoginController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseBody
-    public Integer loginQuery( HttpServletRequest request){
+    public Integer loginQuery(  HttpServletResponse response, HttpServletRequest request){
         cookieAndSessionRepository.deleteAllByCookie(request.getHeader("Cookie"));
+        response.setHeader("Set-Cookie","");
         return 1;
     }
     //
@@ -53,7 +54,7 @@ public class LoginController {
                                               @RequestParam (value ="pass",required = true,defaultValue = "") String pass,
                                               HttpServletResponse response,HttpServletRequest request){
         String userCookie = request.getHeader("Cookie");
-        if ( userCookie==null || userCookie.equals("defaultCookie")){
+        if ( userCookie==null || userCookie.equals("defaultCookie")|| userCookie.equals("")){
         // Удаляем лишние пробелы в конце и в начале логина и пароля
         String targetLogin = lgn.trim().toUpperCase();
         String targetPass = pass.trim().toUpperCase();

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добро пожаловать!</title>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/style.css}"/>
+    <script type="text/javascript" src="https://vk.com/js/api/share.js?95" charset="windows-1251"></script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <p th:text="'Привет,друг!'" ></p>
+        <p th:text="'Приз \'' + ${bonus} + '\' доступен до '  + ${dateend}"></p>
+        <p th:text="'Еще осталось бонусов: ' + ${peopletoend}+'.  Спеши!'" ></p>
+    </div>
+</body>
+</html>

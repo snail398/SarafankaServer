@@ -1,23 +1,33 @@
 package com.sarafanka.team.sarafanka.server.service;
 
+import com.google.zxing.WriterException;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
 import com.sarafanka.team.sarafanka.server.Constants;
+import com.sarafanka.team.sarafanka.server.ImageHandler;
+import com.sarafanka.team.sarafanka.server.QRGenerator;
 import com.sarafanka.team.sarafanka.server.entity.*;
 import com.sarafanka.team.sarafanka.server.repository.*;
 import com.sarafanka.team.sarafanka.server.socialSenders.SmsSender;
 import com.sarafanka.team.sarafanka.server.socialSenders.SocialSender;
 import com.sarafanka.team.sarafanka.server.socialSenders.WhatappSender;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.tiogasolutions.apis.bitly.BitlyApis;
 
-import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class ServicesImpl implements Services {
@@ -260,12 +270,18 @@ public class ServicesImpl implements Services {
     }
 
     @Override
-    public Integer addNewRunningActions(Account acc, Long id, String messageType) throws IOException {
+    public Integer addNewRunningActions(Account acc, Long id, String messageType) throws IOException, WriterException {
 
         Boolean duplicateEmail =false;
         Boolean duplicatePhone =false;
         Boolean duplicateRunAct =false;
 
+        Calendar c1 = Calendar.getInstance();
+        Long date1 = c1.getTimeInMillis();
+        acc.setCreatingDate(date1);
+        //форматирование телефона (Удаление дефисов,пробелов,скобок
+        String phone = acc.getPhoneNumber();
+        acc.setPhoneNumber(phone.replace(" ","").replace("-","").replace("(","").replace(")","").replace("+",""));
         Account responseAccount = new Account();
         responseAccount.setAccountType("none");
         List<Account> list = accRepo.findAll();
@@ -300,8 +316,10 @@ public class ServicesImpl implements Services {
         runAct.setComplited(0);
         runAct.setRactStatDate(date);
         for (RunningActions runningActions:repo.findAll() ) {
-            if (runningActions.getActionTitleID().equals(runAct.getActionTitleID()) && runningActions.getAccountLoginID().equals(runAct.getAccountLoginID()) && runningActions.getComplited().equals(0))
+            if (runningActions.getActionTitleID().equals(runAct.getActionTitleID()) && runningActions.getAccountLoginID().equals(runAct.getAccountLoginID()) && runningActions.getComplited().equals(0)) {
                 duplicateRunAct = true;
+                runAct = runningActions;
+            }
         }
 
         if (!duplicateRunAct)
@@ -309,16 +327,18 @@ public class ServicesImpl implements Services {
 
         BitlyApis bitlyApis = new BitlyApis(Constants.Social.bitlyAccessToken);
 
-        String textToSend = Constants.URL.HOST +"/getract?ractid="+repo.findByActionTitleIDAndAccountLoginIDAndComplited(id,responseAccount.getId(),0).getId();
+        generateQRforRact("sarafunka",runAct.getAccountLoginID(), runAct.getActionTitleID());
+        generateSarafunkaforRact("sarafunka",runAct.getAccountLoginID(), runAct.getActionTitleID());
+
+        String textToSend = Constants.URL.HOST +"/getract?ractid="+runAct.getId();
         String shortURL = bitlyApis.shortenEncodedUrl(textToSend);
         SocialSender socialSender = createSocialSender(messageType);
-        String result = socialSender.send(shortURL,responseAccount.getPhoneNumber());
-        result = result.substring(0,result.indexOf(";"));
+        String result = socialSender.send("Ваш личный кабинет участия в акции: "+shortURL,responseAccount.getPhoneNumber());
         switch ( result){
-            case "error":
+            case "false":
                 return -2;
 
-            case "accepted":
+            case "true":
                 return 2;
 
         }
@@ -326,7 +346,23 @@ public class ServicesImpl implements Services {
         return -2;
     }
 
-    private SocialSender createSocialSender(String messageType) {
+    @Override
+    public String getLink(String userPhone, Long actionID, Long barmenID) throws IOException {
+        BitlyApis bitlyApis = new BitlyApis(Constants.Social.bitlyAccessToken);
+        RunningActions  runAct = repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accRepo.findByPhoneNumber(userPhone.replace(" ","").replace("-","").replace("(","").replace(")","").replace("+","")).getId(),0);
+        String textToSend = Constants.URL.HOST +"/getract?ractid="+runAct.getId();
+        return bitlyApis.shortenEncodedUrl(textToSend);
+    }
+
+    @Override
+    public String getLinkAndBonus(Long userID, Long actionID, Long barmenID) throws IOException {
+        BitlyApis bitlyApis = new BitlyApis(Constants.Social.bitlyAccessToken);
+        Coupon  newCoupon = couponsRepo.findByAccountIDAndActionID(userID,actionID);
+        String textToSend = Constants.URL.HOST +"/sarafunkas/"+newCoupon.getPathToSarafunka();
+        return accRepo.findByid(userID).getPhoneNumber()+bitlyApis.shortenEncodedUrl(textToSend)+"|"+actRepo.findById(newCoupon.getActionID()).getSupportReward();
+    }
+
+    public SocialSender createSocialSender(String messageType) {
         SocialSender socialSender;
         switch (messageType){
             case "sms":
@@ -342,6 +378,435 @@ public class ServicesImpl implements Services {
         return socialSender;
     }
 
+    //тип сарафанки: sarafunka - для приглашения друзей, coupon - для аффилиата
+    public void generateQRforRact(String sarafankaType, Long accountID, Long actionID) throws IOException, WriterException {
+        Account currentAccount = accRepo.findByid(accountID);
+        Action currentAction =  actRepo.findById(actionID);
+
+        String name = "";
+        String pathToQRCodes = "";
+        String pathname ="sosiska";
+        String pathToDB ="";
+        int responseCode;
+        String response ="";
+        String strForMD5 ="";
+        Integer userCode= 0;
+        switch (sarafankaType){
+            case "sarafunka":
+                strForMD5 = repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId()+"-qrcode";
+                break;
+            case "coupon":
+                strForMD5 = couponsRepo.findByAccountIDAndActionID(accountID,actionID).getId()+"-qrcodecoupon";
+                break;
+        }
+        pathToQRCodes = Constants.PathsToFiles.pathToQRCodes;
+
+
+        name = ImageHandler.getMD5(strForMD5);
+        String externalFolder = name.substring(0,2);
+        String internalFolder = name.substring(2,4);
+        name =  name.substring(4)+".jpg";
+        pathToDB = "/"+externalFolder+"/"+internalFolder+"/"+name;
+        //Проверка на наличие папок, и создание, если требуется
+        File theDir = new File(pathToQRCodes+externalFolder);
+        if (!theDir.exists()) {
+            theDir.mkdir();
+
+        }
+        theDir = new File(pathToQRCodes+externalFolder+"\\"+internalFolder);
+        if (!theDir.exists()) {
+            theDir.     mkdir();
+        }
+
+        pathname =pathToQRCodes+externalFolder+"\\"+internalFolder+"\\"+name;
+
+        QRGenerator qrGenerator = new QRGenerator();
+        String strForQR ="";
+        switch (sarafankaType){
+            case "sarafunka":
+                RunningActions ract = repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0);
+                strForQR = "/runningactions/changeprogressforsocial?userid=" + currentAccount.getId() + "&actionid=" + currentAction.getId();
+                qrGenerator.generateQRCodeImage(strForQR, 540, 540, pathname);
+                ract.setPathToQRCode(externalFolder+"\\"+internalFolder+"\\"+name);
+                repo.setPathToQR(ract.getId(),externalFolder+"\\"+internalFolder+"\\"+name);
+                break;
+            case "coupon":
+                Coupon coupon = couponsRepo.findByAccountIDAndActionID(accountID,actionID);
+                strForQR = "/coupons/deleteusedcoupon?accountid=" + currentAccount.getId() + "&actionid=" + currentAction.getId();
+                    qrGenerator.generateQRCodeImage(strForQR, 540, 540, pathname);
+                coupon.setPathToQRCode(externalFolder+"\\"+internalFolder+"\\"+name);
+                couponsRepo.setPathToQR(coupon.getId(),externalFolder+"\\"+internalFolder+"\\"+name);
+                break;
+        }
+
+    }
+    public void generateSarafunkaforRact(String sarafankaType, Long accountID, Long actionID) throws IOException, WriterException {
+        Account currentAccount = accRepo.findByid(accountID);
+        Action currentAction =  actRepo.findById(actionID);
+        String name = "";
+        String pathToQRCodes = "";
+        String pathname ="sosiska";
+        String pathToDB ="";
+        int responseCode;
+        String response ="";
+        String strForMD5 ="";
+        Integer userCode= 0;
+
+        switch (sarafankaType){
+            case "sarafunka":
+                strForMD5 = repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId()+"-sarafunka";
+                break;
+            case "coupon":
+                strForMD5 = couponsRepo.findByAccountIDAndActionID(accountID,actionID).getId()+"-coupon";
+                break;
+        }
+        pathToQRCodes = Constants.PathsToFiles.pathToSarafunkas;
+
+
+        name = ImageHandler.getMD5(strForMD5);
+        String externalFolder = name.substring(0,2);
+        String internalFolder = name.substring(2,4);
+        name =  name.substring(4)+".pdf";
+        pathToDB = "/"+externalFolder+"/"+internalFolder+"/"+name;
+        //Проверка на наличие папок, и создание, если требуется
+        File theDir = new File(pathToQRCodes+externalFolder);
+        if (!theDir.exists()) {
+            theDir.mkdir();
+
+        }
+        theDir = new File(pathToQRCodes+externalFolder+"\\"+internalFolder);
+        if (!theDir.exists()) {
+            theDir.mkdir();
+        }
+
+        pathname =pathToQRCodes+externalFolder+"\\"+internalFolder+"\\"+name;
+
+        switch (sarafankaType){
+            case "sarafunka":
+                RunningActions ract = repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0);
+                repo.setPathToSarafunka(ract.getId(),externalFolder+"\\"+internalFolder+"\\"+name);
+                ract.setPathToSarafunkaForFriend(externalFolder+"\\"+internalFolder+"\\"+name);
+                break;
+            case "coupon":
+                Coupon coupon = couponsRepo.findByAccountIDAndActionID(accountID,actionID);
+                couponsRepo.setPathToSarafunka(coupon.getId(),externalFolder+"\\"+internalFolder+"\\"+name);
+                coupon.setPathToSarafunka(externalFolder+"\\"+internalFolder+"\\"+name);
+
+                break;
+        }
+
+        createPDF(sarafankaType,accountID,actionID,pathname);
+
+    }
+
+
+    // Первый символ : S- сарафанка для друзей,C - сарафанка для аффилиата за задание
+    // Следующие четыре символа - id аккаунта
+    // Последние 5 символов - id акции
+    String createUniqID(String sarafankaType, Long accountID, Long actionID){
+        String userString ="0000";
+        String actionString="00000";
+        String firstSymbol="";
+        userString = userString.substring(0,userString.length()-accountID.toString().length())+accountID.toString();
+        actionString = actionString.substring(0,actionString.length()-actionID.toString().length())+actionID.toString();
+
+        switch (sarafankaType){
+            case "sarafunka":
+                firstSymbol="S";
+                break;
+            case "coupon":
+                firstSymbol ="C";
+                break;
+        }
+        return firstSymbol+userString+actionString;
+    }
+    public void createPDF(String sarafankaType, Long accountID, Long actionID,String path){
+
+        Action action = actRepo.findById(actionID);
+        Company company = comRepo.findById(action.getOrganizationID());
+        String price="";
+        String title ="";
+        String advice ="";
+        switch (sarafankaType){
+            case "sarafunka":
+                price = action.getSupportReward();
+                title = "Сарафанка от друга";
+                advice ="Друг рекомендует посетить";
+                break;
+            case "coupon":
+                price = action.getReward();
+                title = "Финальная сарафанка";
+                advice ="Бонус можно получить в";
+                break;
+        }
+        String companyName = company.getTitle();
+        String companyAddress = company.getAdress();
+        String compamyPhone = company.getPhone();
+        String companySite = "www."+company.getSite();
+
+        try {
+
+            // Create output PDF
+            Document document = new Document();
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
+            document.open();
+            PdfContentByte cb = writer.getDirectContent();
+
+            // Load existing PDF
+            PdfReader reader = new PdfReader(new FileInputStream(Constants.PathsToFiles.pathToSarafunkaTemplate));
+            final Random random = new Random();
+            PdfImportedPage page = writer.getImportedPage(reader, random.nextInt(4) + 1);
+
+            // Copy first page of existing PDF into output PDF
+            document.setPageSize(reader.getPageSize(1));
+            Integer sarWidth = (int) reader.getPageSize(1).getWidth();
+            Integer sarHeight = (int) reader.getPageSize(1).getHeight();
+            document.newPage();
+            cb.addTemplate(page, 0, 0);
+
+            //Создание надписей на шаблоне
+            BaseFont bf = BaseFont.createFont("C:\\WINDOWS\\Fonts\\ClearSans-Regular.ttf","ISO-8859-5", true);
+            cb.setFontAndSize(bf, 100);
+            cb.setColorFill(BaseColor.WHITE );
+
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, new Phrase(price.toUpperCase(),new Font(bf,30)), 540, 1600, 0);
+
+
+            Phrase titlePhrase = new Phrase(title,new Font(bf,19.9f));
+            Phrase advicePhrase = new Phrase(advice,new Font(bf,13.4f));
+            Phrase companyNamePhrase = new Phrase("\""+companyName+"\"",new Font(bf,20));
+            Phrase companyAddressPhrase = new Phrase(companyAddress,new Font(bf,13.4f));
+            Phrase uniqPhrase = new Phrase(createUniqID(sarafankaType,accountID,actionID),new Font(bf,15));
+
+
+            Anchor compamyPhonePhrase = new Anchor(
+                    compamyPhone,new Font(bf,13.4f));
+            compamyPhonePhrase.setReference(
+                    "tel: "+compamyPhone);
+            Anchor anchor = new Anchor(
+                    companySite,new Font(bf,13.4f));
+            anchor.setReference(
+                    companySite);
+
+            Anchor textAnchor = new Anchor("Проверить подлинность и срок действия сарафанки:",new Font(bf,10));
+            Anchor siteAnchor = new Anchor("www.sarafun.info",new Font(bf,10));
+            textAnchor.setReference("http://sarafun.info:4200/ractstatus?ractid="+repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId());
+            siteAnchor.setReference("http://sarafun.info:4200/ractstatus?ractid="+repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId());
+
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_LEFT, titlePhrase, sarWidth*0.32f, sarHeight*0.907f, 0);
+
+            String[] arr = new String[2];
+            Integer rowCol = 0;
+            Integer space = 0;
+            Float startY=0f;
+            if(price.trim().indexOf(" ")!=-1){
+                rowCol=2;
+                StringBuffer buffer = new StringBuffer(price.substring(0,price.length()/2));
+                buffer.reverse();
+                Integer startSpace = buffer.indexOf(" ");
+                Integer endSpace = price.indexOf(" ",price.length()/2)-price.length()/2;
+                if (endSpace>startSpace){
+                    space =price.length()/2+endSpace ;
+                }
+                else{
+                    space =price.length()/2-startSpace ;
+                }
+                if (endSpace.equals(startSpace)){
+                    space =price.length()/2-endSpace ;
+                }
+                arr[0]="На "+price.substring(0,space);
+                arr[1]=price.substring(space)+"!";
+                startY=sarHeight*0.78f;
+            }
+            else{
+                rowCol=1;
+                arr[0]="На "+price+"!";
+                startY=sarHeight*0.78f-sarHeight*0.055f/2;
+            }
+
+            for (int i = 0; i < rowCol; i++) {
+                Phrase phrase = new Phrase(arr[i],new Font(bf,25));
+                ColumnText.showTextAligned(cb,
+                        Element.ALIGN_CENTER, phrase, sarWidth/2, startY-i*sarHeight*0.055f, 0);
+            }
+
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, uniqPhrase, sarWidth/2, sarHeight*0.257f, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, advicePhrase, sarWidth/2, sarHeight*0.206f, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, companyNamePhrase, sarWidth/2, sarHeight*0.161f, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, companyAddressPhrase, sarWidth/2, sarHeight*0.132f, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, compamyPhonePhrase, sarWidth/2, sarHeight*0.102f, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, anchor, sarWidth/2, sarHeight*0.077f, 0);
+
+
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, textAnchor, sarWidth/2, sarHeight*0.0444f, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, siteAnchor, sarWidth/2, sarHeight*0.0296f, 0);
+
+            String qrURL="";
+            String pathToSarafanka ="";
+            String fuckingPath=Constants.URL.HOST+"/qrcodes/";
+            switch (sarafankaType){
+                case "sarafunka":
+                    qrURL =fuckingPath+repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getPathToQRCode();
+                    pathToSarafanka = repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getPathToSarafunkaForFriend();
+                    break;
+                case "coupon":
+                    qrURL =fuckingPath+couponsRepo.findByAccountIDAndActionID(accountID,actionID).getPathToQRCode();
+                    pathToSarafanka = couponsRepo.findByAccountIDAndActionID(accountID,actionID).getPathToSarafunka();
+
+                    break;
+            }
+
+            Image qr = Image.getInstance(qrURL);
+            Float newHeight = 165f;
+            Float newWidth = newHeight;
+            qr.scaleAbsolute(newWidth,newHeight);
+            qr.setAbsolutePosition((sarWidth-newWidth)/2, sarHeight*0.2936f);
+
+            cb.addImage(qr);
+
+            document.close();
+            createPDFPNG(pathToSarafanka);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IOException  e) {
+            e.printStackTrace();
+        }
+
+        /*
+        Action action = actRepo.findById(actionID);
+        Company company = comRepo.findById(action.getOrganizationID());
+        String price="";
+        switch (sarafankaType){
+            case "sarafunka":
+                price = action.getSupportReward();
+                break;
+            case "coupon":
+                price = action.getReward();
+                break;
+        }
+        String companyName = company.getTitle();
+        String companyAddress = company.getAdress();
+        String compamyPhone = company.getPhone();
+        String companySite = "www."+company.getSite();
+
+        try {
+
+            // Create output PDF
+            Document document = new Document();
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
+            document.open();
+            PdfContentByte cb = writer.getDirectContent();
+
+            // Load existing PDF
+            PdfReader reader = new PdfReader(new FileInputStream(Constants.PathsToFiles.pathToSarafunkaTemplate));
+            PdfImportedPage page = writer.getImportedPage(reader, 1);
+
+            // Copy first page of existing PDF into output PDF
+            document.setPageSize(reader.getPageSize(1));
+            document.newPage();
+            cb.addTemplate(page, 0, 0);
+
+            //Создание надписей на шаблоне
+            BaseFont bf = BaseFont.createFont("C:\\WINDOWS\\Fonts\\Cocon_Regular.otf","ISO-8859-5", true);
+            cb.setFontAndSize(bf, 100);
+            cb.setColorFill(BaseColor.WHITE );
+
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, new Phrase(price.toUpperCase(),new Font(bf,100)), 540, 1600, 0);
+            Phrase phrase1 = new Phrase("Предъяви в",new Font(bf,60));
+            Phrase phrase2 = new Phrase(companyName,new Font(bf,60));
+            Phrase phrase3 = new Phrase(companyAddress,new Font(bf,50));
+            Phrase phrase4 = new Phrase(compamyPhone,new Font(bf,50));
+            Phrase phrase5 = new Phrase(createUniqID(sarafankaType,accountID,actionID),new Font(bf,45));
+            Anchor anchor = new Anchor(
+                    companySite,new Font(bf,40));
+            anchor.setReference(
+                    companySite);
+
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, phrase4, 540, 210, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, anchor, 540, 280, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, phrase3, 540, 350, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, phrase2, 540, 420, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, phrase1, 540, 500, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, phrase5, 540, 650, 0);
+
+            // Добавление QR-кода
+
+            String qrURL="";
+            String pathToSarafanka ="";
+            String fuckingPath=Constants.URL.HOST+"/qrcodes/";
+            switch (sarafankaType){
+                case "sarafunka":
+                    qrURL =fuckingPath+repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getPathToQRCode();
+                    pathToSarafanka = repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getPathToSarafunkaForFriend();
+                    break;
+                case "coupon":
+                    qrURL =fuckingPath+couponsRepo.findByAccountIDAndActionID(accountID,actionID).getPathToQRCode();
+                    pathToSarafanka = couponsRepo.findByAccountIDAndActionID(accountID,actionID).getPathToSarafunka();
+
+                    break;
+            }
+            Image qr = Image.getInstance(qrURL);
+            qr.setAbsolutePosition(reader.getPageSize(1).getWidth()/2-270, 700);
+
+            cb.addImage(qr);
+
+            document.close();
+            createPDFPNG(pathToSarafanka);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IOException  e) {
+            e.printStackTrace();
+        }
+        */
+    }
+
+    public void createPDFPNG(String pathToSarafanka){
+        String path =Constants.PathsToFiles.pathToSarafunkas+pathToSarafanka;
+        try (final PDDocument document = PDDocument.load(new FileInputStream(path))){
+            PDFRenderer pdfRenderer = new PDFRenderer(document);
+            for (int page = 0; page < document.getNumberOfPages(); ++page)
+            {
+
+                String pathToSarPNG =pathToSarafanka.substring(0,pathToSarafanka.indexOf("."))+".png";
+                String externalFolder = pathToSarPNG.substring(0,2);
+                String internalFolder = pathToSarPNG.substring(3,5);
+                //Проверка на наличие папок, и создание, если требуется
+                File theDir = new File( Constants.PathsToFiles.pathToSarafunkas+"jpg\\"+externalFolder);
+                if (!theDir.exists()) {
+                    theDir.mkdir();
+
+                }
+                theDir = new File( Constants.PathsToFiles.pathToSarafunkas+"jpg\\"+externalFolder+"\\"+internalFolder);
+                if (!theDir.exists()) {
+                    theDir.mkdir();
+                }
+
+                BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 100, ImageType.RGB);
+                String fileName = Constants.PathsToFiles.pathToSarafunkas+"jpg\\" + pathToSarPNG;
+                ImageIOUtil.writeImage(bim, fileName, 100);
+            }
+            document.close();
+        } catch (IOException e){
+            System.err.println("Exception while trying to create pdf document - " + e);
+        }
+    }
     public List<Account> getFriendsForInvite(String lgn, Long actionID) {
         List<Friends> allFriends = friendRepo.findAll();
         List<Invite> invites = invRepo.findAll();
@@ -644,13 +1109,18 @@ public class ServicesImpl implements Services {
     }
 
     @Override
-    public Integer ChangeProgressForSocial(Long userID, Long actionID, Long barmenID) {
-        for (RunningActions ract:repo.findAll() ) {
+    public String ChangeProgressForSocial(Long userID, Long actionID, Long barmenID) throws IOException, WriterException {
+        String ractBonus="";
+        Boolean exist = false;
+        for (RunningActions ract:repo.findAllByComplited(0) ) {
             if (ract.getAccountLoginID().equals(userID) && ract.getActionTitleID().equals(actionID)) {
+                exist = true;
+                ractBonus = actRepo.findById(ract.getActionTitleID()).getSupportReward();
                 repo.changeProgress(ract.getId(), ract.getPercentOfComplete() + 1);
                 //Создаем запись в истории операций
                 Calendar c = Calendar.getInstance();
                 Long date = c.getTimeInMillis();
+
                 StaffOperationHistory newOperation = new StaffOperationHistory();
                 newOperation.setStaffAccountID(barmenID);
                 newOperation.setActionID(actionID);
@@ -667,6 +1137,26 @@ public class ServicesImpl implements Services {
                     newOperation.setOperationType("Отсканировал код,выдал награду для друга, выдал купон");
                     couponsRepo.saveAndFlush(newCoupon);
                     repo.changeComplitedStatus(ract.getId());
+                    //Создать QR-код
+                    generateQRforRact("coupon",userID, actionID);
+                    //Создать сарафанку
+                    generateSarafunkaforRact("coupon",userID, actionID);
+                    //Отправить смс со ссылкой на скачивание сарафанки
+                    BitlyApis bitlyApis = new BitlyApis(Constants.Social.bitlyAccessToken);
+
+                    String textToSend = Constants.URL.HOST +"/sarafunkas/"+newCoupon.getPathToSarafunka();
+                    String shortURL = bitlyApis.shortenEncodedUrl(textToSend);
+                    SocialSender socialSender = createSocialSender("whatsapp");
+
+                    String result = socialSender.send("Ссылка на скачивание вашей финальной сарафанки "+shortURL,accRepo.findByid(ract.getAccountLoginID()).getPhoneNumber());
+                    switch ( result){
+                        case "false":
+                            return "error";
+
+                        case "true":
+                            return "finish";
+
+                    }
 
                 }
 
@@ -674,7 +1164,11 @@ public class ServicesImpl implements Services {
                 break;
             }
         }
-        return 1;
+        if (exist)
+        return ractBonus;
+        else{
+            return "noexist";
+        }
     }
 
     public Integer addNewInvite(String initLogin, Long actionID, Long[] targetLogins) {
@@ -747,40 +1241,31 @@ public class ServicesImpl implements Services {
     }
 
     @Override
-    public Integer deleteUsedCoupon(String Login, Long actionID,String barmenLogin) {
-        Long accountID= Long.valueOf(0);
-        Long barmenAccountID = accRepo.findBylogin(barmenLogin).getId();
-
-        for (Account acc:accRepo.findAll()) {
-            if (acc.getLogin().equals(Login)){
-                accountID = acc.getId();
-                break;
-            }
-        }
-
-
-        //Удаляем купон
+    public String deleteUsedCoupon(Long accountID, Long actionID, Long staffID) {
+        String bonus="";
+        boolean exist = false;
+              //Удаляем купон
         for (Coupon coupon:couponsRepo.findAll()) {
             if (coupon.getAccountID().equals(accountID) &&coupon.getActionID().equals(actionID)){
                 couponsRepo.delete(coupon.getId());
-
+                exist = true;
                 //Создаем запись в историю операций
                 Calendar c = Calendar.getInstance();
                 Long date = c.getTimeInMillis();
                 StaffOperationHistory newOperation = new StaffOperationHistory();
-                newOperation.setStaffAccountID(barmenAccountID);
+                newOperation.setStaffAccountID(staffID);
                 newOperation.setActionID(actionID);
                 newOperation.setClientAccountID(accountID);
                 newOperation.setOperationType("Отсканировал купон и выдал приз");
                 newOperation.setOperationDate(date);
                 staffOperationHistoryRepository.saveAndFlush(newOperation);
+                bonus = actRepo.findById(coupon.getActionID()).getReward();
                 break;
-
-
             }
         }
-
-        return 3 ;
+        if (exist)
+                return bonus ;
+        else return  "noexist";
     }
 
     @Override
@@ -878,7 +1363,7 @@ public class ServicesImpl implements Services {
         if (!est.equals("Все заведения")){
             ActionAccess actionAccess = new ActionAccess();
             actionAccess.setActionID(newAction.getId());
-            actionAccess.setEstablishmentID(establishmentRepository.findByFactAdress(est).getId());
+            actionAccess.setEstablishmentID(establishmentRepository.findByEstName(est).getId());
             actionAccessRepository.saveAndFlush(actionAccess);
         }
         return 1;
