@@ -25,13 +25,13 @@ public class Action {
     private Long creatorsID;
     @Column(name="typeOfAction",nullable = false,length = 30)
     private String typeOfAction;
-    @Column(name="reward",nullable = false,length = 30)
+    @Column(name="reward",nullable = false,length = 80)
     private String reward;
-    @Column(name="supportReward",nullable = false,length = 30)
+    @Column(name="supportReward",nullable = false,length = 80)
     private String supportReward;
     @Column(name="peopleUsed",nullable = false,length = 30)
     private Integer peopleUsed;
-    @Column(name="target",nullable = false,length = 30)
+    @Column(name="target",nullable = false,length = 10)
     private Integer target;
     @Column(name="timeStart",nullable = false,length = 30)
     private Long timeStart;

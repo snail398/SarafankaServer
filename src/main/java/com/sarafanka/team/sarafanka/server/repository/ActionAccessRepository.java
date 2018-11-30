@@ -9,4 +9,5 @@ import java.util.List;
 public interface ActionAccessRepository extends JpaRepository<ActionAccess,Long> {
     ActionAccess findByid(Long id);
     List<ActionAccess> findActionAccessesByEstablishmentID(Long id);
+    ActionAccess findActionAccessByActionID(Long id);
 }

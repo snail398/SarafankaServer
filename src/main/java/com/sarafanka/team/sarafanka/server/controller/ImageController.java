@@ -59,7 +59,7 @@ public class ImageController {
 
     @RequestMapping(value="/gen", method=RequestMethod.GET)
     public String createPDF() throws IOException {
-        /*
+
         String sarafankaType = "sarafunka";
         Long accountID =Long.valueOf(28);
         Long actionID=Long.valueOf(11);
@@ -118,24 +118,24 @@ public class ImageController {
 
 
             Phrase titlePhrase = new Phrase(title,new Font(bf,19.9f));
-            Phrase advicePhrase = new Phrase(advice,new Font(bf,13.4f));
-            Phrase companyNamePhrase = new Phrase("\""+companyName+"\"",new Font(bf,20));
-            Phrase companyAddressPhrase = new Phrase(companyAddress,new Font(bf,13.4f));
+            Phrase advicePhrase = new Phrase(advice,new Font(bf,13.4f*1.3f));
+            Phrase companyNamePhrase = new Phrase("\""+companyName+"\"",new Font(bf,20*1.3f));
+            Phrase companyAddressPhrase = new Phrase(companyAddress,new Font(bf,13.4f*1.3f));
           //  Phrase phrase5 = new Phrase(createUniqID(sarafankaType,accountID,actionID),new Font(bf,45));
             Phrase uniqPhrase = new Phrase("S000000000",new Font(bf,15));
 
 
             Anchor compamyPhonePhrase = new Anchor(
-                    compamyPhone,new Font(bf,13.4f));
+                    compamyPhone,new Font(bf,13.4f*1.3f));
             compamyPhonePhrase.setReference(
                     "tel: "+compamyPhone);
             Anchor anchor = new Anchor(
-                    companySite,new Font(bf,13.4f));
+                    companySite,new Font(bf,13.4f*1.3f));
             anchor.setReference(
                     companySite);
 
-            Anchor textAnchor = new Anchor("Проверить подлинность и срок действия сарафанки:",new Font(bf,10));
-            Anchor siteAnchor = new Anchor("www.sarafun.info",new Font(bf,10));
+            Anchor textAnchor = new Anchor("Проверить подлинность и срок действия сарафанки:",new Font(bf,10*1.3f));
+            Anchor siteAnchor = new Anchor("www.sarafun.info",new Font(bf,10*1.3f));
             textAnchor.setReference("http://sarafun.info:4200/ractstatus?ractid="+runningActionsRepository.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId());
             siteAnchor.setReference("http://sarafun.info:4200/ractstatus?ractid="+runningActionsRepository.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId());
 
@@ -194,15 +194,15 @@ public class ImageController {
             ColumnText.showTextAligned(cb,
                     Element.ALIGN_CENTER, textAnchor, sarWidth/2, sarHeight*0.0444f, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, siteAnchor, sarWidth/2, sarHeight*0.0296f, 0);
-
+                    Element.ALIGN_CENTER, siteAnchor, sarWidth/2, sarHeight*0.0285f, 0);
+/*
             String qrURL="";
             String pathToSarafanka ="";
             String fuckingPath=Constants.URL.HOST+"/qrcodes/";
             switch (sarafankaType){
                 case "sarafunka":
-                    qrURL =fuckingPath+repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getPathToQRCode();
-                    pathToSarafanka = repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getPathToSarafunkaForFriend();
+                    qrURL =fuckingPath+runningActionsRepository.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getPathToQRCode();
+                    pathToSarafanka = runningActionsRepository.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getPathToSarafunkaForFriend();
                     break;
                 case "coupon":
                     qrURL =fuckingPath+couponsRepo.findByAccountIDAndActionID(accountID,actionID).getPathToQRCode();
@@ -210,8 +210,8 @@ public class ImageController {
 
                     break;
             }
-
-            Image qr = Image.getInstance(Constants.URL.HOST+"/qrcodes/2f/0e/14f8d7175b3d680227ae419d377e.jpg");
+*/
+            Image qr = Image.getInstance(Constants.URL.HOST+"/qrcodes/0d/ba/afa501b728ef7525159df32b0b1a.jpg");
             Float newHeight = 165f;
             Float newWidth = newHeight;
             qr.scaleAbsolute(newWidth,newHeight);
@@ -226,7 +226,7 @@ public class ImageController {
         } catch (IOException  e) {
             e.printStackTrace();
         }
-        */
+
         return  "done";
 
     }

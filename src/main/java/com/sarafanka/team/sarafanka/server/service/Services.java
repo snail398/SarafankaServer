@@ -10,7 +10,7 @@ public interface Services {
 
     List<Action> getRunningActionsByLoginAndOrgId(String lgn, Long orgId, Integer ifComplited);
     Integer  addNewRunningActions(String lgn,Long id);
-    Integer  addNewRunningActions(Account acc,Long id,String messageType) throws IOException, WriterException;
+    Integer  addNewRunningActions(Account acc, Long id, String messageType, Long staffid) throws IOException, WriterException;
 
     List<Account> getFriendsForInvite(String lgn, Long actionID);
     List<Account> getFriends(String lgn);

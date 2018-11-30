@@ -15,19 +15,19 @@ public class Establishment {
 
     @Column(name="companyID",nullable = false,length = 30)
     private Long companyID;
-    @Column(name="factAdress",nullable = false,length = 30)
+    @Column(name="factAdress",nullable = false,length = 120)
     private String factAdress;
-    @Column(name="estname",nullable = false,length = 30 )
+    @Column(name="estname",nullable = false,length = 70 )
     private String estName;
-    @Column(name="estemail",nullable = false,length = 30 )
+    @Column(name="estemail",nullable = false,length = 50 )
     private String estEmail;
-    @Column(name="estSite",nullable = false,length = 30 )
+    @Column(name="estSite",nullable = false,length = 50 )
     private String estSite;
-    @Column(name="estdescription",nullable = false,length = 120 )
+    @Column(name="estdescription",nullable = false,length = 300 )
     private String estDescription;
     @Column(name="estphone",nullable = false,length = 30)
     private String estPhone;
-    @Column(name="estworktime",nullable = false,length = 250 )
+    @Column(name="estworktime",nullable = false,length = 300 )
     private String estWorkTime;
     @Column(name="pathToAvatar",length = 150)
     private String pathToAvatar;

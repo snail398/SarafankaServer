@@ -13,7 +13,7 @@ public class Company {
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
 
-    @Column(name="title",nullable = false,length = 30)
+    @Column(name="title",nullable = false,length = 70)
     private String title;
     @Column(name="adress",nullable = false,length = 120)
     private String adress;
@@ -21,7 +21,7 @@ public class Company {
     private String companyType;
     @Column(name="category",nullable = false,length = 120)
     private String category;
-    @Column(name="description",nullable = false,length = 120)
+    @Column(name="description",nullable = false,length = 300)
     private String description;
     @Column(name="phone",nullable = false,length = 120)
     private String phone;

@@ -30,9 +30,12 @@ public class RunningActionsController {
 
     @RequestMapping(value = "/runningactions/newract", method = RequestMethod.POST)
     @ResponseBody
-    public Integer addNewRunningActions(@RequestBody Account acc, @RequestParam (value ="action",required = true,defaultValue = "") Long id,@RequestParam (value ="messagetype",required = true,defaultValue = "") String messageType) throws IOException, WriterException {
+    public Integer addNewRunningActions(@RequestBody Account acc,
+                                        @RequestParam (value ="action",required = true,defaultValue = "") Long id,
+                                        @RequestParam (value ="messagetype",required = true,defaultValue = "") String messageType,
+                                        @RequestParam (value ="staffid",required = true,defaultValue = "") Long staffid) throws IOException, WriterException {
 
-        return services.addNewRunningActions(acc,id,messageType);
+        return services.addNewRunningActions(acc,id,messageType,staffid);
     }
     //Получение списка названий акций,вкоторых участвует данный логин
     @RequestMapping(value = "/getrunningactionsbylogin", method = RequestMethod.GET)

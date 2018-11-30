@@ -24,10 +24,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class ServicesImpl implements Services {
@@ -82,14 +80,26 @@ public class ServicesImpl implements Services {
     public List<StaffOperationHistoryForApp> getBarmenOperations(Long staffID) {
         List<StaffOperationHistory> history = staffOperationHistoryRepository.findByStaffAccountID(staffID);
         List<StaffOperationHistoryForApp> historyForApp = new ArrayList<>();
+        history.sort(new Comparator<StaffOperationHistory>() {
+            @Override
+            public int compare(StaffOperationHistory o1, StaffOperationHistory o2) {
+                return o2.getOperationDate().compareTo(o1.getOperationDate());
+            }
+        });
         for (StaffOperationHistory operation: history) {
             if (operation.getStaffAccountID().equals(staffID)) {
                 StaffOperationHistoryForApp operationForApp = new StaffOperationHistoryForApp();
                 operationForApp.setStaffAccount(accRepo.findByid(operation.getStaffAccountID()).getLogin());
-                operationForApp.setClientAccount(accRepo.findByid(operation.getClientAccountID()).getLogin());
+                if(accRepo.findByid(operation.getClientAccountID())==null) continue;
+                String clientName=accRepo.findByid(operation.getClientAccountID()).getLogin();
+                if (accRepo.findByid(operation.getClientAccountID()).getLogin().equals("Ваш E-mail"))
+                    clientName = accRepo.findByid(operation.getClientAccountID()).getPhoneNumber();
+                operationForApp.setClientAccount(clientName);
                 operationForApp.setOperationType(operation.getOperationType());
                 operationForApp.setOperationDate(operation.getOperationDate());
-                operationForApp.setAction(actRepo.findById(operation.getActionID()).getDescription());
+
+                if(actRepo.findById(operation.getActionID())==null) continue;
+                operationForApp.setAction(actRepo.findById(operation.getActionID()).getReward());
                 historyForApp.add(operationForApp);
             }
         }
@@ -270,7 +280,7 @@ public class ServicesImpl implements Services {
     }
 
     @Override
-    public Integer addNewRunningActions(Account acc, Long id, String messageType) throws IOException, WriterException {
+    public Integer addNewRunningActions(Account acc, Long id, String messageType,Long staffID) throws IOException, WriterException {
 
         Boolean duplicateEmail =false;
         Boolean duplicatePhone =false;
@@ -324,6 +334,14 @@ public class ServicesImpl implements Services {
 
         if (!duplicateRunAct)
         repo.saveAndFlush(runAct);
+
+        StaffOperationHistory newOperation = new StaffOperationHistory();
+        newOperation.setStaffAccountID(staffID);
+        newOperation.setActionID(runAct.getActionTitleID());
+        newOperation.setClientAccountID(runAct.getAccountLoginID());
+        newOperation.setOperationType("Запустил акцию");
+        newOperation.setOperationDate(date);
+        staffOperationHistoryRepository.saveAndFlush(newOperation);
 
         BitlyApis bitlyApis = new BitlyApis(Constants.Social.bitlyAccessToken);
 
@@ -527,6 +545,11 @@ public class ServicesImpl implements Services {
         String price="";
         String title ="";
         String advice ="";
+        String companyName = "";
+        String companyAddress = "";
+        String compamyPhone = "";
+        String companySite = "";
+
         switch (sarafankaType){
             case "sarafunka":
                 price = action.getSupportReward();
@@ -539,13 +562,21 @@ public class ServicesImpl implements Services {
                 advice ="Бонус можно получить в";
                 break;
         }
-        String companyName = company.getTitle();
-        String companyAddress = company.getAdress();
-        String compamyPhone = company.getPhone();
-        String companySite = "www."+company.getSite();
-
+        if (actionAccessRepository.findActionAccessByActionID(actionID)!=null){
+            ActionAccess aa = actionAccessRepository.findActionAccessByActionID(actionID);
+            Establishment est  = establishmentRepository.findByid(aa.getEstablishmentID());
+            companyName = est.getEstName();
+            companyAddress = est.getFactAdress();
+            compamyPhone = est.getEstPhone();
+            companySite = "www."+est.getEstSite();
+        }
+        else {
+            companyName = company.getTitle();
+            companyAddress = company.getAdress();
+            compamyPhone = company.getPhone();
+            companySite = "www." + company.getSite();
+        }
         try {
-
             // Create output PDF
             Document document = new Document();
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
@@ -1086,7 +1117,7 @@ public class ServicesImpl implements Services {
                 newOperation.setStaffAccountID(barmenID);
                 newOperation.setActionID(actionID);
                 newOperation.setClientAccountID(accountID);
-                newOperation.setOperationType("Отсканировал код и выдал награду для друга");
+                newOperation.setOperationType("Выдал награду для реферала");
                 newOperation.setOperationDate(date);
                 if (ract.getPercentOfComplete() >= tempAct.getTarget()-1) {
                     //Выдать купон
@@ -1095,7 +1126,7 @@ public class ServicesImpl implements Services {
                     newCoupon.setActionID(actionID);
                     newCoupon.setCompanyID(tempAct.getOrganizationID());
                     newCoupon.setReward(tempAct.getReward());
-                    newOperation.setOperationType("Отсканировал код,выдал награду для друга, выдал купон");
+                    newOperation.setOperationType("Выдал награду для реферала, аффилиат выполнил задание");
                     couponsRepo.saveAndFlush(newCoupon);
                     repo.changeComplitedStatus(ract.getId());
 
@@ -1116,6 +1147,7 @@ public class ServicesImpl implements Services {
             if (ract.getAccountLoginID().equals(userID) && ract.getActionTitleID().equals(actionID)) {
                 exist = true;
                 ractBonus = actRepo.findById(ract.getActionTitleID()).getSupportReward();
+                Integer tempPercentOfComplite = ract.getPercentOfComplete() + 1;
                 repo.changeProgress(ract.getId(), ract.getPercentOfComplete() + 1);
                 //Создаем запись в истории операций
                 Calendar c = Calendar.getInstance();
@@ -1125,18 +1157,17 @@ public class ServicesImpl implements Services {
                 newOperation.setStaffAccountID(barmenID);
                 newOperation.setActionID(actionID);
                 newOperation.setClientAccountID(userID);
-                newOperation.setOperationType("Отсканировал код и выдал награду для друга");
+                newOperation.setOperationType("Выдал награду для реферала");
                 newOperation.setOperationDate(date);
-                if (ract.getPercentOfComplete() >= actRepo.findById(actionID).getTarget()-1) {
+                if (tempPercentOfComplite >= actRepo.findById(actionID).getTarget()) {
                     //Выдать купон
                     Coupon newCoupon = new Coupon();
                     newCoupon.setAccountID(userID);
                     newCoupon.setActionID(actionID);
                     newCoupon.setCompanyID(actRepo.findById(actionID).getOrganizationID());
                     newCoupon.setReward(actRepo.findById(actionID).getReward());
-                    newOperation.setOperationType("Отсканировал код,выдал награду для друга, выдал купон");
+                    newOperation.setOperationType("Выдал награду для реферала, аффилиат выполнил задание");
                     couponsRepo.saveAndFlush(newCoupon);
-                    repo.changeComplitedStatus(ract.getId());
                     //Создать QR-код
                     generateQRforRact("coupon",userID, actionID);
                     //Создать сарафанку
@@ -1147,6 +1178,7 @@ public class ServicesImpl implements Services {
                     String textToSend = Constants.URL.HOST +"/sarafunkas/"+newCoupon.getPathToSarafunka();
                     String shortURL = bitlyApis.shortenEncodedUrl(textToSend);
                     SocialSender socialSender = createSocialSender("whatsapp");
+                    repo.changeComplitedStatus(ract.getId());
 
                     String result = socialSender.send("Ссылка на скачивание вашей финальной сарафанки "+shortURL,accRepo.findByid(ract.getAccountLoginID()).getPhoneNumber());
                     switch ( result){
@@ -1256,7 +1288,7 @@ public class ServicesImpl implements Services {
                 newOperation.setStaffAccountID(staffID);
                 newOperation.setActionID(actionID);
                 newOperation.setClientAccountID(accountID);
-                newOperation.setOperationType("Отсканировал купон и выдал приз");
+                newOperation.setOperationType("Выдал награду для аффилиата");
                 newOperation.setOperationDate(date);
                 staffOperationHistoryRepository.saveAndFlush(newOperation);
                 bonus = actRepo.findById(coupon.getActionID()).getReward();
@@ -1323,7 +1355,7 @@ public class ServicesImpl implements Services {
     public Integer changeCompanyInfoByMain(String login, String newName,String newCategory, String newType,String newDescription, String newAdress,String newPhone,String newSite) {
         Long accID = accRepo.findBylogin(login).getId();
         Long companyID = marketologRepo.findByAccountID(accID).getCompanyID();
-        comRepo.changeCompanyInfo(companyID,newName,newCategory,newType,newDescription,newAdress,newPhone,newSite);
+       // comRepo.changeCompanyInfo(companyID,newName,newCategory,newType,newDescription,newAdress,newPhone,newSite);
         return 1;
     }
 
@@ -1336,7 +1368,10 @@ public class ServicesImpl implements Services {
                                             newBrandInfo.getDescription(),
                                             newBrandInfo.getAdress(),
                                             newBrandInfo.getPhone(),
-                                            newBrandInfo.getSite());
+                                            newBrandInfo.getSite(),
+                newBrandInfo.getInn(),
+                newBrandInfo.getKpp(),
+                newBrandInfo.getOgrn());
     }
 
     @Override
@@ -1767,6 +1802,12 @@ public class ServicesImpl implements Services {
                 break;
         }
 
+        resultActionsList.sort(new Comparator<Action>() {
+            @Override
+            public int compare(Action o1, Action o2) {
+                return Long.valueOf(o2.getId()).compareTo(o1.getId());
+            }
+        });
         return resultActionsList;
     }
 
