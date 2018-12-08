@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html  prefix="og: http://ogp.me/ns# " xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добро пожаловать!</title>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/style.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://vk.com/js/api/share.js?95" charset="windows-1251"></script>
+    <script type="text/javascript" th:src="@{~/css/js/jquery.gdocsviewer.js}"></script>
+    <!--
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('a.embed').gdocsViewer({width: 630, height: 600});
+        });
+    </script>
+-->
+    <script type="text/javascript">
+        $(document).ready(function(){ // функция будет выполнена при полной загрузке страницы
+            setTimeout(function(){ // если нужно устанавливаем задержку выполнения действия
+                $('a.embed').click(); // имитируем нажатие кнопкой мишы на блок
+            },5000); // время задержки в милисикундах
+        });
+    </script>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Для twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Заголовок для репоста в twitter">
+    <meta name="twitter:description" content="Подпись для репоста в twitter">
+    <meta name="twitter:image:src" content="http://sarafun.info:4200/sarafunkas/14\9e\7ad0e753b02298b36db740a14f57.pdf">
+    <meta name="twitter:url" content="http://sarafun.info:4200/jpg/sarafunkas/14\9e\7ad0e753b02298b36db740a14f57.pdf">
+    <meta name="twitter:domain" content="vk-book.ru">
+
+    <!-- Для всех остальных -->
+    <meta property="og:title" content="Заголовок для репоста"/>
+    <meta property="og:description" content="Подпись для репоста" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://localhost:8080/sarafunkas/c2\56\cf61af3f00ee09886a24ab5bab82.pdf">
+    <meta property="og:image" content="http://sarafun.info:4200/sarafunkas/jpg/14\9e\7ad0e753b02298b36db740a14f57.pdf"/>
+    <meta property="og:image:type" content="image/jpg">
+    <!--
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="628" />
+-->
+    <title>Сарафанка pdf page</title>
+
+</head>
+<body>
+<div class="wrapper">
+
+    <a th:href="${fullsarpath}" class="embed" id="embedURL">Download file</a>
+    <embed src="http://localhost:8080/sarafunkas/c2\56\cf61af3f00ee09886a24ab5bab82.pdf" type="application/pdf" width="100%" height="600px" />
+</div>
+</body>
+</html>

@@ -2,6 +2,8 @@ package com.sarafanka.team.sarafanka.server.controller;
 
 import com.itextpdf.layout.element.Link;
 import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.*;
 import com.sarafanka.team.sarafanka.server.Constants;
 import com.sarafanka.team.sarafanka.server.ImageHandler;
@@ -23,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.tiogasolutions.apis.bitly.BitlyApis;
 
 import javax.annotation.Resource;
+import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -59,7 +62,6 @@ public class ImageController {
 
     @RequestMapping(value="/gen", method=RequestMethod.GET)
     public String createPDF() throws IOException {
-
         String sarafankaType = "sarafunka";
         Long accountID =Long.valueOf(28);
         Long actionID=Long.valueOf(11);
@@ -123,21 +125,28 @@ public class ImageController {
             Phrase companyAddressPhrase = new Phrase(companyAddress,new Font(bf,13.4f*1.3f));
           //  Phrase phrase5 = new Phrase(createUniqID(sarafankaType,accountID,actionID),new Font(bf,45));
             Phrase uniqPhrase = new Phrase("S000000000",new Font(bf,15));
-
+            Phrase conditionPhrase = new Phrase("*"+action.getCondition(),new Font(bf,10*1.3f));
 
             Anchor compamyPhonePhrase = new Anchor(
                     compamyPhone,new Font(bf,13.4f*1.3f));
             compamyPhonePhrase.setReference(
                     "tel: "+compamyPhone);
-            Anchor anchor = new Anchor(
-                    companySite,new Font(bf,13.4f*1.3f));
+            Chunk anchorChunk = new Chunk(companySite,new Font(bf,13.4f*1.3f));
+            anchorChunk.setUnderline(BaseColor.WHITE,0.2f,0,-2,0,0);
+            Anchor anchor = new Anchor(anchorChunk);
             anchor.setReference(
                     companySite);
 
-            Anchor textAnchor = new Anchor("Проверить подлинность и срок действия сарафанки:",new Font(bf,10*1.3f));
-            Anchor siteAnchor = new Anchor("www.sarafun.info",new Font(bf,10*1.3f));
+            Chunk textChunk = new Chunk("Проверить подлинность и срок действия сарафанки:",new Font(bf,10*1.3f));
+            Chunk siteChunk = new Chunk("www.sarafun.info",new Font(bf,10*1.3f));
+            textChunk.setUnderline(BaseColor.WHITE,0.2f,0,-2,0,0);
+            siteChunk.setUnderline(BaseColor.WHITE,0.2f,0,-2,0,0);
+            Anchor textAnchor = new Anchor(textChunk);
+            Anchor siteAnchor = new Anchor(siteChunk);
             textAnchor.setReference("http://sarafun.info:4200/ractstatus?ractid="+runningActionsRepository.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId());
             siteAnchor.setReference("http://sarafun.info:4200/ractstatus?ractid="+runningActionsRepository.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId());
+
+
 
             ColumnText.showTextAligned(cb,
                     Element.ALIGN_LEFT, titlePhrase, sarWidth*0.32f, sarHeight*0.907f, 0);
@@ -162,12 +171,12 @@ public class ImageController {
                     space =price.length()/2-endSpace ;
                 }
                 arr[0]="На "+price.substring(0,space);
-                arr[1]=price.substring(space)+"!";
+                arr[1]=price.substring(space)+"!*";
                 startY=sarHeight*0.78f;
             }
             else{
                 rowCol=1;
-                arr[0]="На "+price+"!";
+                arr[0]="На "+price+"!*";
                 startY=sarHeight*0.78f-sarHeight*0.055f/2;
             }
 
@@ -180,22 +189,24 @@ public class ImageController {
             ColumnText.showTextAligned(cb,
                     Element.ALIGN_CENTER, uniqPhrase, sarWidth/2, sarHeight*0.257f, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, advicePhrase, sarWidth/2, sarHeight*0.206f, 0);
+                    Element.ALIGN_CENTER, advicePhrase, sarWidth/2, sarHeight*0.206f+15, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, companyNamePhrase, sarWidth/2, sarHeight*0.161f, 0);
+                    Element.ALIGN_CENTER, companyNamePhrase, sarWidth/2, sarHeight*0.161f+15, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, companyAddressPhrase, sarWidth/2, sarHeight*0.132f, 0);
+                    Element.ALIGN_CENTER, companyAddressPhrase, sarWidth/2, sarHeight*0.132f+15, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, compamyPhonePhrase, sarWidth/2, sarHeight*0.102f, 0);
+                    Element.ALIGN_CENTER, compamyPhonePhrase, sarWidth/2, sarHeight*0.102f+15, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, anchor, sarWidth/2, sarHeight*0.077f, 0);
+                    Element.ALIGN_CENTER, anchor, sarWidth/2, sarHeight*0.077f+15, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, conditionPhrase, sarWidth/2, sarHeight*0.069f, 0);
 
 
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, textAnchor, sarWidth/2, sarHeight*0.0444f, 0);
+                    Element.ALIGN_CENTER, textAnchor, sarWidth/2, sarHeight*0.0494f, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, siteAnchor, sarWidth/2, sarHeight*0.0285f, 0);
-/*
+                   Element.ALIGN_CENTER, siteAnchor, sarWidth/2, sarHeight*0.0285f, 0);
+
             String qrURL="";
             String pathToSarafanka ="";
             String fuckingPath=Constants.URL.HOST+"/qrcodes/";
@@ -210,7 +221,7 @@ public class ImageController {
 
                     break;
             }
-*/
+
             Image qr = Image.getInstance(Constants.URL.HOST+"/qrcodes/0d/ba/afa501b728ef7525159df32b0b1a.jpg");
             Float newHeight = 165f;
             Float newWidth = newHeight;

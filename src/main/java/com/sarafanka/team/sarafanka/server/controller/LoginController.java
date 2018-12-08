@@ -127,6 +127,7 @@ public class LoginController {
             newAcc.setSecondName(secondname);
             newAcc.setPathToAvatar("noavatar");
             newAcc.setCreatingDate(date);
+            newAcc.setPhoneNumber("0");
             accRep.saveAndFlush(newAcc);
             responseCode =1;
         }
@@ -201,6 +202,7 @@ public class LoginController {
             newAcc.setSecondName(secondname);
             newAcc.setPathToAvatar("noavatar");
             newAcc.setCreatingDate(date);
+            newAcc.setPhoneNumber("0");
             accRep.saveAndFlush(newAcc);
             Barmen barmen = new Barmen();
             barmen.setAccountID(accRep.findBylogin(targetLogin).getId());

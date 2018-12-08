@@ -1,12 +1,10 @@
 package com.sarafanka.team.sarafanka.server.controller;
 
+import com.sarafanka.team.sarafanka.server.entity.BarmenWorkingPlace;
 import com.sarafanka.team.sarafanka.server.entity.Company;
 import com.sarafanka.team.sarafanka.server.entity.Establishment;
 import com.sarafanka.team.sarafanka.server.entity.MarketologWorkingPlace;
-import com.sarafanka.team.sarafanka.server.repository.AccountRepository;
-import com.sarafanka.team.sarafanka.server.repository.CompaniesRepository;
-import com.sarafanka.team.sarafanka.server.repository.EstablishmentRepository;
-import com.sarafanka.team.sarafanka.server.repository.MarketologRepository;
+import com.sarafanka.team.sarafanka.server.repository.*;
 import com.sarafanka.team.sarafanka.server.service.Services;
 import com.sarafanka.team.sarafanka.server.service.ServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +20,10 @@ public class EstablishmentsController {
     private AccountRepository accRepository;
     @Autowired
     private MarketologRepository marRepository;
+    @Autowired
+    private MarketologWorkingPlaceRepository mwpRepo;
+    @Autowired
+    private BarmenWorkingPlaceRepository bwpRepo;
     @Autowired
     private Services services = new ServicesImpl();
 
@@ -51,6 +53,33 @@ public class EstablishmentsController {
     public Integer deleteEstablishments(@RequestParam(value ="estid",required = true,defaultValue = "") Long id)
     {
         estRepository.delete(id);
+        for (BarmenWorkingPlace bwp:bwpRepo.findAllByEstablishmentID(id)) {
+        bwpRepo.delete(bwp);
+        //Если не осталось записи о рабочем месте бармена (Если работал только в удаляемом заведении),
+        //Тогда будет работать во всех заведениях
+        if (bwpRepo.findAllByBarmenID(bwp.getbarmenID())==null){
+            for (Establishment est: estRepository.findByCompanyID(estRepository.findByid(id).getCompanyID())) {
+                BarmenWorkingPlace newBWP = new BarmenWorkingPlace();
+                newBWP.setbarmenID(bwp.getbarmenID());
+                newBWP.setEstablishmentID(est.getId());
+                bwpRepo.saveAndFlush(newBWP);
+            }
+        }
+    }
+
+        for (MarketologWorkingPlace mwp:mwpRepo.findAllByEstablishmentID(id)) {
+            mwpRepo.delete(mwp);
+            //Если не осталось записи о рабочем месте маркетолога (Если работал только в удаляемом заведении),
+            //Тогда будет работать во всех заведениях
+            if (mwpRepo.findAllByMarketologID(mwp.getMarketologID())==null){
+                for (Establishment est: estRepository.findByCompanyID(estRepository.findByid(id).getCompanyID())) {
+                    MarketologWorkingPlace newMWP = new MarketologWorkingPlace();
+                    newMWP.setMarketologID(mwp.getMarketologID());
+                    newMWP.setEstablishmentID(est.getId());
+                    mwpRepo.saveAndFlush(newMWP);
+                }
+            }
+        }
         return 1;
     }
 

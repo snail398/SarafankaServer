@@ -160,7 +160,7 @@ public class ActionController {
     @RequestMapping(value = "/actions/changeaction", method = RequestMethod.POST)
     @ResponseBody
     public Integer changeAction(@RequestBody Action action,@RequestParam(value ="est",required = true,defaultValue = "")String est){
-        actionRepository.changeAction(action.getId(),action.getReward(),action.getSupportReward(),action.getTarget(),action.getDescription(),action.getTimeStart(),action.getTimeEnd());
+        actionRepository.changeAction(action.getId(),action.getReward(),action.getSupportReward(),action.getTarget(),action.getDescription(),action.getTimeStart(),action.getTimeEnd(),action.getCondition());
         for (ActionAccess actionAccess: actionAccessRepository.findAll()) {
             if (actionAccess.getActionID().equals(action.getId())){
                 actionAccessRepository.delete(actionAccess);

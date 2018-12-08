@@ -1,0 +1,58 @@
+body{
+    width: 100%;
+    background: #1D0937;
+}
+
+img{
+    display: block;
+    width: auto;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    height: 800px;
+}
+
+p{
+    text-align: center;
+    font-size: 10ex;
+    color: white;
+}
+.tip{
+    font-size: 6ex;
+}
+.wrapper{
+    margin: 0 auto;
+    width: 100%;
+}
+.download-button{
+    display:block;
+    text-decoration: none;
+    color: white;
+    width: 30%;
+
+    font-size: 3em;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#8c53db+0,7db9e8+100 */
+    background: #fb2575; /* Old browsers */
+    background: -moz-linear-gradient(left, #fb2575 0%, #8936d3 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #fb2575 0%,#8936d3 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #fb2575 0%,#8936d3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fb2575', endColorstr='#8936d3',GradientType=1 ); /* IE6-9 */
+    border-radius: 30px;
+    margin: 0 auto;
+    display: block;
+    height: 150px;
+    line-height: 150px;
+    text-align: center;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.embed{
+    position: absolute;
+   /* visibility: hidden; */
+}
+iframe {
+    width: 100%;
+}

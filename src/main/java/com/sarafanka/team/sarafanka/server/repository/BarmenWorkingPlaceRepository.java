@@ -11,4 +11,5 @@ public interface BarmenWorkingPlaceRepository extends JpaRepository<BarmenWorkin
     List<BarmenWorkingPlace>  findBarmenWorkingPlacesByBarmenID(Long id);
     BarmenWorkingPlace findByBarmenID(Long id);
     List<BarmenWorkingPlace> findAllByBarmenID(Long id);
+    List<BarmenWorkingPlace> findAllByEstablishmentID(Long id);
 }

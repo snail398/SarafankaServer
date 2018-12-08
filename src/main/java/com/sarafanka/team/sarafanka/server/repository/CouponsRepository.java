@@ -12,6 +12,7 @@ import java.util.List;
 public interface CouponsRepository extends JpaRepository<Coupon,Long> {
     List<Coupon> findByActionID(Long actionID);
     Coupon findByAccountIDAndActionID(Long accountID,Long actionID);
+    List<Coupon>  findAllByAccountIDAndActionID(Long accountID,Long actionID);
 
     @Modifying
     @Query("update Coupon coupon set coupon.pathToQRCode = :path where coupon.id = :id")

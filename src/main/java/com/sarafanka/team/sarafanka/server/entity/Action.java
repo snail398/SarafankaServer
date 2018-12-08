@@ -37,7 +37,16 @@ public class Action {
     private Long timeStart;
     @Column(name="timeEnd",nullable = false,length = 30)
     private Long timeEnd;
+    @Column(name="condition",nullable = true,length = 300)
+    private String condition;
 
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
 
     public Long getCreatorsID() {
         return creatorsID;

@@ -102,5 +102,26 @@ public class HTMLController {
     }
 
 
+    @RequestMapping("/stat")
+    public String stat(@RequestParam(value ="ractid",required = true,defaultValue = "") Long ractID,Model model) {
+        RunningActions currentRunningActions = repo.findByid(ractID);
+        Account currentAccount = accRep.findByid(currentRunningActions.getAccountLoginID());
+        Action currentAction =  actionRepository.findById(currentRunningActions.getActionTitleID());
+
+
+        model.addAttribute("phoneNumber", currentAccount.getPhoneNumber());
+        model.addAttribute("progress", currentRunningActions.getPercentOfComplete());
+        model.addAttribute("target", currentAction.getTarget());
+        model.addAttribute("bonus", currentAction.getReward());
+        model.addAttribute("qrpath", "/sarafunkas/jpg/" +currentRunningActions.getPathToSarafunkaForFriend().substring(0,currentRunningActions.getPathToSarafunkaForFriend().indexOf("."))+".png");
+        model.addAttribute("sarpath", "/sarafunkas/" +currentRunningActions.getPathToSarafunkaForFriend());
+        model.addAttribute("fullsarpath", "http://sarafun.info:4200/sarafunkas/" +currentRunningActions.getPathToSarafunkaForFriend());
+        model.addAttribute("vkpath", "https://vk.com/share.php?url=http://sarafun.info:4200/sarafunkas/" +(currentRunningActions.getPathToSarafunkaForFriend()).replace('\\','/'));
+        model.addAttribute("wapath", "whatsapp://send?text=http://sarafun.info:4200/sarafunkas/" +(currentRunningActions.getPathToSarafunkaForFriend()).replace('\\','/'));
+
+        return "PdfPage";
+    }
+
+
 
 }

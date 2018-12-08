@@ -136,6 +136,7 @@ public class ServicesImpl implements Services {
             newAcc.setSecondName(secondname);
             newAcc.setCreatingDate(date);
             newAcc.setPathToAvatar("noavatar");
+            newAcc.setPhoneNumber("0");
             accRepo.saveAndFlush(newAcc);
             Marketolog marketolog = new Marketolog();
             marketolog.setAccountID(accRepo.findBylogin(targetLogin).getId());
@@ -206,6 +207,7 @@ public class ServicesImpl implements Services {
             newAcc.setSecondName(secondname);
             newAcc.setCreatingDate(date);
             newAcc.setPathToAvatar("noavatar");
+            newAcc.setPhoneNumber("0");
             accRepo.saveAndFlush(newAcc);
             //Создание компании
             Company newCompany = new Company();
@@ -351,7 +353,7 @@ public class ServicesImpl implements Services {
         String textToSend = Constants.URL.HOST +"/getract?ractid="+runAct.getId();
         String shortURL = bitlyApis.shortenEncodedUrl(textToSend);
         SocialSender socialSender = createSocialSender(messageType);
-        String result = socialSender.send("Ваш личный кабинет участия в акции: "+shortURL,responseAccount.getPhoneNumber());
+        String result = socialSender.send("Ваш личный кабинет участия в акции: "+shortURL+"\nДля участия ответьте \"ОК\""   ,responseAccount.getPhoneNumber());
         switch ( result){
             case "false":
                 return -2;
@@ -375,7 +377,9 @@ public class ServicesImpl implements Services {
     @Override
     public String getLinkAndBonus(Long userID, Long actionID, Long barmenID) throws IOException {
         BitlyApis bitlyApis = new BitlyApis(Constants.Social.bitlyAccessToken);
-        Coupon  newCoupon = couponsRepo.findByAccountIDAndActionID(userID,actionID);
+        Coupon  newCoupon = new Coupon();
+        List<Coupon> list = couponsRepo.findAllByAccountIDAndActionID(userID,actionID);
+        newCoupon = list.get(list.size()-1);
         String textToSend = Constants.URL.HOST +"/sarafunkas/"+newCoupon.getPathToSarafunka();
         return accRepo.findByid(userID).getPhoneNumber()+bitlyApis.shortenEncodedUrl(textToSend)+"|"+actRepo.findById(newCoupon.getActionID()).getSupportReward();
     }
@@ -409,12 +413,15 @@ public class ServicesImpl implements Services {
         String response ="";
         String strForMD5 ="";
         Integer userCode= 0;
+        Coupon coupon = new Coupon();
         switch (sarafankaType){
             case "sarafunka":
                 strForMD5 = repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId()+"-qrcode";
                 break;
             case "coupon":
-                strForMD5 = couponsRepo.findByAccountIDAndActionID(accountID,actionID).getId()+"-qrcodecoupon";
+                List<Coupon> list = couponsRepo.findAllByAccountIDAndActionID(accountID,actionID);
+                coupon = list.get(list.size()-1);
+                strForMD5 = coupon.getId()+"-qrcodecoupon";
                 break;
         }
         pathToQRCodes = Constants.PathsToFiles.pathToQRCodes;
@@ -449,7 +456,6 @@ public class ServicesImpl implements Services {
                 repo.setPathToQR(ract.getId(),externalFolder+"\\"+internalFolder+"\\"+name);
                 break;
             case "coupon":
-                Coupon coupon = couponsRepo.findByAccountIDAndActionID(accountID,actionID);
                 strForQR = "/coupons/deleteusedcoupon?accountid=" + currentAccount.getId() + "&actionid=" + currentAction.getId();
                     qrGenerator.generateQRCodeImage(strForQR, 540, 540, pathname);
                 coupon.setPathToQRCode(externalFolder+"\\"+internalFolder+"\\"+name);
@@ -470,12 +476,16 @@ public class ServicesImpl implements Services {
         String strForMD5 ="";
         Integer userCode= 0;
 
+        Coupon coupon = new Coupon();
+
         switch (sarafankaType){
             case "sarafunka":
                 strForMD5 = repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId()+"-sarafunka";
                 break;
             case "coupon":
-                strForMD5 = couponsRepo.findByAccountIDAndActionID(accountID,actionID).getId()+"-coupon";
+                List<Coupon> list = couponsRepo.findAllByAccountIDAndActionID(accountID,actionID);
+                coupon = list.get(list.size()-1);
+                strForMD5 = coupon.getId()+"-coupon";
                 break;
         }
         pathToQRCodes = Constants.PathsToFiles.pathToSarafunkas;
@@ -506,7 +516,6 @@ public class ServicesImpl implements Services {
                 ract.setPathToSarafunkaForFriend(externalFolder+"\\"+internalFolder+"\\"+name);
                 break;
             case "coupon":
-                Coupon coupon = couponsRepo.findByAccountIDAndActionID(accountID,actionID);
                 couponsRepo.setPathToSarafunka(coupon.getId(),externalFolder+"\\"+internalFolder+"\\"+name);
                 coupon.setPathToSarafunka(externalFolder+"\\"+internalFolder+"\\"+name);
 
@@ -615,15 +624,21 @@ public class ServicesImpl implements Services {
                     compamyPhone,new Font(bf,13.4f));
             compamyPhonePhrase.setReference(
                     "tel: "+compamyPhone);
-            Anchor anchor = new Anchor(
-                    companySite,new Font(bf,13.4f));
+            Chunk anchorChunk = new Chunk(companySite,new Font(bf,13.4f*1.3f));
+            anchorChunk.setUnderline(BaseColor.WHITE,0.2f,0,-2,0,0);
+            Anchor anchor = new Anchor(anchorChunk);
             anchor.setReference(
                     companySite);
 
-            Anchor textAnchor = new Anchor("Проверить подлинность и срок действия сарафанки:",new Font(bf,10));
-            Anchor siteAnchor = new Anchor("www.sarafun.info",new Font(bf,10));
+            Chunk textChunk = new Chunk("Проверить подлинность и срок действия сарафанки:",new Font(bf,10*1.3f));
+            Chunk siteChunk = new Chunk("www.sarafun.info",new Font(bf,10*1.3f));
+            textChunk.setUnderline(BaseColor.WHITE,0.2f,0,-2,0,0);
+            siteChunk.setUnderline(BaseColor.WHITE,0.2f,0,-2,0,0);
+            Anchor textAnchor = new Anchor(textChunk);
+            Anchor siteAnchor = new Anchor(siteChunk);
             textAnchor.setReference("http://sarafun.info:4200/ractstatus?ractid="+repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId());
             siteAnchor.setReference("http://sarafun.info:4200/ractstatus?ractid="+repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getId());
+            Phrase conditionPhrase = new Phrase("*"+action.getCondition(),new Font(bf,10*1.3f));
 
             ColumnText.showTextAligned(cb,
                     Element.ALIGN_LEFT, titlePhrase, sarWidth*0.32f, sarHeight*0.907f, 0);
@@ -663,24 +678,27 @@ public class ServicesImpl implements Services {
                         Element.ALIGN_CENTER, phrase, sarWidth/2, startY-i*sarHeight*0.055f, 0);
             }
 
+
             ColumnText.showTextAligned(cb,
                     Element.ALIGN_CENTER, uniqPhrase, sarWidth/2, sarHeight*0.257f, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, advicePhrase, sarWidth/2, sarHeight*0.206f, 0);
+                    Element.ALIGN_CENTER, advicePhrase, sarWidth/2, sarHeight*0.206f+15, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, companyNamePhrase, sarWidth/2, sarHeight*0.161f, 0);
+                    Element.ALIGN_CENTER, companyNamePhrase, sarWidth/2, sarHeight*0.161f+15, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, companyAddressPhrase, sarWidth/2, sarHeight*0.132f, 0);
+                    Element.ALIGN_CENTER, companyAddressPhrase, sarWidth/2, sarHeight*0.132f+15, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, compamyPhonePhrase, sarWidth/2, sarHeight*0.102f, 0);
+                    Element.ALIGN_CENTER, compamyPhonePhrase, sarWidth/2, sarHeight*0.102f+15, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, anchor, sarWidth/2, sarHeight*0.077f, 0);
+                    Element.ALIGN_CENTER, anchor, sarWidth/2, sarHeight*0.077f+15, 0);
+            ColumnText.showTextAligned(cb,
+                    Element.ALIGN_CENTER, conditionPhrase, sarWidth/2, sarHeight*0.069f, 0);
 
 
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, textAnchor, sarWidth/2, sarHeight*0.0444f, 0);
+                    Element.ALIGN_CENTER, textAnchor, sarWidth/2, sarHeight*0.0494f, 0);
             ColumnText.showTextAligned(cb,
-                    Element.ALIGN_CENTER, siteAnchor, sarWidth/2, sarHeight*0.0296f, 0);
+                    Element.ALIGN_CENTER, siteAnchor, sarWidth/2, sarHeight*0.0285f, 0);
 
             String qrURL="";
             String pathToSarafanka ="";
@@ -691,9 +709,11 @@ public class ServicesImpl implements Services {
                     pathToSarafanka = repo.findByActionTitleIDAndAccountLoginIDAndComplited(actionID,accountID,0).getPathToSarafunkaForFriend();
                     break;
                 case "coupon":
-                    qrURL =fuckingPath+couponsRepo.findByAccountIDAndActionID(accountID,actionID).getPathToQRCode();
-                    pathToSarafanka = couponsRepo.findByAccountIDAndActionID(accountID,actionID).getPathToSarafunka();
-
+                    Coupon coupon = new Coupon();
+                    List<Coupon> list = couponsRepo.findAllByAccountIDAndActionID(accountID,actionID);
+                    coupon = list.get(list.size()-1);
+                    qrURL =fuckingPath+coupon.getPathToQRCode();
+                    pathToSarafanka = coupon.getPathToSarafunka();
                     break;
             }
 
@@ -1142,6 +1162,16 @@ public class ServicesImpl implements Services {
     @Override
     public String ChangeProgressForSocial(Long userID, Long actionID, Long barmenID) throws IOException, WriterException {
         String ractBonus="";
+        switch (accRepo.findByid(barmenID).getAccountType()){
+            case "barmen":
+                if (!barmenRepo.findByAccountID(barmenID).getCompanyID().equals(actRepo.findById(actionID).getOrganizationID()))
+                    return "noexist";
+                break;
+            case "marketolog":
+                if (!marketologRepo.findByAccountID(barmenID).getCompanyID().equals(actRepo.findById(actionID).getOrganizationID()))
+                    return "noexist";
+                break;
+        }
         Boolean exist = false;
         for (RunningActions ract:repo.findAllByComplited(0) ) {
             if (ract.getAccountLoginID().equals(userID) && ract.getActionTitleID().equals(actionID)) {
@@ -1179,7 +1209,7 @@ public class ServicesImpl implements Services {
                     String shortURL = bitlyApis.shortenEncodedUrl(textToSend);
                     SocialSender socialSender = createSocialSender("whatsapp");
                     repo.changeComplitedStatus(ract.getId());
-
+                    staffOperationHistoryRepository.saveAndFlush(newOperation);
                     String result = socialSender.send("Ссылка на скачивание вашей финальной сарафанки "+shortURL,accRepo.findByid(ract.getAccountLoginID()).getPhoneNumber());
                     switch ( result){
                         case "false":
@@ -1199,6 +1229,32 @@ public class ServicesImpl implements Services {
         if (exist)
         return ractBonus;
         else{
+            /*
+            Блок Unlimited Referals
+            Удалить в случае отказа от этой системы
+            */
+            for (RunningActions ract:repo.findAllByComplited(1) ) {
+                if (ract.getAccountLoginID().equals(userID) && ract.getActionTitleID().equals(actionID)) {
+                    ractBonus = actRepo.findById(ract.getActionTitleID()).getSupportReward();
+                    repo.changeProgress(ract.getId(), ract.getPercentOfComplete() + 1);
+                    //Создаем запись в истории операций
+                    Calendar c = Calendar.getInstance();
+                    Long date = c.getTimeInMillis();
+
+                    StaffOperationHistory newOperation = new StaffOperationHistory();
+                    newOperation.setStaffAccountID(barmenID);
+                    newOperation.setActionID(actionID);
+                    newOperation.setClientAccountID(userID);
+                    newOperation.setOperationType("Выдал награду для реферала Unlimited Referals");
+                    newOperation.setOperationDate(date);
+                    staffOperationHistoryRepository.saveAndFlush(newOperation);
+                    return ractBonus;
+                }
+            }
+            /*
+            Конец блока Unlimited Referals
+            */
+
             return "noexist";
         }
     }
@@ -1277,6 +1333,16 @@ public class ServicesImpl implements Services {
         String bonus="";
         boolean exist = false;
               //Удаляем купон
+        switch (accRepo.findByid(staffID).getAccountType()){
+            case "barmen":
+                if (!barmenRepo.findByAccountID(staffID).getCompanyID().equals(actRepo.findById(actionID).getOrganizationID()))
+                    return "noexist";
+                break;
+            case "marketolog":
+                if (!marketologRepo.findByAccountID(staffID).getCompanyID().equals(actRepo.findById(actionID).getOrganizationID()))
+                    return "noexist";
+                break;
+        }
         for (Coupon coupon:couponsRepo.findAll()) {
             if (coupon.getAccountID().equals(accountID) &&coupon.getActionID().equals(actionID)){
                 couponsRepo.delete(coupon.getId());
@@ -1781,11 +1847,17 @@ public class ServicesImpl implements Services {
                 else {
                     for (MarketologWorkingPlace mwp:marketologWorkingPlaceRepository.findMarketologWorkingPlacesByMarketologID(marketolog.getId())) {
                         for (ActionAccess aa:actionAccessRepository.findActionAccessesByEstablishmentID(mwp.getEstablishmentID())) {
-                            actionIDs.add(aa.getActionID());
+                            Long id = aa.getActionID();
+                            if (id != null) {
+                                actionIDs.add(id);
+                            }
                         }
                     }
                     for (Long i :actionIDs) {
-                        resultActionsList.add(actRepo.findById(i));
+                        Action act = actRepo.findById(i);
+                        if (act != null) {
+                            resultActionsList.add(act);
+                        }
                     }
                 }
                 break;
@@ -1793,11 +1865,17 @@ public class ServicesImpl implements Services {
                 Barmen barmen = barmenRepo.findByAccountID(accID);
                 for (BarmenWorkingPlace bwp:barmenWorkingPlaceRepository.findBarmenWorkingPlacesByBarmenID(barmen.getId())) {
                     for (ActionAccess aa:actionAccessRepository.findActionAccessesByEstablishmentID(bwp.getEstablishmentID())) {
-                        actionIDs.add(aa.getActionID());
+                        Long id = aa.getActionID();
+                        if (id != null) {
+                            actionIDs.add(id);
+                        }
                     }
                 }
                 for (Long i :actionIDs) {
-                    resultActionsList.add(actRepo.findById(i));
+                    Action act = actRepo.findById(i);
+                    if (act != null) {
+                        resultActionsList.add(act);
+                    }
                 }
                 break;
         }
@@ -1825,9 +1903,9 @@ public class ServicesImpl implements Services {
             actionStatistic.setTimeEnd(action.getTimeEnd());
             actionStatistic.setTarget(action.getTarget());
 
-            actionStatistic.setCountRAct(Long.valueOf(repo.findByActionTitleID(action.getId()).size()));
-            actionStatistic.setCountComplitedRAct(Long.valueOf(repo.findByActionTitleIDAndComplited(action.getId(),1).size()));
-            actionStatistic.setCountMainBonus(Long.valueOf(repo.findByActionTitleIDAndComplited(action.getId(),1).size()-couponsRepo.findByActionID(action.getId()).size()));
+            actionStatistic.setCountRAct((long) repo.findByActionTitleID(action.getId()).size());
+            actionStatistic.setCountComplitedRAct((long) repo.findByActionTitleIDAndComplited(action.getId(), 1).size());
+            actionStatistic.setCountMainBonus((long) (repo.findByActionTitleIDAndComplited(action.getId(), 1).size() - couponsRepo.findByActionID(action.getId()).size()));
             Integer countMiniBonus= 0;
             for (RunningActions ract: repo.findByActionTitleID(action.getId())) {
                 countMiniBonus+=ract.getPercentOfComplete();

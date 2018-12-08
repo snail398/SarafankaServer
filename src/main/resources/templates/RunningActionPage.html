@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html  prefix="og: http://ogp.me/ns# " xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добро пожаловать!</title>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/style.css}"/>
+    <script type="text/javascript" src="https://vk.com/js/api/share.js?95" charset="windows-1251"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <p th:text="'Привет, ' + ${phoneNumber} + '!'" ></p>
+        <p class="tip" th:text="'Чтобы получить \'' + ${bonus} + '\' делись сарафанкой с друзьями'" ></p>
+        <img src="" alt="" th:src="${qrpath}">
+        <a class="download-button" th:href="${sarpath}" >Поделиться</a>   <!--
+        <button>
+            <a th:href="${vkpath}" target="_blank">Поделиться ВКонтакте</a>
+        </button>
+        <button>
+            <a th:href="${wapath}"data-action="share/whatsapp/share">Поделиться Whatsapp</a>
+        </button>
+        -->
+        <p th:text="'Прогресс акции: ' + ${progress} + ' из '  + ${target}"></p>
+    </div>
+</body>
+</html>
