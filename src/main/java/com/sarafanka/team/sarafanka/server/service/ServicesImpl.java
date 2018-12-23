@@ -62,6 +62,18 @@ public class ServicesImpl implements Services {
     private CookieAndSessionRepository cookieAndSessionRepository;
 
     @Override
+    public List<RunningActions> getRunningActionsByAccountID(Long accountID) {
+        List<RunningActions> racts = repo.findAllByAccountLoginID(accountID);
+        racts.sort(new Comparator<RunningActions>() {
+            @Override
+            public int compare(RunningActions o1, RunningActions o2) {
+                return o2.getRactStatDate().compareTo(o1.getRactStatDate());
+            }
+        });
+        return racts;
+    }
+
+    @Override
     public Integer addBarmenOperation(Long staffID, String type, Long clientID, Long actionID) {
         Calendar c = Calendar.getInstance();
         Long date = c.getTimeInMillis();
@@ -563,7 +575,7 @@ public class ServicesImpl implements Services {
             case "sarafunka":
                 price = action.getSupportReward();
                 title = "Сарафанка от друга";
-                advice ="Друг рекомендует посетить";
+                advice ="Друг рекомендует";
                 break;
             case "coupon":
                 price = action.getReward();
@@ -581,8 +593,8 @@ public class ServicesImpl implements Services {
         }
         else {
             companyName = company.getTitle();
-            companyAddress = company.getAdress();
-            compamyPhone = company.getPhone();
+           // companyAddress = company.getAdress();
+           // compamyPhone = company.getPhone();
             companySite = "www." + company.getSite();
         }
         try {
@@ -653,22 +665,22 @@ public class ServicesImpl implements Services {
                 buffer.reverse();
                 Integer startSpace = buffer.indexOf(" ");
                 Integer endSpace = price.indexOf(" ",price.length()/2)-price.length()/2;
-                if (endSpace>startSpace){
+                if (endSpace<startSpace){
                     space =price.length()/2+endSpace ;
                 }
                 else{
-                    space =price.length()/2-startSpace ;
+                    space = price.length()/2-startSpace ;
                 }
                 if (endSpace.equals(startSpace)){
                     space =price.length()/2-endSpace ;
                 }
                 arr[0]="На "+price.substring(0,space);
-                arr[1]=price.substring(space)+"!";
+                arr[1]=price.substring(space)+"!*";
                 startY=sarHeight*0.78f;
             }
             else{
                 rowCol=1;
-                arr[0]="На "+price+"!";
+                arr[0]="На "+price+"!*";
                 startY=sarHeight*0.78f-sarHeight*0.055f/2;
             }
 

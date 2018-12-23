@@ -62,6 +62,7 @@ public class ImageController {
 
     @RequestMapping(value="/gen", method=RequestMethod.GET)
     public String createPDF() throws IOException {
+        /*
         String sarafankaType = "sarafunka";
         Long accountID =Long.valueOf(28);
         Long actionID=Long.valueOf(11);
@@ -237,7 +238,7 @@ public class ImageController {
         } catch (IOException  e) {
             e.printStackTrace();
         }
-
+*/
         return  "done";
 
     }

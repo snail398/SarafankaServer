@@ -102,4 +102,6 @@ public interface Services {
     String getLink(String userID, Long actionID, Long barmenID) throws IOException;
 
     String getLinkAndBonus(Long userID, Long actionID, Long barmenID) throws IOException;
+
+    List<RunningActions> getRunningActionsByAccountID(Long accountID);
 }

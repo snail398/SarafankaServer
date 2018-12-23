@@ -131,6 +131,17 @@ public class ActionController {
         return services.getActionsForStaff(account);
     }
 
+    @RequestMapping(value = "/actions/getactionsbyarr", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Action> getActionsByArr(@RequestBody Long[] actionIDs){
+        List<Action> actions = new ArrayList<>();
+        for (int i = 0; i < actionIDs.length; i++) {
+            actions.add(actionRepository.findById(actionIDs[i]));
+        }
+        return actions;
+    }
+
+
     @RequestMapping(value = "/actions/addNewAction", method = RequestMethod.GET)
     @ResponseBody
     public Integer addNewActon(@RequestParam(value ="login",required = true,defaultValue = "") String login,

@@ -3,6 +3,7 @@ package com.sarafanka.team.sarafanka.server.controller;
 import com.google.zxing.WriterException;
 import com.sarafanka.team.sarafanka.server.entity.Account;
 import com.sarafanka.team.sarafanka.server.entity.Action;
+import com.sarafanka.team.sarafanka.server.entity.RunningActions;
 import com.sarafanka.team.sarafanka.server.repository.RunningActionsRepository;
 import com.sarafanka.team.sarafanka.server.service.Services;
 import com.sarafanka.team.sarafanka.server.service.ServicesImpl;
@@ -42,6 +43,13 @@ public class RunningActionsController {
     @ResponseBody
     public List<Action> getRunningActionsByLogin(@RequestParam (value ="login",required = true,defaultValue = "") String lgn,@RequestParam (value ="orgid",required = true,defaultValue = "") Long orgId, @RequestParam (value ="ifcomplited",required = true,defaultValue = "") Integer ifComplited ){
         return services.getRunningActionsByLoginAndOrgId(lgn, orgId, ifComplited);
+    }
+
+    //Получение списка названий акций,вкоторых участвует данный логин
+    @RequestMapping(value = "/getrunningactionsbyaccid", method = RequestMethod.GET)
+    @ResponseBody
+    public List<RunningActions> getRunningActionsByAccountID(@RequestParam (value ="accountid",required = true,defaultValue = "") Long accountID){
+        return services.getRunningActionsByAccountID(accountID);
     }
 
     //Получение списка названий акций,вкоторых участвует данный логин

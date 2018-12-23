@@ -88,7 +88,7 @@ public class HTMLController {
 
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(currentAction.getTimeEnd());
-        model.addAttribute("dateend", c.get(Calendar.DATE)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.YEAR));
+        model.addAttribute("dateend", c.get(Calendar.DATE)+"-"+(c.get(Calendar.MONTH)+1)+"-"+c.get(Calendar.YEAR));
         model.addAttribute("peopletoend",currentAction.getTarget() - currentRunningActions.getPercentOfComplete());
         model.addAttribute("bonus", currentAction.getSupportReward());
         return "RunningActionStatus";

@@ -6,19 +6,15 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c33a56cf-0555-4e3c-b135-d3f15257e8f8" name="Default" comment="commit 2911201811241241">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/PdfPage.html" afterDir="false" />
+    <list default="true" id="c33a56cf-0555-4e3c-b135-d3f15257e8f8" name="Default" comment="commit try beutiful repost">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/EstablishmentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/EstablishmentsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/HTMLController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/HTMLController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ImageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ImageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/ActionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/ActionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/BarmenWorkingPlaceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/BarmenWorkingPlaceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/CouponsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/CouponsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/MarketologWorkingPlaceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/MarketologWorkingPlaceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/RunningActionsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/RunningActionsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -81,13 +77,14 @@
     <session id="-851471123">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="57" />
+          <entry key="project.closed" value="63" />
           <entry key="project.open.time.100" value="1" />
           <entry key="project.open.time.101" value="1" />
           <entry key="project.open.time.108" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.13" value="1" />
-          <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.15" value="2" />
+          <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.30" value="1" />
@@ -100,19 +97,20 @@
           <entry key="project.open.time.41" value="2" />
           <entry key="project.open.time.42" value="1" />
           <entry key="project.open.time.43" value="3" />
-          <entry key="project.open.time.44" value="6" />
+          <entry key="project.open.time.44" value="7" />
           <entry key="project.open.time.45" value="1" />
-          <entry key="project.open.time.47" value="3" />
+          <entry key="project.open.time.47" value="4" />
           <entry key="project.open.time.48" value="3" />
           <entry key="project.open.time.49" value="1" />
           <entry key="project.open.time.50" value="2" />
           <entry key="project.open.time.51" value="2" />
           <entry key="project.open.time.52" value="1" />
           <entry key="project.open.time.53" value="2" />
-          <entry key="project.open.time.55" value="1" />
+          <entry key="project.open.time.55" value="2" />
           <entry key="project.open.time.59" value="2" />
           <entry key="project.open.time.62" value="1" />
           <entry key="project.open.time.64" value="1" />
+          <entry key="project.open.time.65" value="1" />
           <entry key="project.open.time.67" value="1" />
           <entry key="project.open.time.69" value="1" />
           <entry key="project.open.time.72" value="1" />
@@ -124,20 +122,20 @@
           <entry key="project.open.time.91" value="1" />
           <entry key="project.open.time.95" value="1" />
           <entry key="project.open.time.98" value="1" />
-          <entry key="project.opened" value="60" />
+          <entry key="project.opened" value="66" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cell" value="186" />
+          <entry key="cell" value="201" />
           <entry key="class" value="3" />
           <entry key="css" value="359" />
           <entry key="dummy" value="42" />
           <entry key="html" value="873" />
-          <entry key="java" value="16039" />
+          <entry key="java" value="16318" />
           <entry key="properties" value="3" />
           <entry key="style" value="8" />
-          <entry key="txt" value="62" />
+          <entry key="txt" value="87" />
           <entry key="xml" value="29" />
         </counts>
       </usages-collector>
@@ -146,19 +144,19 @@
           <entry key="CLASS" value="3" />
           <entry key="CSS" value="359" />
           <entry key="HTML" value="873" />
-          <entry key="JAVA" value="16039" />
-          <entry key="PLAIN_TEXT" value="104" />
+          <entry key="JAVA" value="16318" />
+          <entry key="PLAIN_TEXT" value="129" />
           <entry key="Properties" value="3" />
           <entry key="Sass" value="8" />
-          <entry key="Scratch" value="186" />
+          <entry key="Scratch" value="201" />
           <entry key="XML" value="29" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="account" value="14" />
+          <entry key="account" value="15" />
           <entry key="actionaccess" value="5" />
-          <entry key="actions" value="12" />
+          <entry key="actions" value="13" />
           <entry key="barmenoperationhistory" value="5" />
           <entry key="barmens" value="4" />
           <entry key="barmenworkingplace" value="6" />
@@ -170,16 +168,16 @@
           <entry key="css" value="10" />
           <entry key="establishment" value="7" />
           <entry key="fxml" value="1" />
-          <entry key="html" value="19" />
+          <entry key="html" value="26" />
           <entry key="iml" value="1" />
-          <entry key="java" value="214" />
+          <entry key="java" value="228" />
           <entry key="jpg" value="1" />
           <entry key="js" value="4" />
           <entry key="marketologs" value="4" />
           <entry key="marketologworkingplace" value="5" />
           <entry key="pom" value="1" />
           <entry key="properties" value="2" />
-          <entry key="runningactions" value="9" />
+          <entry key="runningactions" value="10" />
           <entry key="sql" value="1" />
           <entry key="staffoperationhistory" value="5" />
           <entry key="style" value="1" />
@@ -192,11 +190,11 @@
         <counts>
           <entry key="CLASS" value="24" />
           <entry key="CSS" value="10" />
-          <entry key="Database Element" value="91" />
-          <entry key="HTML" value="19" />
+          <entry key="Database Element" value="94" />
+          <entry key="HTML" value="26" />
           <entry key="IDEA_MODULE" value="1" />
           <entry key="Image" value="1" />
-          <entry key="JAVA" value="214" />
+          <entry key="JAVA" value="228" />
           <entry key="JavaScript" value="4" />
           <entry key="Properties" value="2" />
           <entry key="Sass" value="1" />
@@ -218,57 +216,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6018">
-              <caret line="379" column="41" selection-start-line="379" selection-start-column="41" selection-end-line="379" selection-end-column="41" />
+            <state relative-caret-position="9384">
+              <caret line="577" column="41" selection-start-line="577" selection-start-column="41" selection-end-line="577" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/RunningActionPage.html">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/RunningActionStatus.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="9" column="61" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/PdfPage.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-124">
-              <caret line="24" column="71" lean-forward="true" selection-start-line="24" selection-start-column="71" selection-end-line="24" selection-end-column="71" />
+            <state relative-caret-position="221">
+              <caret line="13" column="65" selection-start-line="13" selection-start-column="65" selection-end-line="13" selection-end-column="65" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/js/jquery.gdocsviewer.js">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ImageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="17" column="29" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="29" />
+            <state relative-caret-position="3519">
+              <caret line="240" column="2" selection-start-line="240" selection-start-column="2" selection-end-line="240" selection-end-column="2" />
               <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="n#style#0;n#iframe#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#10782#10783#0" expanded="true" />
+                <element signature="e#10861#10862#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="53" column="28" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/hello.html">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/HTMLController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="117" column="67" selection-start-line="117" selection-start-column="67" selection-end-line="117" selection-end-column="67" />
+            <state relative-caret-position="321">
+              <caret line="90" column="64" selection-start-line="90" selection-start-column="64" selection-end-line="90" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -282,11 +267,38 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="das://69bdaa60-4ff4-472b-8903-6f97d9de491b/database/sarafankadbnew/schema/public/table/account">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ImageController.java">
+        <entry file="das://69bdaa60-4ff4-472b-8903-6f97d9de491b/database/sarafankadbnew/schema/public/table/actions">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/socialSenders/SocialSender.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="502">
-              <caret line="127" column="96" selection-start-line="127" selection-start-column="12" selection-end-line="127" selection-end-column="96" />
+            <state relative-caret-position="68">
+              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Establishment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="29" column="60" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -309,7 +321,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>addnewR</find>
       <find>getStaff</find>
       <find>getBar</find>
       <find>getactionsforM</find>
@@ -339,6 +350,7 @@
       <find>ractBonus</find>
       <find>change</find>
       <find>deleteUsedCoupon</find>
+      <find>sort</find>
     </findStrings>
     <replaceStrings>
       <replace>${hibernate-entitymanager.version}</replace>
@@ -378,16 +390,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/config/WebConfig.java" />
         <option value="$PROJECT_DIR$/src/main/resources/static/css/chokeStyle.css" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/RunningActions.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/RunningActionsRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Coupon.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/choke.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/CouponController.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/socialSenders/WhatappSender.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/RunningActionStatus.html" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/ActionAccessRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Company.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Establishment.java" />
@@ -397,15 +405,19 @@
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/EstablishmentsController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/LoginController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Action.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/ActionRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/CouponsRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ImageController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/RunningActionPage.html" />
-        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/HTMLController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/static/css/style.css" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/PdfPage.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/RunningActionsRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ImageController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/HTMLController.java" />
       </list>
     </option>
   </component>
@@ -452,8 +464,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -495,6 +505,33 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sarafankaserver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sarafankaserver" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sarafankaserver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sarafankaserver" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="repository" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sarafankaserver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sarafankaserver" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sarafankaserver" type="b2602c69:ProjectViewProjectNode" />
@@ -555,6 +592,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -562,7 +601,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544196241968" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544298623466" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -915,6 +954,12 @@
       <workItem from="1543924862996" duration="5361000" />
       <workItem from="1544189278101" duration="5348000" />
       <workItem from="1544295305535" duration="2502000" />
+      <workItem from="1544298205563" duration="656000" />
+      <workItem from="1544299554882" duration="1360000" />
+      <workItem from="1544438390549" duration="4180000" />
+      <workItem from="1544510308498" duration="5221000" />
+      <workItem from="1544622997672" duration="2688000" />
+      <workItem from="1545063506118" duration="685000" />
     </task>
     <task id="LOCAL-00001" summary="before first show">
       <created>1514132082764</created>
@@ -979,11 +1024,18 @@
       <option name="project" value="LOCAL" />
       <updated>1543563008020</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="commit try beutiful repost">
+      <created>1544298397535</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1544298397535</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="807244000" />
+    <option name="totallyTimeSpent" value="822034000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -996,9 +1048,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3827292" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.40831557" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -1009,11 +1060,11 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4989339" weight="0.32848233" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.55383795" weight="0.34199584" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.51119405" weight="0.3929314" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.510661" weight="0.3929314" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.48027718" weight="0.32848233" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.48880598" side_tool="true" visible="true" weight="0.3929314" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.48933902" side_tool="true" visible="true" weight="0.3929314" />
       <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.21375267" weight="0.32848233" />
       <window_info anchor="bottom" id="Java Enterprise" order="9" sideWeight="0.49307036" weight="0.32848233" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4968017" weight="0.32848233" />
@@ -1026,7 +1077,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
       <window_info anchor="right" id="Palette" order="2" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
-      <window_info anchor="right" id="Database" order="4" sideWeight="0.4722222" visible="true" weight="0.12100213" />
+      <window_info active="true" anchor="right" id="Database" order="4" sideWeight="0.4722222" visible="true" weight="0.12100213" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Theme Preview" order="7" />
@@ -1076,7 +1127,8 @@
     <MESSAGE value="server servero4ek1" />
     <MESSAGE value="commit 29112018" />
     <MESSAGE value="commit 2911201811241241" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit 2911201811241241" />
+    <MESSAGE value="commit try beutiful repost" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit try beutiful repost" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -1091,84 +1143,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4488">
-          <caret line="264" selection-start-line="264" selection-end-line="264" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/socialSenders/WhatappSender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="46" column="56" selection-start-line="46" selection-start-column="56" selection-end-line="46" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/StaffController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://69bdaa60-4ff4-472b-8903-6f97d9de491b/database/sarafankadbnew/schema/public/table/coupons">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/RunningActionStatus.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="65" selection-start-line="13" selection-start-column="65" selection-end-line="13" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="68" column="38" selection-start-line="68" selection-start-column="38" selection-end-line="68" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/StaffOperationHistoryRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://69bdaa60-4ff4-472b-8903-6f97d9de491b/database/sarafankadbnew/schema/public/table/account">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://69bdaa60-4ff4-472b-8903-6f97d9de491b/database/sarafankadbnew/schema/public/table/establishment">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/ActionAccessRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://69bdaa60-4ff4-472b-8903-6f97d9de491b/database/sarafankadbnew/schema/public/table/actionaccess">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://69bdaa60-4ff4-472b-8903-6f97d9de491b/database/sarafankadbnew/schema/public/table/actions">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -1196,24 +1171,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Establishment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="29" column="60" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://69bdaa60-4ff4-472b-8903-6f97d9de491b/database/sarafankadbnew/schema/public/table/staffoperationhistory">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="30" column="52" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -1301,18 +1262,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Action.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="42" column="34" selection-start-line="42" selection-start-column="34" selection-end-line="42" selection-end-column="34" />
-          <folding>
-            <element signature="e#1496#1497#0" expanded="true" />
-            <element signature="e#1546#1547#0" expanded="true" />
-            <element signature="e#1588#1589#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/EstablishmentsController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1122">
@@ -1369,13 +1318,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="162" column="204" selection-start-line="162" selection-start-column="204" selection-end-line="162" selection-end-column="204" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/ActionRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1387,13 +1329,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="393">
           <caret line="257" column="46" selection-start-line="257" selection-start-column="24" selection-end-line="257" selection-end-column="46" />
-          <folding>
-            <element signature="method#loginQuery#0;class#LoginController#0" />
-            <element signature="method#loginQuery#1;class#LoginController#0" />
-            <element signature="method#registrationQuery#0;class#LoginController#0" />
-            <element signature="method#registrationQuery#1;class#LoginController#0" />
-            <element signature="method#registrationBarmenQuery#0;class#LoginController#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1404,12 +1339,116 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6018">
-          <caret line="379" column="41" selection-start-line="379" selection-start-column="41" selection-end-line="379" selection-end-column="41" />
+        <state relative-caret-position="102">
+          <caret line="6" column="66" selection-start-line="6" selection-start-column="66" selection-end-line="6" selection-end-column="66" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/js/jquery.gdocsviewer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="53" column="28" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/RunningActions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="31" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/repository/RunningActionsRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="30" column="63" selection-start-line="30" selection-start-column="63" selection-end-line="30" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/RunningActionsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="50" column="93" selection-start-line="50" selection-start-column="84" selection-end-line="50" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Action.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="42" column="34" selection-start-line="42" selection-start-column="34" selection-end-line="42" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/Services.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1717">
+          <caret line="105" column="23" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ActionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="133" column="53" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/staffActionsPage.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/RunningActionPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="43" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/PdfPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="71" selection-start-line="24" selection-start-column="71" selection-end-line="24" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/choke.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9384">
+          <caret line="577" column="41" selection-start-line="577" selection-start-column="41" selection-end-line="577" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/RunningActionStatus.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="65" selection-start-line="13" selection-start-column="65" selection-end-line="13" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ImageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3519">
+          <caret line="240" column="2" selection-start-line="240" selection-start-column="2" selection-end-line="240" selection-end-column="2" />
+          <folding>
+            <element signature="e#10782#10783#0" expanded="true" />
+            <element signature="e#10861#10862#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/hello.html">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="das://69bdaa60-4ff4-472b-8903-6f97d9de491b/database/sarafankadbnew/schema/public/table/runningactions">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
@@ -1418,49 +1457,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ImageController.java">
+    <entry file="das://69bdaa60-4ff4-472b-8903-6f97d9de491b/database/sarafankadbnew/schema/public/table/actions">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/socialSenders/SocialSender.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="127" column="96" selection-start-line="127" selection-start-column="12" selection-end-line="127" selection-end-column="96" />
+        <state relative-caret-position="68">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/Establishment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="29" column="60" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/HTMLController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="117" column="67" selection-start-line="117" selection-start-column="67" selection-end-line="117" selection-end-column="67" />
+        <state relative-caret-position="321">
+          <caret line="90" column="64" selection-start-line="90" selection-start-column="64" selection-end-line="90" selection-end-column="64" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="53" column="28" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/js/jquery.gdocsviewer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="17" column="29" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="29" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="n#style#0;n#iframe#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/RunningActionPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="9" column="61" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/PdfPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-124">
-          <caret line="24" column="71" lean-forward="true" selection-start-line="24" selection-start-column="71" selection-end-line="24" selection-end-column="71" />
+    <entry file="das://69bdaa60-4ff4-472b-8903-6f97d9de491b/database/sarafankadbnew/schema/public/table/account">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
