@@ -1,5 +1,6 @@
 package com.sarafanka.team.sarafanka.server.controller;
 
+import com.google.zxing.WriterException;
 import com.itextpdf.layout.element.Link;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Font;
@@ -57,9 +58,17 @@ public class ImageController {
     private Services services = new ServicesImpl();
     @Autowired
     private CouponsRepository couponsRepo;
-
-
-
+/*
+    @RequestMapping(value="/fuck", method=RequestMethod.GET)
+    public String create() throws IOException, WriterException {
+        for (Action action:actRepo.findAll()) {
+            if (action.getPathToQRCode()==null){
+                services.generateQRAds(action.getId());
+            }
+        }
+        return  "fuck";
+    }
+*/
     @RequestMapping(value="/gen", method=RequestMethod.GET)
     public String createPDF() throws IOException {
         /*

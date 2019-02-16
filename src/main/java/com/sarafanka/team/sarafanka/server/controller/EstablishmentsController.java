@@ -1,15 +1,15 @@
 package com.sarafanka.team.sarafanka.server.controller;
 
-import com.sarafanka.team.sarafanka.server.entity.BarmenWorkingPlace;
-import com.sarafanka.team.sarafanka.server.entity.Company;
-import com.sarafanka.team.sarafanka.server.entity.Establishment;
-import com.sarafanka.team.sarafanka.server.entity.MarketologWorkingPlace;
+import com.sarafanka.team.sarafanka.server.entity.*;
 import com.sarafanka.team.sarafanka.server.repository.*;
 import com.sarafanka.team.sarafanka.server.service.Services;
 import com.sarafanka.team.sarafanka.server.service.ServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -25,8 +25,69 @@ public class EstablishmentsController {
     @Autowired
     private BarmenWorkingPlaceRepository bwpRepo;
     @Autowired
+    private ActionAccessRepository aaRepo;
+    @Autowired
     private Services services = new ServicesImpl();
 
+    @RequestMapping(value = "/establisments/getestbyarr", method = RequestMethod.POST)
+    @ResponseBody
+    public List<CustomMap> getEstByArr(@RequestBody Long[] actionIDs){
+        List<CustomMap> est = new ArrayList<>();
+        for (int i = 0; i < actionIDs.length; i++) {
+            boolean flag = false;
+            Long tempEstID = Long.valueOf(0);
+            for (ActionAccess aa:aaRepo.findAll() ) {
+                if (aa.getActionID().equals(actionIDs[i])) {
+                    flag = true;
+                    tempEstID = aa.getEstablishmentID();
+                    break;
+                }
+            }
+            if (flag)
+            est.add(new CustomMap(actionIDs[i],estRepository.findByid(tempEstID).getFactAdress()));
+            else est.add(new CustomMap(actionIDs[i],"Все заведения"));
+        }
+        return est;
+    }
+
+    @RequestMapping(value = "/establisments/getfullestbyarr", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Establishment> getFullEstByArr(@RequestBody Long[] actionIDs){
+        List<Establishment> est = new ArrayList<>();
+        for (int i = 0; i < actionIDs.length; i++) {
+            boolean flag = false;
+            Long tempEstID = Long.valueOf(0);
+            for (ActionAccess aa:aaRepo.findAll() ) {
+                if (aa.getActionID().equals(actionIDs[i])) {
+                    flag = true;
+                    tempEstID = aa.getEstablishmentID();
+                    break;
+                }
+            }
+            if (flag)
+                est.add(estRepository.findByid(tempEstID));
+            else est.add(new Establishment("Все заведения"));
+        }
+        return est;
+    }
+
+
+    @RequestMapping(value = "/establisments/getestbyactid", method = RequestMethod.GET)
+    @ResponseBody
+    public String getEstByActID(@RequestParam(value ="actionid",required = true,defaultValue = "") Long actionID){
+        boolean flag = false;
+        Long tempEstID = Long.valueOf(0);
+        for (ActionAccess aa:aaRepo.findAll() ) {
+            if (aa.getActionID().equals(actionID)) {
+                flag = true;
+                tempEstID = aa.getEstablishmentID();
+                break;
+            }
+        }
+        if (flag)
+            return  estRepository.findByid(tempEstID).getFactAdress();
+        else return "Все заведения";
+    }
 
     @RequestMapping(value = "/establisments/getestablishmentbyid", method = RequestMethod.GET)
     @ResponseBody

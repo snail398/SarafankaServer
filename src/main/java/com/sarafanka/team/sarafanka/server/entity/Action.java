@@ -39,6 +39,26 @@ public class Action {
     private Long timeEnd;
     @Column(name="condition",nullable = true,length = 300)
     private String condition;
+    @Column(name="pathToQR",length = 150)
+    private String pathToQRCode;
+    @Column(name="pathToPDF",length = 150)
+    private String pathToPDF;
+
+    public String getPathToQRCode() {
+        return pathToQRCode;
+    }
+
+    public void setPathToQRCode(String pathToQRCode) {
+        this.pathToQRCode = pathToQRCode;
+    }
+
+    public String getPathToPDF() {
+        return pathToPDF;
+    }
+
+    public void setPathToPDF(String pathToPDF) {
+        this.pathToPDF = pathToPDF;
+    }
 
     public String getCondition() {
         return condition;
@@ -75,9 +95,10 @@ public class Action {
     public Action() {
     }
 
-    public Action(String title,String description, Long organizationID, Long creatorsID, String typeOfAction, String reward, String supproReward,Integer peopleUsed, Integer target,Long timeStart,Long timeEnd) {
+    public Action(String title,String description,String condition, Long organizationID, Long creatorsID, String typeOfAction, String reward, String supproReward,Integer peopleUsed, Integer target,Long timeStart,Long timeEnd) {
        this.title=title;
        this.description=description;
+       this.condition = condition;
        this.organizationID = organizationID;
        this.creatorsID =creatorsID;
        this.typeOfAction=typeOfAction;

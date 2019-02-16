@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html  prefix="og: http://ogp.me/ns# " xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Твоя сарафанка</title>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/style.css}"/>
+    <script type="text/javascript" src="https://vk.com/js/api/share.js?95" charset="windows-1251"></script>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Для всех остальных -->
+    <meta property="og:type" content="website"/>
+   <!-- <meta property="og:url" content="http://195.128.127.171:4200/getreposted?ractid=110"/>-->
+    <meta property="og:url" content="http://sarafun.info/assets/reposted.html" />
+    <meta property="og:image"   content="http://sarafun.info:4200/sarafunkas/jpg/repostedimg.jpg"/>
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:title" content="Сарафанка от друга"/>
+    <meta property="og:description" content="Отличный бонус" />
+    <meta property="og:site_name" content="Сарафан">
+    <meta property="og:locale" content="ru_RU">
+    <!-- Для twitter -->
+    <meta name="twitter:card" content="summary_large_image"></meta>
+    <meta name="twitter:title" content="Сарафанка от друга">
+    <meta name="twitter:description" content="Отличный бонус">
+    <meta name="twitter:image:src" content="http://sarafun.info:4200/sarafunkas/jpg/repostedimg.jpg">
+    <meta name="twitter:url" content="http://sarafun.info/assets/reposted.html" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+</head>
+<body>
+<div class="wrapper">
+    <img src="" alt="" th:src="${qrpath}" >
+    <a class="download-button" th:href="${sarpath}" >Скачать себе</a>
+    <a class="download-button" href="http://sarafun.info">Подробнее</a>
+
+</div>
+</body>
+</html>

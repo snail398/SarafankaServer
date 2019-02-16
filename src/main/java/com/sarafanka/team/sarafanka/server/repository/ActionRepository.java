@@ -26,4 +26,14 @@ public interface ActionRepository extends JpaRepository<Action,Long> {
     @Query("update Action action set action.reward = :reward,action.supportReward=:supportReward,action.target = :target, action.description=:description, action.timeStart=:timeStart, action.timeEnd=:timeEnd, action.condition=:condition where action.id =:id")
     @Transactional
     void changeAction(@Param("id")Long id,@Param("reward") String reward, @Param("supportReward")String supportReward, @Param("target") Integer target,@Param("description") String description,@Param("timeStart") Long timeStart,@Param("timeEnd") Long timeEnd,@Param("condition") String condition);
+
+    @Modifying
+    @Query("update Action action set action.pathToQRCode = :path where action.id = :id")
+    @Transactional
+    Integer setPathToQR(@Param("id")Long id, @Param("path")String path);
+
+    @Modifying
+    @Query("update Action action set action.pathToPDF = :path where action.id = :id")
+    @Transactional
+    Integer setPathToPDF(@Param("id")Long id, @Param("path")String path);
 }

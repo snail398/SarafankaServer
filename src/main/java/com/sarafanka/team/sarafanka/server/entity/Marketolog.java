@@ -21,6 +21,12 @@ public class Marketolog {
     @Column(name="companyID",nullable = false,length = 30)
     private Long companyID;
 
+    public Marketolog(Long accountid,Long companyid,Integer main) {
+        setAccountID(accountid);
+        setCompanyID(companyid);
+        setMain(main);
+    }
+
     public Marketolog() {
     }
 

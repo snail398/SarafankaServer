@@ -25,7 +25,7 @@ public interface Services {
     List<Company> getCompanyWithRunningAction(String lgn, Integer ifComplited);
     Integer ChangeProgress (String lgn, Long id,String userLogin, String barmenLogin);
     Integer addNewInvite (String initLogin, Long actionID,Long[] targetLogins);
-    List<Coupon> getCouponsByUserLogin(String lgn);
+    List<Coupon> getCouponsByUserLogin(Long lgn);
 
     List<Company> getCompanyWithAction(Long lgn);
 
@@ -68,7 +68,7 @@ public interface Services {
 
     List<StaffOperationHistoryForApp> getBarmenOperations(Long lgn);
 
-    Integer deleteRAact(String lgn, Long actionID);
+    Integer deleteRAact(Long ractionid);
 
     List<Account> getAvatarPathFriendsWithRAct(String login, Long actionID);
 
@@ -91,7 +91,7 @@ public interface Services {
 
     Account getStaff(Long accID);
 
-    Integer addNewActon2(Action action, Long creatorID, String est);
+    Integer addNewActon2(Action action, Long creatorID, String est) throws IOException, WriterException;
 
     Establishment getAccountsEst(Long accID);
 
@@ -104,4 +104,13 @@ public interface Services {
     String getLinkAndBonus(Long userID, Long actionID, Long barmenID) throws IOException;
 
     List<RunningActions> getRunningActionsByAccountID(Long accountID);
+
+    Integer makeSpam() throws IOException;
+
+    String createNewCompany(String email, String pass, String site);
+    void generateQRAds(Long actionid) throws IOException, WriterException;
+
+    Integer addNewReferal(Long ractID, Account account);
+
+    String checkReferal(String ref, Long staffID);
 }

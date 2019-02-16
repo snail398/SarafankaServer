@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 @Transactional
 @RestController
@@ -107,7 +108,58 @@ public class RunningActionsController {
     //Удаление запущенной акции
     @RequestMapping(value = "/runningactions/delete", method = RequestMethod.GET)
     @ResponseBody
-    public Integer deleteRAact(@RequestParam (value ="login",required = true,defaultValue = "") String lgn,@RequestParam (value ="actionid",required = true,defaultValue = "") Long actionID){
-        return services.deleteRAact(lgn,actionID);
+    public Integer deleteRAact(@RequestParam (value ="ractionid",required = true,defaultValue = "") Long ractionID){
+        return services.deleteRAact(ractionID);
+    }
+
+    //Блок запросов для контроля количества репостов
+    @RequestMapping(value = "/runningactions/increaseRepostAndroid", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer increaseRepostAndroid(@RequestParam (value ="ractionid",required = true,defaultValue = "") Long ractionID){
+        repo.increaseRepostAndroid(ractionID);
+        return 1;
+    }
+
+    @RequestMapping(value = "/runningactions/increaseRepostDownload", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer increaseRepostDownload(@RequestParam (value ="ractionid",required = true,defaultValue = "") Long ractionID){
+        repo.increaseRepostDownload(ractionID);
+        return 1;
+    }
+
+    @RequestMapping(value = "/runningactions/increaseRepostFB", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer increaseRepostFB(@RequestParam (value ="ractionid",required = true,defaultValue = "") Long ractionID){
+        repo.increaseRepostFB(ractionID);
+        return 1;
+    }
+
+    @RequestMapping(value = "/runningactions/increaseRepostTW", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer increaseRepostTW(@RequestParam (value ="ractionid",required = true,defaultValue = "") Long ractionID){
+        repo.increaseRepostTW(ractionID);
+        return 1;
+    }
+
+    @RequestMapping(value = "/runningactions/increaseRepostVK", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer increaseRepostVK(@RequestParam (value ="ractionid",required = true,defaultValue = "") Long ractionID){
+        repo.increaseRepostVK(ractionID);
+        return 1;
+    }
+
+    @RequestMapping(value = "/runningactions/increaseRepostWA", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer increaseRepostWA(@RequestParam (value ="ractionid",required = true,defaultValue = "") Long ractionID){
+        repo.increaseRepostWA(ractionID);
+        return 1;
+    }
+
+    @RequestMapping(value = "/runningactions/increasePdfUsages", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer increasePdfUsages(@RequestParam (value ="link",required = true,defaultValue = "") String pathToSar){
+        pathToSar = pathToSar.replace("/","\\");
+        repo.increasePdfUsages(pathToSar);
+        return 1;
     }
 }

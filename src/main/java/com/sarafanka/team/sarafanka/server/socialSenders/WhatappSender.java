@@ -43,7 +43,7 @@ public class WhatappSender implements SocialSender {
         }
         entity.getContent().close();
 
-        JSONObject result= new JSONObject(responseStrBuilder.toString());
+        JSONObject result = new JSONObject(responseStrBuilder.toString());
         return String.valueOf(result.getBoolean("sent"));
 
     }

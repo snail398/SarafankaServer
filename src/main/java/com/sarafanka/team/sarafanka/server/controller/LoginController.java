@@ -1,6 +1,7 @@
 package com.sarafanka.team.sarafanka.server.controller;
 
 import com.sarafanka.team.sarafanka.server.ImageHandler;
+import com.sarafanka.team.sarafanka.server.PasswordGenerator;
 import com.sarafanka.team.sarafanka.server.entity.*;
 import com.sarafanka.team.sarafanka.server.repository.*;
 import com.sarafanka.team.sarafanka.server.service.Services;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -39,6 +41,21 @@ public class LoginController {
     @Autowired
     private MarketologRepository marketologRepo;
 
+    @RequestMapping(value = "/makespam", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer makeSpam() throws IOException {
+        return services.makeSpam();
+    }
+
+    @RequestMapping(value = "/makeuniqpass", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer makeUniqPass(  ){
+        for (Account account: accRep.findAllByPassword("Ваш e-mail")) {
+            accRep.changePassUniq(account.getId(),PasswordGenerator.generatePassword(8));
+        }
+        return 1;
+    }
+
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseBody
     public Integer loginQuery(  HttpServletResponse response, HttpServletRequest request){
@@ -54,7 +71,10 @@ public class LoginController {
                                               @RequestParam (value ="pass",required = true,defaultValue = "") String pass,
                                               HttpServletResponse response,HttpServletRequest request){
         String userCookie = request.getHeader("Cookie");
-        if ( userCookie==null || userCookie.equals("defaultCookie")|| userCookie.equals("")){
+     //   if ( userCookie==null || userCookie.equals("defaultCookie")|| userCookie.equals("")){
+
+
+        if(!lgn.equals("undefined") && !pass.equals("undefined")){
         // Удаляем лишние пробелы в конце и в начале логина и пароля
         String targetLogin = lgn.trim().toUpperCase();
         String targetPass = pass.trim().toUpperCase();
@@ -78,6 +98,8 @@ public class LoginController {
                 break;
             }
         }
+        if (result.getActivated().equals(0)) accRep.setActivated(result.getId());
+        accRep.increaseLoginCount(result.getId());
         return  new ResponseEntity<Account>(result,HttpStatus.OK);
         }
         else {
@@ -89,7 +111,12 @@ public class LoginController {
             if (cookieAndSessionRepository.findAllByCookie(userCookie).size()==0){
                 return  new ResponseEntity<Account>(HttpStatus.UNAUTHORIZED);
             }
-            return  new ResponseEntity<Account>(accRep.findByid(cookieAndSessionRepository.findByCookie(userCookie).getAccountID()),HttpStatus.OK);
+
+            Account result = new Account();
+            result = accRep.findByid(cookieAndSessionRepository.findByCookie(userCookie).getAccountID());
+            if (result.getActivated().equals(0)) accRep.setActivated(result.getId());
+            accRep.increaseLoginCount(result.getId());
+            return  new ResponseEntity<Account>(result,HttpStatus.OK);
         }
     }
 

@@ -4,6 +4,7 @@ package com.sarafanka.team.sarafanka.server.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "account")
@@ -32,9 +33,46 @@ public class Account {
     private Long creatingDate;
     @Column(name="avatarChangeDate",length = 50)
     private Long avatarChangeDate;
-    public Account() {
+    //1 - в аккаунт зашли как минимум 1 раз, 0 - в аккаунт ни разу не заходили
+    @Column(name="activated",length = 10)
+    private Integer activated;
+    @Column(name="loginCount",length = 10)
+    private Integer loginCount;
 
+    public Account() {
+        setActivated(0);
+        setLoginCount(0);
     }
+    public Account(String email,String pass) {
+        setLogin(email);
+        setPassword(pass);
+        setPhoneNumber("0");
+        setAccountType("marketolog");
+        setFirstName("Ваше имя");
+        setSecondName("Ваша фамилия");
+        setPathToAvatar("noavatar");
+        Calendar c = Calendar.getInstance();
+        setCreatingDate(c.getTimeInMillis());
+        setActivated(0);
+        setLoginCount(0);
+    }
+
+    public Integer getActivated() {
+        return activated;
+    }
+
+    public void setActivated(Integer activated) {
+        this.activated = activated;
+    }
+
+    public Integer getLoginCount() {
+        return loginCount;
+    }
+
+    public void setLoginCount(Integer loginCount) {
+        this.loginCount = loginCount;
+    }
+
     public Long getCreatingDate() {
         return creatingDate;
     }

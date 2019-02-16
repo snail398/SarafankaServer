@@ -1,5 +1,6 @@
 package com.sarafanka.team.sarafanka.server.controller;
 
+import com.google.zxing.WriterException;
 import com.sarafanka.team.sarafanka.server.entity.*;
 import com.sarafanka.team.sarafanka.server.repository.*;
 import com.sarafanka.team.sarafanka.server.service.Services;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -158,7 +160,7 @@ public class ActionController {
     @RequestMapping(value = "/actions/addNewAction", method = RequestMethod.POST)
     @ResponseBody
     public Integer addNewActon2(@RequestBody Action action,@RequestParam(value ="creatorid",required = true,defaultValue = "") Long creatorID,
-                               @RequestParam(value ="est",required = true,defaultValue = "")String est){
+                               @RequestParam(value ="est",required = true,defaultValue = "")String est) throws IOException, WriterException {
         return services.addNewActon2(action,creatorID,est);
     }
 

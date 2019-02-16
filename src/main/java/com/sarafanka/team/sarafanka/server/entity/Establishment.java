@@ -36,6 +36,23 @@ public class Establishment {
     public Establishment() {
     }
 
+    public Establishment(String name) {
+        this.estName = name;
+
+    }
+    public Establishment(Long companyID,String companyName) {
+        setEstName(companyName);
+        setCompanyID(companyID);
+        setEstDescription("description");
+        setEstEmail("email");
+        setEstPhone("231");
+        setEstSite("site.com");
+        setEstWorkTime("Время работы");
+        setFactAdress("address");
+        setPathToAvatar("noavatar");
+
+
+    }
     public String getEstPhone() {
         return estPhone;
     }

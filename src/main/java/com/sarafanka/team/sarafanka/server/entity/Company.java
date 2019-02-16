@@ -3,6 +3,7 @@ package com.sarafanka.team.sarafanka.server.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "companies")
@@ -39,6 +40,19 @@ public class Company {
     private Long creatingDate;
     @Column(name="avatarChangeDate",length = 50)
     private Long avatarChangeDate;
+
+    public Company(String companyName) {
+        setTitle(companyName);
+        setAdress("address");
+        Calendar c = Calendar.getInstance();
+        setCreatingDate(c.getTimeInMillis());
+        setCategory("game");
+        setCompanyType("type");
+        setDescription("description");
+        setPhone("123");
+        setSite("site.com");
+        setPathToAvatar("noavatar");
+    }
 
     public String getInn() {
         return inn;
