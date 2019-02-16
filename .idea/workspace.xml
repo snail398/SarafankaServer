@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c33a56cf-0555-4e3c-b135-d3f15257e8f8" name="Default" comment="commit new virtual serv">
+    <list default="true" id="c33a56cf-0555-4e3c-b135-d3f15257e8f8" name="Default" comment="commit comment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ReferalsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ReferalsController.java" afterDir="false" />
     </list>
@@ -132,11 +132,11 @@
           <entry key="css" value="359" />
           <entry key="dummy" value="42" />
           <entry key="html" value="1139" />
-          <entry key="java" value="22353" />
+          <entry key="java" value="22376" />
           <entry key="properties" value="3" />
           <entry key="sql" value="115" />
           <entry key="style" value="8" />
-          <entry key="txt" value="105" />
+          <entry key="txt" value="112" />
           <entry key="xml" value="29" />
         </counts>
       </usages-collector>
@@ -145,8 +145,8 @@
           <entry key="CLASS" value="3" />
           <entry key="CSS" value="359" />
           <entry key="HTML" value="1139" />
-          <entry key="JAVA" value="22353" />
-          <entry key="PLAIN_TEXT" value="147" />
+          <entry key="JAVA" value="22376" />
+          <entry key="PLAIN_TEXT" value="154" />
           <entry key="Properties" value="3" />
           <entry key="SQL" value="53" />
           <entry key="Sass" value="8" />
@@ -172,14 +172,14 @@
           <entry key="fxml" value="1" />
           <entry key="html" value="32" />
           <entry key="iml" value="1" />
-          <entry key="java" value="306" />
+          <entry key="java" value="315" />
           <entry key="jpg" value="1" />
           <entry key="js" value="4" />
           <entry key="marketologs" value="5" />
           <entry key="marketologworkingplace" value="5" />
           <entry key="pom" value="1" />
           <entry key="properties" value="2" />
-          <entry key="referals" value="1" />
+          <entry key="referals" value="2" />
           <entry key="runningactions" value="16" />
           <entry key="sql" value="6" />
           <entry key="staffoperationhistory" value="5" />
@@ -193,11 +193,11 @@
         <counts>
           <entry key="CLASS" value="25" />
           <entry key="CSS" value="10" />
-          <entry key="Database Element" value="115" />
+          <entry key="Database Element" value="116" />
           <entry key="HTML" value="32" />
           <entry key="IDEA_MODULE" value="1" />
           <entry key="Image" value="1" />
-          <entry key="JAVA" value="306" />
+          <entry key="JAVA" value="315" />
           <entry key="JavaScript" value="4" />
           <entry key="Properties" value="2" />
           <entry key="SQL" value="2" />
@@ -208,7 +208,11 @@
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
         <counts>
-          <entry key="git.branch.create.new" value="1" />
+          <entry key="git.branch.checkout.local" value="1" />
+          <entry key="git.branch.create.new" value="3" />
+          <entry key="git.branch.delete.local" value="1" />
+          <entry key="git.branch.merge" value="2" />
+          <entry key="git.branch.rebase" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.spring.boot.run.usages" />
@@ -220,7 +224,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
+            <state relative-caret-position="37026">
               <caret line="2219" column="172" selection-start-line="2219" selection-start-column="172" selection-end-line="2219" selection-end-column="172" />
             </state>
           </provider>
@@ -229,8 +233,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ReferalsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="33" lean-forward="true" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+            <state relative-caret-position="425">
+              <caret line="25" column="29" lean-forward="true" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -373,7 +377,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="stage" />
       </map>
     </option>
   </component>
@@ -969,7 +973,7 @@
       <workItem from="1550052911178" duration="17126000" />
       <workItem from="1550075658841" duration="1303000" />
       <workItem from="1550152660293" duration="335000" />
-      <workItem from="1550307153058" duration="407000" />
+      <workItem from="1550307153058" duration="965000" />
     </task>
     <task id="LOCAL-00001" summary="before first show">
       <created>1514132082764</created>
@@ -1048,11 +1052,18 @@
       <option name="project" value="LOCAL" />
       <updated>1545567994855</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="commit comment">
+      <created>1550307584431</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1550307584431</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="910729000" />
+    <option name="totallyTimeSpent" value="911287000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1148,7 +1159,8 @@
     <MESSAGE value="commit 2911201811241241" />
     <MESSAGE value="commit try beutiful repost" />
     <MESSAGE value="commit new virtual serv" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit new virtual serv" />
+    <MESSAGE value="commit comment" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit comment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1455,17 +1467,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="2219" column="172" selection-start-line="2219" selection-start-column="172" selection-end-line="2219" selection-end-column="172" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/entity/RunningActions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="17" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/service/ServicesImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="37026">
+          <caret line="2219" column="172" selection-start-line="2219" selection-start-column="172" selection-end-line="2219" selection-end-column="172" />
         </state>
       </provider>
     </entry>
@@ -1533,8 +1545,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sarafanka/team/sarafanka/server/controller/ReferalsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="33" lean-forward="true" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+        <state relative-caret-position="425">
+          <caret line="25" column="29" lean-forward="true" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
